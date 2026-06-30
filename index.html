@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PORTFOLIO — 김주휘 | 웹 · UI/UX 디자이너</title>
+  <meta name="description" content="사용자 경험을 시각적으로 즐겁게 풀어내는 웹/UI 디자이너 김주휘의 포트폴리오. ABOUT · SKILL · SELECTED WORKS · CONTACT." />
+  <meta name="theme-color" content="#ffffff" />
+  <!-- Open Graph (링크 공유 미리보기) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="PORTFOLIO — 김주휘 | 웹 · UI/UX 디자이너" />
+  <meta property="og:description" content="사용자 경험을 시각적으로 즐겁게 풀어내는 웹/UI 디자이너 김주휘의 포트폴리오." />
+  <meta property="og:image" content="image/main.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23191919'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='bold' fill='%23fff' text-anchor='middle'%3EPF%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="style.css?v=20" />
+</head>
+<body id="top">
+  <!-- 스크롤 진행바 -->
+  <div class="scroll-prog" aria-hidden="true"></div>
+  <!-- 커스텀 커서 -->
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav" aria-label="주요 메뉴">
+    <a class="nav__logo" href="#top">PF<span>:)</span></a>
+    <nav class="nav__menu">
+      <a href="#about">ABOUT</a>
+      <a href="#skill">SKILL</a>
+      <a href="#works">WORKS</a>
+      <a href="#archive">ARCHIVE</a>
+      <a href="#graphic">GRAPHIC</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+    <button class="nav__toggle" aria-label="메뉴 열기/닫기" aria-expanded="false"><span></span><span></span><span></span></button>
+  </header>
+
+  <!-- ===== S01 HERO ===== -->
+  <main class="hero">
+    <svg class="hero__stage" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet"
+         xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="PORTFOLIO - Hello :) 화면을 보여주는 주황색 TV 로봇">
+      <defs>
+        <filter id="softBlur" x="-150%" y="-150%" width="400%" height="400%"
+                color-interpolation-filters="sRGB">
+          <feGaussianBlur stdDeviation="95.15" />
+        </filter>
+        <filter id="softBlurSm" x="-200%" y="-200%" width="500%" height="500%"
+                color-interpolation-filters="sRGB">
+          <feGaussianBlur stdDeviation="29.15" />
+        </filter>
+      </defs>
+
+      <rect width="1920" height="1080" fill="#ffffff" />
+
+      <text id="title" x="253" y="339.556" fill="#191919"
+            font-family="A2z" font-size="200" font-weight="900">PORTFOLIO</text>
+
+      <image id="robot" href="image/main.png" x="604" y="313" width="712" height="649" />
+
+      <g class="glow" filter="url(#softBlur)"><circle cx="1690" cy="443" r="179" fill="#ffffff" /></g>
+      <g class="glow" filter="url(#softBlur)"><circle cx="196" cy="137" r="137" fill="#ffffff" /></g>
+
+      <text id="web" x="783" y="598" fill="#ffffff"
+            font-family="A2z" font-size="96" font-weight="bold">Hello :)</text>
+
+      <!-- 점 그리드 데코 (좌하단) -->
+      <path class="deco" fill="#EFEFEF" d="M244.5 654C247.537 654 250 656.463 250 659.5C250 662.538 247.538 665 244.5 665C241.462 665 239 662.538 239 659.5C239 656.463 241.463 654 244.5 654ZM299.499 654C302.536 654 304.999 656.463 304.999 659.5C304.999 662.538 302.537 665 299.499 665C296.461 665 293.999 662.538 293.999 659.5C293.999 656.463 296.462 654 299.499 654ZM354.498 654C357.535 654 359.998 656.463 359.998 659.5C359.998 662.537 357.535 665 354.498 665C351.46 665 348.998 662.538 348.998 659.5C348.998 656.463 351.461 654 354.498 654ZM409.501 654C412.538 654 415.001 656.463 415.001 659.5C415.001 662.538 412.539 665 409.501 665C406.464 665 404.001 662.537 404.001 659.5C404.001 656.463 406.464 654 409.501 654ZM464.5 654C467.537 654 470 656.463 470 659.5C470 662.538 467.538 665 464.5 665C461.463 665 459 662.537 459 659.5C459 656.463 461.463 654 464.5 654ZM244.5 598.999C247.538 598.999 250 601.461 250 604.499C250 607.537 247.538 609.999 244.5 609.999C241.462 609.999 239 607.537 239 604.499C239 601.461 241.462 598.999 244.5 598.999ZM299.499 598.999C302.537 598.999 304.999 601.462 304.999 604.499C304.999 607.536 302.536 609.999 299.499 609.999C296.461 609.999 293.999 607.537 293.999 604.499C293.999 601.461 296.461 598.999 299.499 598.999ZM354.498 598.999C357.535 598.999 359.998 601.462 359.998 604.499C359.998 607.536 357.535 609.999 354.498 609.999C351.461 609.999 348.998 607.537 348.998 604.499C348.998 601.461 351.46 598.999 354.498 598.999ZM409.501 598.999C412.539 598.999 415.001 601.461 415.001 604.499C415.001 607.537 412.539 609.999 409.501 609.999C406.464 609.999 404.001 607.536 404.001 604.499C404.001 601.462 406.464 598.999 409.501 598.999ZM464.5 598.999C467.538 598.999 470 601.461 470 604.499C470 607.537 467.538 609.999 464.5 609.999C461.463 609.999 459 607.536 459 604.499C459 601.462 461.463 598.999 464.5 598.999ZM244.5 544C247.538 544 250 546.462 250 549.5C250 552.538 247.538 555 244.5 555C241.462 555 239 552.538 239 549.5C239 546.462 241.462 544 244.5 544ZM299.499 544C302.536 544 304.999 546.463 304.999 549.5C304.999 552.538 302.537 555 299.499 555C296.461 555 293.999 552.538 293.999 549.5C293.999 546.462 296.461 544 299.499 544ZM354.498 544C357.535 544 359.998 546.463 359.998 549.5C359.998 552.537 357.535 555 354.498 555C351.46 555 348.998 552.538 348.998 549.5C348.998 546.462 351.461 544 354.498 544ZM409.501 544C412.538 544 415.001 546.462 415.001 549.5C415.001 552.538 412.539 555 409.501 555C406.464 555 404.001 552.537 404.001 549.5C404.001 546.463 406.464 544 409.501 544ZM464.5 544C467.538 544 470 546.462 470 549.5C470 552.538 467.538 555 464.5 555C461.463 555 459 552.537 459 549.5C459 546.463 461.463 544 464.5 544ZM244.5 488.999C247.538 488.999 250 491.461 250 494.499C250 497.537 247.538 499.999 244.5 499.999C241.462 499.999 239 497.537 239 494.499C239 491.461 241.462 488.999 244.5 488.999ZM299.499 488.999C302.537 488.999 304.999 491.462 304.999 494.499C304.999 497.536 302.536 499.999 299.499 499.999C296.462 499.999 293.999 497.537 293.999 494.499C293.999 491.461 296.461 488.999 299.499 488.999ZM354.498 488.999C357.535 488.999 359.998 491.462 359.998 494.499C359.998 497.536 357.535 499.999 354.498 499.999C351.461 499.999 348.998 497.537 348.998 494.499C348.998 491.461 351.46 488.999 354.498 488.999ZM409.501 488.999C412.539 488.999 415.001 491.461 415.001 494.499C415.001 497.537 412.538 499.999 409.501 499.999C406.464 499.999 404.001 497.536 404.001 494.499C404.001 491.462 406.464 488.999 409.501 488.999ZM464.5 488.999C467.538 488.999 470 491.461 470 494.499C470 497.537 467.538 499.999 464.5 499.999C461.463 499.999 459 497.536 459 494.499C459 491.462 461.463 488.999 464.5 488.999ZM244.5 434C247.538 434 250 436.462 250 439.5C250 442.538 247.538 445 244.5 445C241.462 445 239 442.538 239 439.5C239 436.462 241.462 434 244.5 434ZM299.499 434C302.537 434 304.999 436.462 304.999 439.5C304.999 442.538 302.537 445 299.499 445C296.461 445 293.999 442.538 293.999 439.5C293.999 436.462 296.461 434 299.499 434ZM354.498 434C357.535 434 359.998 436.463 359.998 439.5C359.998 442.537 357.535 445 354.498 445C351.46 445 348.998 442.538 348.998 439.5C348.998 436.462 351.46 434 354.498 434ZM409.501 434C412.539 434 415.001 436.462 415.001 439.5C415.001 442.538 412.539 445 409.501 445C406.464 445 404.001 442.537 404.001 439.5C404.001 436.463 406.464 434 409.501 434ZM464.5 434C467.538 434 470 436.462 470 439.5C470 442.538 467.538 445 464.5 445C461.463 445 459 442.537 459 439.5C459 436.463 461.463 434 464.5 434Z" />
+
+      <!-- 점 그리드 데코 (우하단) -->
+      <path class="deco" fill="#EFEFEF" d="M1418.5 951C1421.54 951 1424 953.463 1424 956.5C1424 959.538 1421.54 962 1418.5 962C1415.46 962 1413 959.538 1413 956.5C1413 953.463 1415.46 951 1418.5 951ZM1473.5 951C1476.54 951 1479 953.463 1479 956.5C1479 959.538 1476.54 962 1473.5 962C1470.46 962 1468 959.538 1468 956.5C1468 953.463 1470.46 951 1473.5 951ZM1528.5 951C1531.54 951 1534 953.463 1534 956.5C1534 959.537 1531.54 962 1528.5 962C1525.46 962 1523 959.538 1523 956.5C1523 953.463 1525.46 951 1528.5 951ZM1583.5 951C1586.54 951 1589 953.463 1589 956.5C1589 959.538 1586.54 962 1583.5 962C1580.46 962 1578 959.537 1578 956.5C1578 953.463 1580.46 951 1583.5 951ZM1638.5 951C1641.54 951 1644 953.463 1644 956.5C1644 959.538 1641.54 962 1638.5 962C1635.46 962 1633 959.537 1633 956.5C1633 953.463 1635.46 951 1638.5 951ZM1418.5 895.999C1421.54 895.999 1424 898.461 1424 901.499C1424 904.537 1421.54 906.999 1418.5 906.999C1415.46 906.999 1413 904.537 1413 901.499C1413 898.461 1415.46 895.999 1418.5 895.999ZM1473.5 895.999C1476.54 895.999 1479 898.462 1479 901.499C1479 904.536 1476.54 906.999 1473.5 906.999C1470.46 906.999 1468 904.537 1468 901.499C1468 898.461 1470.46 895.999 1473.5 895.999ZM1528.5 895.999C1531.54 895.999 1534 898.462 1534 901.499C1534 904.536 1531.54 906.999 1528.5 906.999C1525.46 906.999 1523 904.537 1523 901.499C1523 898.461 1525.46 895.999 1528.5 895.999ZM1583.5 895.999C1586.54 895.999 1589 898.461 1589 901.499C1589 904.537 1586.54 906.999 1583.5 906.999C1580.46 906.999 1578 904.536 1578 901.499C1578 898.462 1580.46 895.999 1583.5 895.999ZM1638.5 895.999C1641.54 895.999 1644 898.461 1644 901.499C1644 904.537 1641.54 906.999 1638.5 906.999C1635.46 906.999 1633 904.536 1633 901.499C1633 898.462 1635.46 895.999 1638.5 895.999ZM1418.5 841C1421.54 841 1424 843.462 1424 846.5C1424 849.538 1421.54 852 1418.5 852C1415.46 852 1413 849.538 1413 846.5C1413 843.462 1415.46 841 1418.5 841ZM1473.5 841C1476.54 841 1479 843.463 1479 846.5C1479 849.538 1476.54 852 1473.5 852C1470.46 852 1468 849.538 1468 846.5C1468 843.462 1470.46 841 1473.5 841ZM1528.5 841C1531.54 841 1534 843.463 1534 846.5C1534 849.537 1531.54 852 1528.5 852C1525.46 852 1523 849.538 1523 846.5C1523 843.462 1525.46 841 1528.5 841ZM1583.5 841C1586.54 841 1589 843.462 1589 846.5C1589 849.538 1586.54 852 1583.5 852C1580.46 852 1578 849.537 1578 846.5C1578 843.463 1580.46 841 1583.5 841ZM1638.5 841C1641.54 841 1644 843.462 1644 846.5C1644 849.538 1641.54 852 1638.5 852C1635.46 852 1633 849.537 1633 846.5C1633 843.463 1635.46 841 1638.5 841ZM1418.5 785.999C1421.54 785.999 1424 788.461 1424 791.499C1424 794.537 1421.54 796.999 1418.5 796.999C1415.46 796.999 1413 794.537 1413 791.499C1413 788.461 1415.46 785.999 1418.5 785.999ZM1473.5 785.999C1476.54 785.999 1479 788.462 1479 791.499C1479 794.536 1476.54 796.999 1473.5 796.999C1470.46 796.999 1468 794.537 1468 791.499C1468 788.461 1470.46 785.999 1473.5 785.999ZM1528.5 785.999C1531.54 785.999 1534 788.462 1534 791.499C1534 794.536 1531.54 796.999 1528.5 796.999C1525.46 796.999 1523 794.537 1523 791.499C1523 788.461 1525.46 785.999 1528.5 785.999ZM1583.5 785.999C1586.54 785.999 1589 788.461 1589 791.499C1589 794.537 1586.54 796.999 1583.5 796.999C1580.46 796.999 1578 794.536 1578 791.499C1578 788.462 1580.46 785.999 1583.5 785.999ZM1638.5 785.999C1641.54 785.999 1644 788.461 1644 791.499C1644 794.537 1641.54 796.999 1638.5 796.999C1635.46 796.999 1633 794.536 1633 791.499C1633 788.462 1635.46 785.999 1638.5 785.999ZM1418.5 731C1421.54 731 1424 733.462 1424 736.5C1424 739.538 1421.54 742 1418.5 742C1415.46 742 1413 739.538 1413 736.5C1413 733.462 1415.46 731 1418.5 731ZM1473.5 731C1476.54 731 1479 733.462 1479 736.5C1479 739.538 1476.54 742 1473.5 742C1470.46 742 1468 739.538 1468 736.5C1468 733.462 1470.46 731 1473.5 731ZM1528.5 731C1531.54 731 1534 733.463 1534 736.5C1534 739.537 1531.54 742 1528.5 742C1525.46 742 1523 739.538 1523 736.5C1523 733.462 1525.46 731 1528.5 731ZM1583.5 731C1586.54 731 1589 733.462 1589 736.5C1589 739.538 1586.54 742 1583.5 742C1580.46 742 1578 739.537 1578 736.5C1578 733.463 1580.46 731 1583.5 731ZM1638.5 731C1641.54 731 1644 733.462 1644 736.5C1644 739.538 1641.54 742 1638.5 742C1635.46 742 1633 739.537 1633 736.5C1633 733.463 1635.46 731 1638.5 731Z" />
+
+      <g class="accent" filter="url(#softBlurSm)"><circle cx="276" cy="825" r="22" fill="#c2c2c2" /></g>
+      <g class="accent" filter="url(#softBlurSm)"><circle cx="1666" cy="572" r="22" fill="#c2c2c2" /></g>
+      <circle class="accent" cx="485.5" cy="730.5" r="14" fill="none" stroke="#b0b0b0" stroke-width="3" />
+      <circle class="accent" cx="1428.5" cy="534.5" r="14" fill="none" stroke="#b0b0b0" stroke-width="3" />
+      <circle class="accent" cx="584" cy="847" r="20" fill="#9e9e9e" />
+    </svg>
+
+    <div class="scroll-cue" aria-hidden="true">
+      <span class="scroll-cue__text">SCROLL</span>
+      <span class="scroll-cue__arrow"></span>
+    </div>
+  </main>
+
+  <!-- ===== S02 ABOUT ME ===== -->
+  <section id="about" class="section about">
+    <div class="container about__grid">
+      <!-- 좌측 프로필 카드 -->
+      <aside class="profile" data-reveal>
+        <div class="profile__photo"><span>PHOTO</span></div>
+        <h3 class="profile__name">김주휘</h3>
+        <p class="profile__en">Kim Ju Hwi</p>
+        <ul class="profile__meta">
+          <li><span>Birth</span>2002.11.05</li>
+          <li><span>Tel</span>010-0000-0000</li>
+          <li><span>Mail</span>000000000@gmail.com</li>
+        </ul>
+      </aside>
+
+      <!-- 우측 소개 -->
+      <div class="about__main">
+        <p class="eyebrow" data-reveal>ABOUT ME</p>
+        <h2 class="about__lead" data-reveal>
+          안녕하세요.<br />
+          사용자 경험을 시각적으로 즐겁게 풀어내는<br />
+          <b>웹 / UI 디자이너 김주휘</b>입니다.
+        </h2>
+
+        <ul class="tags" data-reveal>
+          <li>#UIUX</li>
+          <li>#Web Design</li>
+          <li>#Figma</li>
+          <li>#HTML/CSS</li>
+          <li>#JavaScript</li>
+        </ul>
+
+        <div class="about__cols">
+          <div class="about__block" data-reveal>
+            <h4 class="block__title">Education</h4>
+            <ul class="edu">
+              <li>
+                <span class="edu__date">2018.03 ~ 2021.02</span>
+                <span class="edu__name">OO고등학교</span>
+                <span class="edu__desc">IT 디자인학과 졸업</span>
+              </li>
+              <li>
+                <span class="edu__date">2021.03 ~ 2026.02</span>
+                <span class="edu__name">OO대학교</span>
+                <span class="edu__desc">미디어영상광고학과 졸업</span>
+              </li>
+              <li>
+                <span class="edu__date">2026.02 ~ 2026.07</span>
+                <span class="edu__name">성남 그린컴퓨터아카데미</span>
+                <span class="edu__desc">기업맞춤형 프로젝트 : AI 활용 반응형 웹 UI/UX 제작</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="about__block" data-reveal>
+            <h4 class="block__title">Tools &amp; Programs</h4>
+            <ul class="tools">
+              <li><span class="tool__ico">Ps</span>포토샵</li>
+              <li><span class="tool__ico">Ai</span>일러스트</li>
+              <li><span class="tool__ico">Pr</span>프리미어</li>
+              <li><span class="tool__ico">Ae</span>에펙</li>
+              <li><span class="tool__ico">Fig</span>피그마</li>
+              <li><span class="tool__ico">C24</span>카페24</li>
+              <li><span class="tool__ico">&lt;/&gt;</span>HTML</li>
+              <li><span class="tool__ico">{ }</span>CSS</li>
+              <li><span class="tool__ico">JS</span>JavaScript</li>
+              <li><span class="tool__ico">Cl</span>클로드</li>
+              <li><span class="tool__ico">GPT</span>챗GPT</li>
+              <li><span class="tool__ico">Git</span>깃허브</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== S03 SKILL ===== -->
+  <section id="skill" class="section section--alt skill">
+    <div class="container">
+      <p class="eyebrow" data-reveal>SKILL</p>
+      <h2 class="section__title" data-reveal-mask>Skill Stats</h2>
+
+      <div class="stats">
+        <div class="stat" data-skill="90">
+          <div class="stat__head"><span class="stat__name">DESIGN</span><span class="stat__num">0</span></div>
+          <div class="gauge"><div class="gauge__fill"></div></div>
+        </div>
+        <div class="stat" data-skill="92">
+          <div class="stat__head"><span class="stat__name">UI / UX</span><span class="stat__num">0</span></div>
+          <div class="gauge"><div class="gauge__fill"></div></div>
+        </div>
+        <div class="stat" data-skill="85">
+          <div class="stat__head"><span class="stat__name">HTML / CSS</span><span class="stat__num">0</span></div>
+          <div class="gauge"><div class="gauge__fill"></div></div>
+        </div>
+        <div class="stat" data-skill="72">
+          <div class="stat__head"><span class="stat__name">JAVASCRIPT</span><span class="stat__num">0</span></div>
+          <div class="gauge"><div class="gauge__fill"></div></div>
+        </div>
+        <div class="stat" data-skill="95">
+          <div class="stat__head"><span class="stat__name">FIGMA</span><span class="stat__num">0</span></div>
+          <div class="gauge"><div class="gauge__fill"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 마퀴 띠 -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span class="marquee__g">SELECTED WORKS&nbsp;·&nbsp;UI/UX&nbsp;·&nbsp;WEB DESIGN&nbsp;·&nbsp;INTERACTION&nbsp;·&nbsp;SELECTED WORKS&nbsp;·&nbsp;UI/UX&nbsp;·&nbsp;WEB DESIGN&nbsp;·&nbsp;INTERACTION&nbsp;·&nbsp;</span>
+      <span class="marquee__g">SELECTED WORKS&nbsp;·&nbsp;UI/UX&nbsp;·&nbsp;WEB DESIGN&nbsp;·&nbsp;INTERACTION&nbsp;·&nbsp;SELECTED WORKS&nbsp;·&nbsp;UI/UX&nbsp;·&nbsp;WEB DESIGN&nbsp;·&nbsp;INTERACTION&nbsp;·&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- ===== S04 SELECTED WORKS (스크롤 전환 인터랙티브) ===== -->
+  <section id="works" class="works">
+    <div class="works__pin">
+      <!-- 프로젝트별 배경 (cross-fade) -->
+      <div class="works__bgs" aria-hidden="true">
+        <div class="works__bg works__bg--warm is-on"><span class="blob blob--a"></span><span class="blob blob--b"></span></div>
+        <div class="works__bg works__bg--shop"><span class="blob blob--c"></span><span class="blob blob--d"></span></div>
+        <div class="works__bg works__bg--hog"><span class="hog-glow"></span><span class="hog-stars"></span></div>
+        <div class="works__bg works__bg--warm"><span class="blob blob--a"></span></div>
+      </div>
+
+      <div class="container works__head">
+        <p class="eyebrow">SELECTED WORKS</p>
+        <div class="works__count"><span class="works__cur">01</span><span class="works__tot">/ 04</span></div>
+      </div>
+
+      <div class="container works__stage">
+        <!-- PROJECT 01 — PurrCare -->
+        <article class="wpanel is-on" data-theme="light">
+          <span class="wpanel__ghost" aria-hidden="true">01</span>
+          <div class="wpanel__info">
+            <span class="wpanel__no">PROJECT 01</span>
+            <h3 class="wpanel__title">PurrCare</h3>
+            <div class="wpanel__meta"><span>Commerce</span><span>2025</span><span>UI/UX</span></div>
+            <p class="wpanel__desc">고양이 용품 쇼핑몰 홈페이지.<br />상품이 돋보이는 그리드와 따뜻한 브랜드 톤에 집중했습니다.</p>
+            <dl class="wpanel__spec">
+              <div class="spec"><dt>CONTRIBUTION</dt><dd class="spec__contrib"><span class="spec__bar"><i style="--p:100%"></i></span><b>100%</b></dd></div>
+              <div class="spec"><dt>TOOLS</dt><dd>Figma · Photoshop · Illustrator · 카페24</dd></div>
+            </dl>
+            <a class="btn" href="case.html?p=purrcare">VIEW PROJECT <span class="btn__arrow">→</span></a>
+          </div>
+          <div class="wpanel__visual">
+            <div class="mockup mockup--solo" style="--shotA:linear-gradient(150deg,#dcdcdc,#b0b0b0)">
+              <div class="device device--laptop"><div class="device__bar"></div><div class="device__screen">
+                <div class="ui ui-shop"><span class="ui-top"><i></i><i></i><i></i><b></b></span><span class="ui-nav"></span><span class="ui-prods"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+              </div></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- PROJECT 02 — 지역 커뮤니티 앱 -->
+        <article class="wpanel" data-theme="light">
+          <span class="wpanel__ghost" aria-hidden="true">02</span>
+          <div class="wpanel__info">
+            <span class="wpanel__no">PROJECT 02</span>
+            <h3 class="wpanel__title">지역 커뮤니티 앱</h3>
+            <div class="wpanel__meta"><span>App</span><span>2025</span><span>Team</span></div>
+            <p class="wpanel__desc">동네 이웃을 연결하는 지역 커뮤니티 모바일 앱.<br />가벼운 글쓰기와 동네 중심 피드에 집중했습니다. (팀 프로젝트)</p>
+            <dl class="wpanel__spec">
+              <div class="spec"><dt>CONTRIBUTION</dt><dd class="spec__contrib"><span class="spec__bar"><i style="--p:50%"></i></span><b>50%</b></dd></div>
+              <div class="spec"><dt>TOOLS</dt><dd>Figma · Photoshop</dd></div>
+            </dl>
+            <a class="btn" href="case.html?p=local-community">VIEW PROJECT <span class="btn__arrow">→</span></a>
+          </div>
+          <div class="wpanel__visual">
+            <div class="mockup mockup--mobile" style="--shotA:linear-gradient(150deg,#e6e6e6,#bdbdbd); --shotB:linear-gradient(150deg,#fff,#e2e2e2)">
+              <div class="device device--tablet"><div class="device__screen">
+                <div class="ui ui-app"><span class="ui-status"></span><span class="ui-head"></span><span class="ui-row"></span><span class="ui-row"></span><span class="ui-row"></span><span class="ui-tabbar"></span></div>
+              </div></div>
+              <div class="device device--phone"><div class="device__notch"></div><div class="device__screen">
+                <div class="ui ui-app"><span class="ui-status"></span><span class="ui-head"></span><span class="ui-row"></span><span class="ui-row"></span><span class="ui-tabbar"></span></div>
+              </div></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- PROJECT 03 — 호그와트 레거시 -->
+        <article class="wpanel" data-theme="dark">
+          <span class="wpanel__ghost" aria-hidden="true">03</span>
+          <div class="wpanel__info">
+            <span class="wpanel__no">PROJECT 03</span>
+            <h3 class="wpanel__title">호그와트 레거시 리디자인</h3>
+            <div class="wpanel__meta"><span>Web</span><span>2025</span><span>Interaction</span></div>
+            <p class="wpanel__desc">게임 세계관을 담은 인터랙티브 팬 사이트 리디자인.<br />어둡지만 칙칙하지 않은 무드와 몰입형 스크롤에 집중했습니다.</p>
+            <dl class="wpanel__spec">
+              <div class="spec"><dt>CONTRIBUTION</dt><dd class="spec__contrib"><span class="spec__bar"><i style="--p:100%"></i></span><b>100%</b></dd></div>
+              <div class="spec"><dt>TOOLS</dt><dd>Figma · Photoshop · Illustrator · HTML/CSS</dd></div>
+            </dl>
+            <a class="btn" href="case.html?p=hogwarts">VIEW PROJECT <span class="btn__arrow">→</span></a>
+          </div>
+          <div class="wpanel__visual">
+            <div class="mockup mockup--solo" style="--shotA:linear-gradient(160deg,#3a3a3a,#1c1c1c)">
+              <div class="device device--laptop"><div class="device__bar"></div><div class="device__screen">
+                <div class="ui ui-web"><span class="ui-top"><i></i><i></i><i></i><b></b></span><span class="ui-hero"></span><span class="ui-ln ui-ln--1"></span><span class="ui-ln ui-ln--2"></span><span class="ui-cards"><i></i><i></i><i></i><i></i></span></div>
+              </div></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- PROJECT 04 — 꿈일기 웹앱 -->
+        <article class="wpanel" data-theme="light">
+          <span class="wpanel__ghost" aria-hidden="true">04</span>
+          <div class="wpanel__info">
+            <span class="wpanel__no">PROJECT 04</span>
+            <h3 class="wpanel__title">꿈일기 웹앱</h3>
+            <div class="wpanel__meta"><span>Web App</span><span>2025</span><span>UI/UX</span></div>
+            <p class="wpanel__desc">매일의 꿈을 기록하고 돌아보는 꿈일기 웹앱.<br />깨자마자 1분 안에 기록하는 가벼운 경험에 집중했습니다.</p>
+            <dl class="wpanel__spec">
+              <div class="spec"><dt>CONTRIBUTION</dt><dd class="spec__contrib"><span class="spec__bar"><i style="--p:100%"></i></span><b>100%</b></dd></div>
+              <div class="spec"><dt>TOOLS</dt><dd>Figma · Photoshop · HTML/CSS · JS</dd></div>
+            </dl>
+            <a class="btn" href="case.html?p=dream-diary">VIEW PROJECT <span class="btn__arrow">→</span></a>
+          </div>
+          <div class="wpanel__visual">
+            <div class="mockup mockup--mobile" style="--shotA:linear-gradient(150deg,#e6e6e6,#bdbdbd); --shotB:linear-gradient(150deg,#fff,#e2e2e2)">
+              <div class="device device--tablet"><div class="device__screen">
+                <div class="ui ui-app"><span class="ui-status"></span><span class="ui-head"></span><span class="ui-row"></span><span class="ui-row"></span><span class="ui-row"></span><span class="ui-tabbar"></span></div>
+              </div></div>
+              <div class="device device--phone"><div class="device__notch"></div><div class="device__screen">
+                <div class="ui ui-app"><span class="ui-status"></span><span class="ui-head"></span><span class="ui-row"></span><span class="ui-row"></span><span class="ui-tabbar"></span></div>
+              </div></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== S05 PROJECT ARCHIVE ===== -->
+  <section id="archive" class="section section--alt archive">
+    <div class="container">
+      <p class="eyebrow" data-reveal>PROJECT ARCHIVE</p>
+      <h2 class="section__title" data-reveal-mask>Project Archive</h2>
+
+      <div class="filter" id="archive-filter" data-reveal>
+        <button class="filter__btn is-on" data-filter="all">All</button>
+        <button class="filter__btn" data-filter="Web">Web</button>
+        <button class="filter__btn" data-filter="App">App</button>
+        <button class="filter__btn" data-filter="Commerce">Commerce</button>
+      </div>
+
+      <!-- 카드는 data.js의 PROJECTS로 렌더링됨 -->
+      <div class="archive__grid" id="archive-grid"></div>
+    </div>
+  </section>
+
+  <!-- ===== GRAPHIC DESIGN (배너 · 카드뉴스 · 포스터) ===== -->
+  <section id="graphic" class="section graphic">
+    <div class="container">
+      <p class="eyebrow" data-reveal>GRAPHIC DESIGN</p>
+      <h2 class="section__title" data-reveal-mask>Graphic Design</h2>
+      <div class="filter" id="graphic-filter" data-reveal>
+        <button class="filter__btn is-on" data-filter="all">All</button>
+        <button class="filter__btn" data-filter="Banner">Banner</button>
+        <button class="filter__btn" data-filter="Card News">Card News</button>
+        <button class="filter__btn" data-filter="Poster">Poster</button>
+      </div>
+      <!-- 타일은 data.js의 GRAPHICS로 렌더링됨 -->
+      <div class="gallery" id="graphic-grid"></div>
+    </div>
+  </section>
+
+  <!-- 마퀴 띠 (역방향) -->
+  <div class="marquee marquee--rev" aria-hidden="true">
+    <div class="marquee__track">
+      <span class="marquee__g">LET'S MAKE SOMETHING FUN&nbsp;·&nbsp;PORTFOLIO 2026&nbsp;·&nbsp;LET'S MAKE SOMETHING FUN&nbsp;·&nbsp;PORTFOLIO 2026&nbsp;·&nbsp;</span>
+      <span class="marquee__g">LET'S MAKE SOMETHING FUN&nbsp;·&nbsp;PORTFOLIO 2026&nbsp;·&nbsp;LET'S MAKE SOMETHING FUN&nbsp;·&nbsp;PORTFOLIO 2026&nbsp;·&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- ===== S07 CONTACT ===== -->
+  <section id="contact" class="section contact">
+    <div class="container contact__inner">
+      <p class="eyebrow" data-reveal>CONTACT</p>
+      <h2 class="contact__title" data-reveal-mask>LET'S MAKE<br />SOMETHING <span class="orange">FUN</span></h2>
+      <ul class="contact__links" data-reveal>
+        <li><a href="mailto:000000000@gmail.com">Email</a></li>
+        <li><a href="#" target="_blank" rel="noopener">Github</a></li>
+        <li><a href="#" target="_blank" rel="noopener">Behance</a></li>
+      </ul>
+      <img class="contact__mascot" src="image/main.png" alt="주황색 TV 로봇 마스코트" />
+    </div>
+    <footer class="footer">© 2026 김주휘 — Designed &amp; Built with :)</footer>
+  </section>
+
+  <!-- 라이트박스 -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__close" aria-label="닫기">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" aria-label="이전 슬라이드">◀</button>
+    <div class="lightbox__stage"><div class="lightbox__img" id="lightbox-img"></div></div>
+    <button class="lightbox__nav lightbox__nav--next" aria-label="다음 슬라이드">▶</button>
+    <div class="lightbox__cap"><span id="lightbox-cap"></span> <span id="lightbox-count"></span></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="data.js?v=5"></script>
+  <script src="script.js?v=20"></script>
+</body>
+</html>
