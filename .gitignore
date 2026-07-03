@@ -1,0 +1,7 @@
+# 개발용 원본 영상 백업 (배포 불필요)
+image/*-orig.mp4
+
+# OS / 에디터 잡파일
+.DS_Store
+Thumbs.db
+desktop.ini

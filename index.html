@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>PORTFOLIO — 김주휘 | 웹 · UI/UX 디자이너</title>
   <meta name="description" content="사용자 경험을 시각적으로 즐겁게 풀어내는 웹/UI 디자이너 김주휘의 포트폴리오. ABOUT · SKILL · SELECTED WORKS · CONTACT." />
   <meta name="theme-color" content="#ffffff" />
@@ -13,7 +16,7 @@
   <meta property="og:image" content="image/main.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23191919'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='bold' fill='%23fff' text-anchor='middle'%3EPF%3C/text%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="style.css?v=20" />
+  <link rel="stylesheet" href="style.css?v=87" />
 </head>
 <body id="top">
   <!-- 스크롤 진행바 -->
@@ -38,6 +41,7 @@
 
   <!-- ===== S01 HERO ===== -->
   <main class="hero">
+    <canvas class="hero-fx" aria-hidden="true"></canvas>
     <svg class="hero__stage" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet"
          xmlns="http://www.w3.org/2000/svg" role="img"
          aria-label="PORTFOLIO - Hello :) 화면을 보여주는 주황색 TV 로봇">
@@ -52,7 +56,7 @@
         </filter>
       </defs>
 
-      <rect width="1920" height="1080" fill="#ffffff" />
+      <rect width="1920" height="1080" fill="none" />
 
       <text id="title" x="253" y="339.556" fill="#191919"
             font-family="A2z" font-size="200" font-weight="900">PORTFOLIO</text>
@@ -63,7 +67,7 @@
       <g class="glow" filter="url(#softBlur)"><circle cx="196" cy="137" r="137" fill="#ffffff" /></g>
 
       <text id="web" x="783" y="598" fill="#ffffff"
-            font-family="A2z" font-size="96" font-weight="bold">Hello :)</text>
+            font-family="Galmuri11" font-size="96" font-weight="bold">Hello :)</text>
 
       <!-- 점 그리드 데코 (좌하단) -->
       <path class="deco" fill="#EFEFEF" d="M244.5 654C247.537 654 250 656.463 250 659.5C250 662.538 247.538 665 244.5 665C241.462 665 239 662.538 239 659.5C239 656.463 241.463 654 244.5 654ZM299.499 654C302.536 654 304.999 656.463 304.999 659.5C304.999 662.538 302.537 665 299.499 665C296.461 665 293.999 662.538 293.999 659.5C293.999 656.463 296.462 654 299.499 654ZM354.498 654C357.535 654 359.998 656.463 359.998 659.5C359.998 662.537 357.535 665 354.498 665C351.46 665 348.998 662.538 348.998 659.5C348.998 656.463 351.461 654 354.498 654ZM409.501 654C412.538 654 415.001 656.463 415.001 659.5C415.001 662.538 412.539 665 409.501 665C406.464 665 404.001 662.537 404.001 659.5C404.001 656.463 406.464 654 409.501 654ZM464.5 654C467.537 654 470 656.463 470 659.5C470 662.538 467.538 665 464.5 665C461.463 665 459 662.537 459 659.5C459 656.463 461.463 654 464.5 654ZM244.5 598.999C247.538 598.999 250 601.461 250 604.499C250 607.537 247.538 609.999 244.5 609.999C241.462 609.999 239 607.537 239 604.499C239 601.461 241.462 598.999 244.5 598.999ZM299.499 598.999C302.537 598.999 304.999 601.462 304.999 604.499C304.999 607.536 302.536 609.999 299.499 609.999C296.461 609.999 293.999 607.537 293.999 604.499C293.999 601.461 296.461 598.999 299.499 598.999ZM354.498 598.999C357.535 598.999 359.998 601.462 359.998 604.499C359.998 607.536 357.535 609.999 354.498 609.999C351.461 609.999 348.998 607.537 348.998 604.499C348.998 601.461 351.46 598.999 354.498 598.999ZM409.501 598.999C412.539 598.999 415.001 601.461 415.001 604.499C415.001 607.537 412.539 609.999 409.501 609.999C406.464 609.999 404.001 607.536 404.001 604.499C404.001 601.462 406.464 598.999 409.501 598.999ZM464.5 598.999C467.538 598.999 470 601.461 470 604.499C470 607.537 467.538 609.999 464.5 609.999C461.463 609.999 459 607.536 459 604.499C459 601.462 461.463 598.999 464.5 598.999ZM244.5 544C247.538 544 250 546.462 250 549.5C250 552.538 247.538 555 244.5 555C241.462 555 239 552.538 239 549.5C239 546.462 241.462 544 244.5 544ZM299.499 544C302.536 544 304.999 546.463 304.999 549.5C304.999 552.538 302.537 555 299.499 555C296.461 555 293.999 552.538 293.999 549.5C293.999 546.462 296.461 544 299.499 544ZM354.498 544C357.535 544 359.998 546.463 359.998 549.5C359.998 552.537 357.535 555 354.498 555C351.46 555 348.998 552.538 348.998 549.5C348.998 546.462 351.461 544 354.498 544ZM409.501 544C412.538 544 415.001 546.462 415.001 549.5C415.001 552.538 412.539 555 409.501 555C406.464 555 404.001 552.537 404.001 549.5C404.001 546.463 406.464 544 409.501 544ZM464.5 544C467.538 544 470 546.462 470 549.5C470 552.538 467.538 555 464.5 555C461.463 555 459 552.537 459 549.5C459 546.463 461.463 544 464.5 544ZM244.5 488.999C247.538 488.999 250 491.461 250 494.499C250 497.537 247.538 499.999 244.5 499.999C241.462 499.999 239 497.537 239 494.499C239 491.461 241.462 488.999 244.5 488.999ZM299.499 488.999C302.537 488.999 304.999 491.462 304.999 494.499C304.999 497.536 302.536 499.999 299.499 499.999C296.462 499.999 293.999 497.537 293.999 494.499C293.999 491.461 296.461 488.999 299.499 488.999ZM354.498 488.999C357.535 488.999 359.998 491.462 359.998 494.499C359.998 497.536 357.535 499.999 354.498 499.999C351.461 499.999 348.998 497.537 348.998 494.499C348.998 491.461 351.46 488.999 354.498 488.999ZM409.501 488.999C412.539 488.999 415.001 491.461 415.001 494.499C415.001 497.537 412.538 499.999 409.501 499.999C406.464 499.999 404.001 497.536 404.001 494.499C404.001 491.462 406.464 488.999 409.501 488.999ZM464.5 488.999C467.538 488.999 470 491.461 470 494.499C470 497.537 467.538 499.999 464.5 499.999C461.463 499.999 459 497.536 459 494.499C459 491.462 461.463 488.999 464.5 488.999ZM244.5 434C247.538 434 250 436.462 250 439.5C250 442.538 247.538 445 244.5 445C241.462 445 239 442.538 239 439.5C239 436.462 241.462 434 244.5 434ZM299.499 434C302.537 434 304.999 436.462 304.999 439.5C304.999 442.538 302.537 445 299.499 445C296.461 445 293.999 442.538 293.999 439.5C293.999 436.462 296.461 434 299.499 434ZM354.498 434C357.535 434 359.998 436.463 359.998 439.5C359.998 442.537 357.535 445 354.498 445C351.46 445 348.998 442.538 348.998 439.5C348.998 436.462 351.46 434 354.498 434ZM409.501 434C412.539 434 415.001 436.462 415.001 439.5C415.001 442.538 412.539 445 409.501 445C406.464 445 404.001 442.537 404.001 439.5C404.001 436.463 406.464 434 409.501 434ZM464.5 434C467.538 434 470 436.462 470 439.5C470 442.538 467.538 445 464.5 445C461.463 445 459 442.537 459 439.5C459 436.463 461.463 434 464.5 434Z" />
@@ -117,43 +121,90 @@
         </ul>
 
         <div class="about__cols">
-          <div class="about__block" data-reveal>
-            <h4 class="block__title">Education</h4>
-            <ul class="edu">
-              <li>
-                <span class="edu__date">2018.03 ~ 2021.02</span>
-                <span class="edu__name">OO고등학교</span>
-                <span class="edu__desc">IT 디자인학과 졸업</span>
-              </li>
-              <li>
-                <span class="edu__date">2021.03 ~ 2026.02</span>
-                <span class="edu__name">OO대학교</span>
-                <span class="edu__desc">미디어영상광고학과 졸업</span>
-              </li>
-              <li>
-                <span class="edu__date">2026.02 ~ 2026.07</span>
-                <span class="edu__name">성남 그린컴퓨터아카데미</span>
-                <span class="edu__desc">기업맞춤형 프로젝트 : AI 활용 반응형 웹 UI/UX 제작</span>
-              </li>
-            </ul>
+          <!-- 좌: Education · 대외활동 · 외주 -->
+          <div class="about__histcol">
+            <div class="about__block" data-reveal>
+              <h4 class="block__title">Education <span class="block__title-ko">학력</span></h4>
+              <ul class="edu">
+                <li>
+                  <span class="edu__date">2018.03 ~ 2021.02</span>
+                  <span class="edu__name">OO고등학교</span>
+                  <span class="edu__desc">IT 디자인학과 졸업</span>
+                </li>
+                <li>
+                  <span class="edu__date">2021.03 ~ 2026.02</span>
+                  <span class="edu__name">OO대학교</span>
+                  <span class="edu__desc">미디어영상광고학과 졸업</span>
+                </li>
+                <li>
+                  <span class="edu__date">2026.02 ~ 2026.07</span>
+                  <span class="edu__name">성남 그린컴퓨터아카데미</span>
+                  <span class="edu__desc">기업맞춤형 프로젝트 : AI 활용 반응형 웹 UI/UX 제작</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="about__block" data-reveal>
+              <h4 class="block__title">Activity <span class="block__title-ko">대외활동</span></h4>
+              <ul class="edu">
+                <li>
+                  <span class="edu__date">2025.00 ~ 2025.00</span>
+                  <span class="edu__name">대외활동명 입력</span>
+                  <span class="edu__desc">역할 · 내용 간단 설명</span>
+                </li>
+              </ul>
+            </div>
+
           </div>
 
-          <div class="about__block" data-reveal>
-            <h4 class="block__title">Tools &amp; Programs</h4>
-            <ul class="tools">
-              <li><span class="tool__ico">Ps</span>포토샵</li>
-              <li><span class="tool__ico">Ai</span>일러스트</li>
-              <li><span class="tool__ico">Pr</span>프리미어</li>
-              <li><span class="tool__ico">Ae</span>에펙</li>
-              <li><span class="tool__ico">Fig</span>피그마</li>
-              <li><span class="tool__ico">C24</span>카페24</li>
-              <li><span class="tool__ico">&lt;/&gt;</span>HTML</li>
-              <li><span class="tool__ico">{ }</span>CSS</li>
-              <li><span class="tool__ico">JS</span>JavaScript</li>
-              <li><span class="tool__ico">Cl</span>클로드</li>
-              <li><span class="tool__ico">GPT</span>챗GPT</li>
-              <li><span class="tool__ico">Git</span>깃허브</li>
-            </ul>
+          <!-- 우: Freelance(외주) + Certification(자격증) 세로 스택 -->
+          <div class="about__histcol">
+            <div class="about__block" data-reveal>
+              <h4 class="block__title">Freelance <span class="block__title-ko">외주</span></h4>
+              <ul class="edu">
+                <li>
+                  <span class="edu__date">2025.00</span>
+                  <span class="edu__name">클라이언트 / 프로젝트명 01</span>
+                  <span class="edu__desc">작업 내용 (예: 상세페이지 디자인)</span>
+                </li>
+                <li>
+                  <span class="edu__date">2025.00</span>
+                  <span class="edu__name">클라이언트 / 프로젝트명 02</span>
+                  <span class="edu__desc">작업 내용</span>
+                </li>
+                <li>
+                  <span class="edu__date">2025.00</span>
+                  <span class="edu__name">클라이언트 / 프로젝트명 03</span>
+                  <span class="edu__desc">작업 내용</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="about__block" data-reveal>
+              <h4 class="block__title">Certification <span class="block__title-ko">자격증</span></h4>
+              <ul class="edu">
+                <li>
+                  <span class="edu__date">2024.00</span>
+                  <span class="edu__name">자격증명 01</span>
+                  <span class="edu__desc">발급기관 (예: 대한상공회의소)</span>
+                </li>
+                <li>
+                  <span class="edu__date">2024.00</span>
+                  <span class="edu__name">자격증명 02</span>
+                  <span class="edu__desc">발급기관</span>
+                </li>
+                <li>
+                  <span class="edu__date">2024.00</span>
+                  <span class="edu__name">자격증명 03</span>
+                  <span class="edu__desc">발급기관</span>
+                </li>
+                <li>
+                  <span class="edu__date">2024.00</span>
+                  <span class="edu__name">자격증명 04</span>
+                  <span class="edu__desc">발급기관</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -161,12 +212,13 @@
   </section>
 
   <!-- ===== S03 SKILL ===== -->
-  <section id="skill" class="section section--alt skill">
+  <section id="skill" class="section skill">
     <div class="container">
       <p class="eyebrow" data-reveal>SKILL</p>
       <h2 class="section__title" data-reveal-mask>Skill Stats</h2>
 
-      <div class="stats">
+      <div class="skill__grid">
+        <div class="stats">
         <div class="stat" data-skill="90">
           <div class="stat__head"><span class="stat__name">DESIGN</span><span class="stat__num">0</span></div>
           <div class="gauge"><div class="gauge__fill"></div></div>
@@ -187,6 +239,26 @@
           <div class="stat__head"><span class="stat__name">FIGMA</span><span class="stat__num">0</span></div>
           <div class="gauge"><div class="gauge__fill"></div></div>
         </div>
+        </div>
+
+        <!-- 우: Tools & Programs (Skill Stats 오른쪽 여백) -->
+        <div class="about__block skill__tools" data-reveal>
+          <h4 class="block__title">Tools &amp; Programs</h4>
+          <ul class="tools">
+            <li><span class="tool__ico">Ps</span>포토샵</li>
+            <li><span class="tool__ico">Ai</span>일러스트</li>
+            <li><span class="tool__ico">Pr</span>프리미어</li>
+            <li><span class="tool__ico">Ae</span>에펙</li>
+            <li><span class="tool__ico">Fig</span>피그마</li>
+            <li><span class="tool__ico">C24</span>카페24</li>
+            <li><span class="tool__ico">&lt;/&gt;</span>HTML</li>
+            <li><span class="tool__ico">{ }</span>CSS</li>
+            <li><span class="tool__ico">JS</span>JavaScript</li>
+            <li><span class="tool__ico">Cl</span>클로드</li>
+            <li><span class="tool__ico">GPT</span>챗GPT</li>
+            <li><span class="tool__ico">Git</span>깃허브</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -204,11 +276,16 @@
     <div class="works__pin">
       <!-- 프로젝트별 배경 (cross-fade) -->
       <div class="works__bgs" aria-hidden="true">
-        <div class="works__bg works__bg--warm is-on"><span class="blob blob--a"></span><span class="blob blob--b"></span></div>
-        <div class="works__bg works__bg--shop"><span class="blob blob--c"></span><span class="blob blob--d"></span></div>
+        <div class="works__bg works__bg--purrcare is-on">
+          <video class="works__bgvid" src="image/purrcare-bgmv.mp4?v=7" poster="image/purrcare-bg.png" autoplay muted loop playsinline></video>
+        </div>
+        <div class="works__bg works__bg--dingo"><video class="works__bgvid" src="image/dingo-bgmv.mp4?v=1" poster="image/dingo-bg.png" autoplay muted loop playsinline></video></div>
         <div class="works__bg works__bg--hog"><span class="hog-glow"></span><span class="hog-stars"></span></div>
-        <div class="works__bg works__bg--warm"><span class="blob blob--a"></span></div>
+        <div class="works__bg works__bg--class101"></div>
       </div>
+
+      <!-- 골든 스니치: 최상위 레이어(목업·텍스트 위)에서 호그와트 패널일 때만 날아다님 -->
+      <div class="works__snitch" aria-hidden="true"><div class="snitch"><img class="snitch-body" src="image/golden_sn.png" alt="" /></div></div>
 
       <div class="container works__head">
         <p class="eyebrow">SELECTED WORKS</p>
@@ -217,99 +294,113 @@
 
       <div class="container works__stage">
         <!-- PROJECT 01 — PurrCare -->
-        <article class="wpanel is-on" data-theme="light">
+        <article class="wpanel wpanel--video is-on" data-theme="light">
           <span class="wpanel__ghost" aria-hidden="true">01</span>
           <div class="wpanel__info">
             <span class="wpanel__no">PROJECT 01</span>
-            <h3 class="wpanel__title">PurrCare</h3>
-            <div class="wpanel__meta"><span>Commerce</span><span>2025</span><span>UI/UX</span></div>
+            <h3 class="wpanel__title">PurrCare 쇼핑몰</h3>
+            <div class="wpanel__meta"><span>Web</span><span>2026</span><span>Personal</span></div>
             <p class="wpanel__desc">고양이 용품 쇼핑몰 홈페이지.<br />상품이 돋보이는 그리드와 따뜻한 브랜드 톤에 집중했습니다.</p>
             <dl class="wpanel__spec">
               <div class="spec"><dt>CONTRIBUTION</dt><dd class="spec__contrib"><span class="spec__bar"><i style="--p:100%"></i></span><b>100%</b></dd></div>
-              <div class="spec"><dt>TOOLS</dt><dd>Figma · Photoshop · Illustrator · 카페24</dd></div>
+              <div class="spec"><dt>TOOLS</dt><dd>Figma · ChatGPT · Claude</dd></div>
             </dl>
             <a class="btn" href="case.html?p=purrcare">VIEW PROJECT <span class="btn__arrow">→</span></a>
           </div>
           <div class="wpanel__visual">
-            <div class="mockup mockup--solo" style="--shotA:linear-gradient(150deg,#dcdcdc,#b0b0b0)">
-              <div class="device device--laptop"><div class="device__bar"></div><div class="device__screen">
-                <div class="ui ui-shop"><span class="ui-top"><i></i><i></i><i></i><b></b></span><span class="ui-nav"></span><span class="ui-prods"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
-              </div></div>
+            <div class="mockup mockup--devices" aria-label="PurrCare responsive mockups">
+              <div class="purr-device purr-device--laptop">
+                <img class="purr-device__shot" src="image/purrcare_pc.png" alt="PurrCare 데스크톱 화면" />
+                <img class="purr-device__frame" src="image/purrcare-mockup-laptop.png" alt="PurrCare laptop mockup frame" />
+              </div>
+              <div class="purr-device purr-device--phone">
+                <img class="purr-device__shot" src="image/purrcare_mo.png" alt="PurrCare 모바일 화면" />
+                <img class="purr-device__frame" src="image/purrcare-mockup-phone.png" alt="PurrCare phone mockup frame" />
+              </div>
             </div>
           </div>
         </article>
 
-        <!-- PROJECT 02 — 지역 커뮤니티 앱 -->
-        <article class="wpanel" data-theme="light">
+        <!-- PROJECT 02 — Dingo 리디자인 -->
+        <article class="wpanel wpanel--dingo" data-theme="light">
           <span class="wpanel__ghost" aria-hidden="true">02</span>
           <div class="wpanel__info">
             <span class="wpanel__no">PROJECT 02</span>
-            <h3 class="wpanel__title">지역 커뮤니티 앱</h3>
-            <div class="wpanel__meta"><span>App</span><span>2025</span><span>Team</span></div>
-            <p class="wpanel__desc">동네 이웃을 연결하는 지역 커뮤니티 모바일 앱.<br />가벼운 글쓰기와 동네 중심 피드에 집중했습니다. (팀 프로젝트)</p>
+            <h3 class="wpanel__title">Dingo 리디자인</h3>
+            <div class="wpanel__meta"><span>Web</span><span>2026</span><span>Redesign</span></div>
+            <p class="wpanel__desc">영상 콘텐츠 브랜드 Dingo 홈페이지 리디자인.<br />브랜드 무드 강화와 핵심 콘텐츠로의 빠른 진입에 집중했습니다.</p>
             <dl class="wpanel__spec">
-              <div class="spec"><dt>CONTRIBUTION</dt><dd class="spec__contrib"><span class="spec__bar"><i style="--p:50%"></i></span><b>50%</b></dd></div>
-              <div class="spec"><dt>TOOLS</dt><dd>Figma · Photoshop</dd></div>
+              <div class="spec"><dt>CONTRIBUTION</dt><dd class="spec__contrib"><span class="spec__bar"><i style="--p:100%"></i></span><b>100%</b></dd></div>
+              <div class="spec"><dt>TOOLS</dt><dd>Figma · Gemini · ChatGPT · Claude</dd></div>
             </dl>
-            <a class="btn" href="case.html?p=local-community">VIEW PROJECT <span class="btn__arrow">→</span></a>
+            <a class="btn" href="case.html?p=dingo">VIEW PROJECT <span class="btn__arrow">→</span></a>
           </div>
           <div class="wpanel__visual">
-            <div class="mockup mockup--mobile" style="--shotA:linear-gradient(150deg,#e6e6e6,#bdbdbd); --shotB:linear-gradient(150deg,#fff,#e2e2e2)">
-              <div class="device device--tablet"><div class="device__screen">
-                <div class="ui ui-app"><span class="ui-status"></span><span class="ui-head"></span><span class="ui-row"></span><span class="ui-row"></span><span class="ui-row"></span><span class="ui-tabbar"></span></div>
-              </div></div>
-              <div class="device device--phone"><div class="device__notch"></div><div class="device__screen">
-                <div class="ui ui-app"><span class="ui-status"></span><span class="ui-head"></span><span class="ui-row"></span><span class="ui-row"></span><span class="ui-tabbar"></span></div>
-              </div></div>
+            <div class="mockup mockup--devices" aria-label="Dingo 리디자인 responsive mockups">
+              <div class="purr-device purr-device--laptop">
+                <img class="purr-device__shot" src="image/dingo_pc.png" alt="Dingo 데스크톱 화면" />
+                <img class="purr-device__frame" src="image/purrcare-mockup-laptop.png" alt="laptop mockup frame" />
+              </div>
+              <div class="purr-device purr-device--phone">
+                <img class="purr-device__shot" src="image/dingo_mo.png" alt="Dingo 모바일 화면" />
+                <img class="purr-device__frame" src="image/purrcare-mockup-phone.png" alt="phone mockup frame" />
+              </div>
             </div>
           </div>
         </article>
 
         <!-- PROJECT 03 — 호그와트 레거시 -->
-        <article class="wpanel" data-theme="dark">
+        <article class="wpanel wpanel--hog" data-theme="dark">
           <span class="wpanel__ghost" aria-hidden="true">03</span>
           <div class="wpanel__info">
             <span class="wpanel__no">PROJECT 03</span>
-            <h3 class="wpanel__title">호그와트 레거시 리디자인</h3>
-            <div class="wpanel__meta"><span>Web</span><span>2025</span><span>Interaction</span></div>
+            <h3 class="wpanel__title wpanel__title--1line">호그와트 레거시 리디자인</h3>
+            <div class="wpanel__meta"><span>Web</span><span>2026</span><span>Redesign</span></div>
             <p class="wpanel__desc">게임 세계관을 담은 인터랙티브 팬 사이트 리디자인.<br />어둡지만 칙칙하지 않은 무드와 몰입형 스크롤에 집중했습니다.</p>
             <dl class="wpanel__spec">
               <div class="spec"><dt>CONTRIBUTION</dt><dd class="spec__contrib"><span class="spec__bar"><i style="--p:100%"></i></span><b>100%</b></dd></div>
-              <div class="spec"><dt>TOOLS</dt><dd>Figma · Photoshop · Illustrator · HTML/CSS</dd></div>
+              <div class="spec"><dt>TOOLS</dt><dd>Figma · ChatGPT · Claude · Codex</dd></div>
             </dl>
             <a class="btn" href="case.html?p=hogwarts">VIEW PROJECT <span class="btn__arrow">→</span></a>
           </div>
           <div class="wpanel__visual">
-            <div class="mockup mockup--solo" style="--shotA:linear-gradient(160deg,#3a3a3a,#1c1c1c)">
-              <div class="device device--laptop"><div class="device__bar"></div><div class="device__screen">
-                <div class="ui ui-web"><span class="ui-top"><i></i><i></i><i></i><b></b></span><span class="ui-hero"></span><span class="ui-ln ui-ln--1"></span><span class="ui-ln ui-ln--2"></span><span class="ui-cards"><i></i><i></i><i></i><i></i></span></div>
-              </div></div>
+            <div class="mockup mockup--devices" aria-label="호그와트 레거시 responsive mockups">
+              <div class="purr-device purr-device--laptop">
+                <img class="purr-device__shot" src="image/hogwart_pc.png?v=2" alt="호그와트 레거시 데스크톱 화면" />
+                <img class="purr-device__frame" src="image/purrcare-mockup-laptop.png" alt="laptop mockup frame" />
+              </div>
+              <div class="purr-device purr-device--phone">
+                <img class="purr-device__shot" src="image/hogwart_mo.png" alt="호그와트 레거시 모바일 화면" />
+                <img class="purr-device__frame" src="image/purrcare-mockup-phone.png" alt="phone mockup frame" />
+              </div>
             </div>
           </div>
         </article>
 
-        <!-- PROJECT 04 — 꿈일기 웹앱 -->
+        <!-- PROJECT 04 — Class101 리디자인 -->
         <article class="wpanel" data-theme="light">
           <span class="wpanel__ghost" aria-hidden="true">04</span>
           <div class="wpanel__info">
             <span class="wpanel__no">PROJECT 04</span>
-            <h3 class="wpanel__title">꿈일기 웹앱</h3>
-            <div class="wpanel__meta"><span>Web App</span><span>2025</span><span>UI/UX</span></div>
-            <p class="wpanel__desc">매일의 꿈을 기록하고 돌아보는 꿈일기 웹앱.<br />깨자마자 1분 안에 기록하는 가벼운 경험에 집중했습니다.</p>
+            <h3 class="wpanel__title">Class101 리디자인</h3>
+            <div class="wpanel__meta"><span>Web</span><span>2026</span><span>Redesign</span></div>
+            <p class="wpanel__desc">온라인 클래스 플랫폼 Class101 홈 리디자인.<br />관심사 기반 추천으로 탐색 피로를 줄였습니다.</p>
             <dl class="wpanel__spec">
               <div class="spec"><dt>CONTRIBUTION</dt><dd class="spec__contrib"><span class="spec__bar"><i style="--p:100%"></i></span><b>100%</b></dd></div>
-              <div class="spec"><dt>TOOLS</dt><dd>Figma · Photoshop · HTML/CSS · JS</dd></div>
+              <div class="spec"><dt>TOOLS</dt><dd>Figma · ChatGPT · Claude</dd></div>
             </dl>
-            <a class="btn" href="case.html?p=dream-diary">VIEW PROJECT <span class="btn__arrow">→</span></a>
+            <a class="btn" href="case.html?p=class101">VIEW PROJECT <span class="btn__arrow">→</span></a>
           </div>
           <div class="wpanel__visual">
-            <div class="mockup mockup--mobile" style="--shotA:linear-gradient(150deg,#e6e6e6,#bdbdbd); --shotB:linear-gradient(150deg,#fff,#e2e2e2)">
-              <div class="device device--tablet"><div class="device__screen">
-                <div class="ui ui-app"><span class="ui-status"></span><span class="ui-head"></span><span class="ui-row"></span><span class="ui-row"></span><span class="ui-row"></span><span class="ui-tabbar"></span></div>
-              </div></div>
-              <div class="device device--phone"><div class="device__notch"></div><div class="device__screen">
-                <div class="ui ui-app"><span class="ui-status"></span><span class="ui-head"></span><span class="ui-row"></span><span class="ui-row"></span><span class="ui-tabbar"></span></div>
-              </div></div>
+            <div class="mockup mockup--devices" aria-label="Class101 리디자인 responsive mockups">
+              <div class="purr-device purr-device--laptop">
+                <img class="purr-device__shot" src="image/class101_pc.png" alt="Class101 데스크톱 화면" />
+                <img class="purr-device__frame" src="image/purrcare-mockup-laptop.png" alt="laptop mockup frame" />
+              </div>
+              <div class="purr-device purr-device--phone">
+                <img class="purr-device__shot" src="image/class101_mo.png" alt="Class101 모바일 화면" />
+                <img class="purr-device__frame" src="image/purrcare-mockup-phone.png" alt="phone mockup frame" />
+              </div>
             </div>
           </div>
         </article>
@@ -335,18 +426,20 @@
     </div>
   </section>
 
-  <!-- ===== GRAPHIC DESIGN (배너 · 카드뉴스 · 포스터) ===== -->
+  <!-- ===== GRAPHIC DESIGN (배너 · 모바일 배너 · 포스터 · 식순지) ===== -->
   <section id="graphic" class="section graphic">
     <div class="container">
       <p class="eyebrow" data-reveal>GRAPHIC DESIGN</p>
       <h2 class="section__title" data-reveal-mask>Graphic Design</h2>
+      <!-- 배너: 원본 비율 두 줄 자동 마퀴 (data.js의 Banner 항목) -->
+      <div class="bmarquee" id="banner-marquee" data-reveal aria-label="배너 작업 자동 슬라이드"></div>
+      <!-- 모바일 배너 · 포스터 · 식순지 (필터 그리드) -->
       <div class="filter" id="graphic-filter" data-reveal>
         <button class="filter__btn is-on" data-filter="all">All</button>
-        <button class="filter__btn" data-filter="Banner">Banner</button>
-        <button class="filter__btn" data-filter="Card News">Card News</button>
+        <button class="filter__btn" data-filter="Mobile">Mobile</button>
         <button class="filter__btn" data-filter="Poster">Poster</button>
+        <button class="filter__btn" data-filter="Program">식순지</button>
       </div>
-      <!-- 타일은 data.js의 GRAPHICS로 렌더링됨 -->
       <div class="gallery" id="graphic-grid"></div>
     </div>
   </section>
@@ -369,7 +462,10 @@
         <li><a href="#" target="_blank" rel="noopener">Github</a></li>
         <li><a href="#" target="_blank" rel="noopener">Behance</a></li>
       </ul>
-      <img class="contact__mascot" src="image/main.png" alt="주황색 TV 로봇 마스코트" />
+      <svg class="contact__mascot" viewBox="0 0 712 649" role="img" aria-label="주황색 TV 로봇 마스코트 — Thank you :D" xmlns="http://www.w3.org/2000/svg">
+        <image href="image/main.png" x="0" y="0" width="712" height="649" />
+        <text id="contact-web" x="196" y="286" fill="#ffffff" font-family="Galmuri11" font-size="56" font-weight="bold">Thank you :D</text>
+      </svg>
     </div>
     <footer class="footer">© 2026 김주휘 — Designed &amp; Built with :)</footer>
   </section>
@@ -386,7 +482,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="data.js?v=5"></script>
-  <script src="script.js?v=20"></script>
+  <script src="data.js?v=13"></script>
+  <script src="script.js?v=58"></script>
 </body>
 </html>

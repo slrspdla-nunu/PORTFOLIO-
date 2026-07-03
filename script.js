@@ -48,8 +48,39 @@ function start() {
     stagger: { each: 0.4, from: 'random' },
   });
 
-  // 히어로 패럴랙스 (글자 split 이후 실행 — 요소가 존재할 때)
-  if (typeof ScrollTrigger !== 'undefined' && !prefersReduced()) initHeroParallax();
+  // 인트로가 끝난 뒤에만 글자 물결 시작 (등장 애니메이션과 충돌 방지)
+  tl.eventCallback('onComplete', () => initHeroTextWave(letters));
+
+  // Hello :) 타이핑 효과
+  typeWeb(web);
+}
+
+// Hello :) 를 한 글자씩 타이핑 — 사람처럼 글자마다 시간이 다르게 (랜덤 + 공백/이모티콘 앞 뜸)
+function typeWeb(web, startDelay = 1350, fullText) {
+  if (!web) return;
+  const full = (fullText || web.textContent || 'Hello :)').trim();
+  web.textContent = '|'; // 타이핑 전에도 커서 표시
+  if (prefersReduced()) { web.textContent = full; return; } // 모션 최소화: 즉시 완성
+
+  const rand = () => 60 + Math.random() * 130;              // 기본 타건 간격 60~190ms(불규칙)
+  const pauseAfter = (ch) => {
+    if (ch === ' ') return 150;   // 공백 뒤 살짝 쉼
+    if (ch === ':') return 170;   // 이모티콘 :) 사이 뜸
+    if (ch === 'o' || ch === ',') return 90;
+    return 0;
+  };
+  let i = 0;
+  const step = () => {
+    i += 1;
+    web.textContent = full.slice(0, i) + '|';
+    if (i < full.length) {
+      setTimeout(step, rand() + pauseAfter(full[i - 1]));
+    } else {
+      let on = true; // 완료 → 커서 깜빡임
+      setInterval(() => { on = !on; web.textContent = on ? full + '|' : full; }, 500);
+    }
+  };
+  setTimeout(step, startDelay); // 시작 전 대기
 }
 
 /* =========================================================
@@ -64,6 +95,25 @@ function initReveal() {
     onEnter: (batch) =>
       gsap.to(batch, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', stagger: 0.08, overwrite: true }),
   });
+}
+
+/* =========================================================
+   Hero → ABOUT : 원형(아이리스) 리빌 — 스크롤을 멈추지 않고 부드럽게 자동 오픈
+   진입 시 원이 스르륵 퍼지며 ABOUT이 드러남(핀 없음 → 스크롤 자연스럽게 유지).
+   끝나면 clip 제거 → 하단 콘텐츠 잘림/스티키 카드 충돌 없음.
+   ========================================================= */
+function initAboutIris() {
+  const about = document.getElementById('about');
+  if (!about || typeof ScrollTrigger === 'undefined' || typeof gsap === 'undefined') return;
+  if (prefersReduced()) return; // 정적: clip 없이 표시
+  gsap.fromTo(about,
+    { clipPath: 'circle(0% at 50% 42%)' },
+    {
+      clipPath: 'circle(150% at 50% 42%)', ease: 'power2.out', duration: 1.05,
+      scrollTrigger: { trigger: about, start: 'top 75%', once: true },
+      onComplete: () => { about.style.clipPath = 'none'; about.style.willChange = 'auto'; },
+    }
+  );
 }
 
 /* =========================================================
@@ -94,6 +144,81 @@ function initSkills() {
    S04 SELECTED WORKS — 핀 고정 후 스크롤로 프로젝트 전환
    배경 cross-fade · 목업 scale+fade-up · 텍스트 slide-in · 태그 stagger
    ========================================================= */
+// 골든 스니치: 컨테이너(호그와트 배경) 영역 안을 불규칙하게 날아다님 (호그와트 레거시 원작 이식)
+function initSnitch(container) {
+  const snitch = container && container.querySelector('.snitch');
+  if (!snitch || prefersReduced()) return null;
+  const SW = 92, SH = 61;
+  const W = () => container.clientWidth || window.innerWidth;
+  const H = () => container.clientHeight || window.innerHeight;
+  let sx = W() / 2, sy = H() / 2, tx = sx, ty = sy;
+  let mode = 'cruise', modeUntil = 0, rafId = null, running = false, lastSparkle = 0;
+
+  // 금빛 반짝이 잔상 (스니치 궤적을 따라 생겼다 떨어지며 사라짐)
+  function dropSparkle(x, y) {
+    const s = document.createElement('span');
+    s.className = 'gold-sparkle';
+    s.style.left = (x + SW / 2 + (Math.random() - 0.5) * 30) + 'px';
+    s.style.top = (y + SH / 2 + (Math.random() - 0.5) * 24) + 'px';
+    s.style.setProperty('--sx', ((Math.random() - 0.5) * 44) + 'px');
+    s.style.setProperty('--sy', (18 + Math.random() * 44) + 'px');
+    container.appendChild(s);
+    setTimeout(() => s.remove(), 1000);
+  }
+
+  function newTarget() {
+    tx = Math.random() * Math.max(1, W() - SW);
+    ty = Math.random() * Math.max(1, H() - SH);
+  }
+  function pickMode(now) {
+    const r = Math.random();
+    if (r < 0.24)      { mode = 'hover';  modeUntil = now + 700 + Math.random() * 1500; }
+    else if (r < 0.44) { mode = 'dash';   newTarget(); modeUntil = now + 400 + Math.random() * 600; }
+    else               { mode = 'cruise'; newTarget(); modeUntil = now + 1200 + Math.random() * 1800; }
+  }
+  function fly(now) {
+    if (!running) return;
+    if (now >= modeUntil) pickMode(now);
+    const dx = tx - sx, dy = ty - sy;
+    if (Math.hypot(dx, dy) < 26 && mode !== 'hover') newTarget();
+    const flip = dx < 0 ? -1 : 1;
+    if (mode === 'hover') {                       // 제자리에서 날개만 파닥이며 미세하게 떠 있기
+      sx += (Math.random() - 0.5) * 1.6;
+      sy += Math.sin(now / 90) * 0.9;
+    } else if (mode === 'dash') {                 // 후다다닥 질주
+      const sp = 0.16 + Math.random() * 0.07;
+      sx += dx * sp + (Math.random() - 0.5) * 8;
+      sy += dy * sp + (Math.random() - 0.5) * 8;
+    } else {                                      // 평범한 불규칙 비행
+      const sp = 0.045 + Math.random() * 0.035;
+      sx += dx * sp + (Math.random() - 0.5) * 5;
+      sy += dy * sp + (Math.random() - 0.5) * 5;
+    }
+    sx = Math.max(-SW * 0.15, Math.min(W() - SW * 0.85, sx)); // 경계 안 유지
+    sy = Math.max(-SH * 0.15, Math.min(H() - SH * 0.85, sy));
+    snitch.style.transform = 'translate(' + sx + 'px,' + sy + 'px) scaleX(' + flip + ')';
+    // 반짝이: 질주할 땐 자주, 멈춰 있을 땐 드물게
+    const gap = mode === 'dash' ? 40 : mode === 'hover' ? 240 : 70;
+    if (now - lastSparkle > gap) { dropSparkle(sx, sy); lastSparkle = now; }
+    rafId = requestAnimationFrame(fly);
+  }
+  return {
+    setActive(on) {
+      if (on && !running) {
+        running = true;
+        container.classList.add('is-on'); // 페이드 인
+        sx = Math.random() * Math.max(1, W() - SW); sy = -SH; // 위에서 등장
+        newTarget(); mode = 'dash'; modeUntil = performance.now() + 700;
+        rafId = requestAnimationFrame(fly);
+      } else if (!on && running) {
+        running = false;
+        container.classList.remove('is-on'); // 페이드 아웃
+        if (rafId) cancelAnimationFrame(rafId);
+      }
+    },
+  };
+}
+
 function initWorks() {
   const section = document.querySelector('#works');
   if (!section) return;
@@ -103,12 +228,16 @@ function initWorks() {
   const curEl = section.querySelector('.works__cur');
   const N = panels.length;
   if (N < 2) return;
+  const snitch = initSnitch(section.querySelector('.works__snitch'));
+  const HOG = panels.findIndex((p) => p.classList.contains('wpanel--hog'));
 
   // 초기 상태: 첫 프로젝트만 표시
   gsap.set(panels, { opacity: 0 });
   gsap.set(panels[0], { opacity: 1 });
   gsap.set(bgs, { opacity: 0 });
   gsap.set(bgs[0], { opacity: 1 });
+  // 겹쳐 쌓인 패널 중 '보이는' 패널만 hover/클릭 받도록 (안 보이는 패널이 가로채는 것 방지)
+  panels.forEach((p, i) => { p.style.pointerEvents = i === 0 ? 'auto' : 'none'; });
 
   const tl = gsap.timeline({
     defaults: { ease: 'power2.inOut', immediateRender: false, overwrite: false },
@@ -128,9 +257,14 @@ function initWorks() {
         ease: 'power1.inOut',
       },
       onUpdate: (self) => {
-        if (!curEl) return;
         const idx = Math.min(N - 1, Math.round(self.progress * (N - 1)));
-        curEl.textContent = String(idx + 1).padStart(2, '0');
+        if (curEl) curEl.textContent = String(idx + 1).padStart(2, '0');
+        // 활성 패널이 다크면 상단 헤드를 흰색으로
+        section.classList.toggle('is-dark', panels[idx].dataset.theme === 'dark');
+        // 활성 패널만 hover/클릭 받도록 (뒤에 겹친 패널의 목업이 hover 가로채는 것 방지)
+        panels.forEach((p, i) => { p.style.pointerEvents = i === idx ? 'auto' : 'none'; });
+        // 골든 스니치는 호그와트 패널이 활성일 때만 날게 함
+        if (snitch) snitch.setActive(idx === HOG);
       },
     },
   });
@@ -168,6 +302,27 @@ function initContact() {
     ease: 'sine.inOut', yoyo: true, repeat: -1,
     scrollTrigger: { trigger: '.contact', start: 'top 72%' },
   });
+
+  // 마스코트 화면에 "Thank you :D" 타이핑 (메인 Hello :) 와 동일 효과, 진입 시 시작)
+  const web = document.getElementById('contact-web');
+  if (web) {
+    const full = (web.textContent || 'Thank you :D').trim();
+    const CX = 356; // 로봇(712 뷰박스) 화면 가로 중앙
+    if (prefersReduced()) {
+      web.setAttribute('x', String(CX)); web.setAttribute('text-anchor', 'middle'); web.textContent = full;
+    } else {
+      web.textContent = '|'; // 진입 전엔 커서만
+      ScrollTrigger.create({
+        trigger: '.contact', start: 'top 72%', once: true,
+        onEnter: () => {
+          web.textContent = full; // 폭 측정용으로 잠깐 완성
+          const len = web.getComputedTextLength ? web.getComputedTextLength() : 0;
+          if (len) web.setAttribute('x', String(CX - len / 2)); // 전체 문구가 화면 중앙에 오도록 시작점 보정
+          typeWeb(web, 300, full); // 타이핑 시작(좌→우), 딜레이 300ms
+        },
+      });
+    }
+  }
 }
 
 /* =========================================================
@@ -201,6 +356,16 @@ function initNav() {
    ========================================================= */
 function prefersReduced() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+// 히어로 커서 위치(client px) — 도트 그리드와 텍스트 물결이 공유
+const heroPointer = { x: -9999, y: -9999 };
+let heroPointerWired = false;
+function ensureHeroPointer() {
+  if (heroPointerWired) return;
+  heroPointerWired = true;
+  window.addEventListener('mousemove', (e) => { heroPointer.x = e.clientX; heroPointer.y = e.clientY; }, { passive: true });
+  window.addEventListener('mouseleave', () => { heroPointer.x = -9999; heroPointer.y = -9999; });
 }
 
 // 부드러운 스크롤 (Lenis ↔ GSAP)
@@ -267,16 +432,6 @@ function initHeadingReveal() {
   });
 }
 
-// 히어로 패럴랙스 (글자 split 이후 호출)
-function initHeroParallax() {
-  const robot = document.getElementById('robot');
-  if (!robot) return;
-  const st = { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true };
-  gsap.to(robot, { y: 48, ease: 'none', scrollTrigger: st });
-  gsap.to(document.querySelectorAll('.hero__stage text'), { y: -28, ease: 'none', scrollTrigger: st });
-  gsap.to(document.querySelectorAll('.glow'), { y: 80, ease: 'none', scrollTrigger: st });
-}
-
 // 커스텀 커서
 function initCursor() {
   const dot = document.querySelector('.cursor');
@@ -329,11 +484,22 @@ function initArchive() {
   grid.innerHTML = ORDER.map((slug, i) => {
     const p = PROJECTS[slug];
     const badge = p.team ? '<span class="card__badge">TEAM</span>' : '';
+    const t = (typeof THUMBS !== 'undefined') ? THUMBS[slug] : null;
+    let thumb = '', thumbCls = '';
+    if (Array.isArray(t)) { // 여러 장 → 나란히 작게(contain) + 흰 배경
+      thumb = `<div class="card__multi">${t.map((src) => `<img src="${src}" alt="${p.title}" loading="lazy">`).join('')}</div>`;
+      thumbCls = ' has-img is-multi';
+    } else if (t) {         // 단일 → cover 꽉 차게
+      thumb = `<img class="card__img" src="${t}" alt="${p.title}" loading="lazy">`;
+      thumbCls = ' has-img';
+    }
     return `<a class="card" data-type="${p.type}" href="case.html?p=${slug}" style="--g:linear-gradient(135deg,${shades[i % shades.length]})">
-      <div class="card__thumb"><span class="card__no">${String(i + 1).padStart(2, '0')}</span>${badge}<span class="card__view">VIEW →</span></div>
+      <div class="card__thumb${thumbCls}">${thumb}<span class="card__no">${String(i + 1).padStart(2, '0')}</span>${badge}<span class="card__view">VIEW →</span></div>
       <div class="card__body"><h3>${p.title}</h3><p>${p.category} · ${p.year}</p></div>
     </a>`;
   }).join('');
+
+  revealGridItems(grid.querySelectorAll('.card'));
 
   const fbar = document.getElementById('archive-filter');
   if (fbar) {
@@ -348,17 +514,44 @@ function initArchive() {
   }
 }
 
-// GRAPHIC DESIGN — data.js로 타일 렌더 + 필터 + 라이트박스
+// GRAPHIC DESIGN — 배너=두 줄 자동 마퀴, 나머지(모바일·포스터·식순지)=필터 그리드 + 라이트박스(앞뒤 자동 전환)
 function initGraphic() {
   const grid = document.getElementById('graphic-grid');
   if (!grid || typeof GRAPHICS === 'undefined') return;
-  grid.innerHTML = GRAPHICS.map((g, i) => {
-    const cls = g.type === 'Banner' ? 'g--banner' : (g.type === 'Poster' ? 'g--poster' : 'g--cardnews');
-    const count = g.slides ? `<span class="gitem__count">${g.slides.length}장</span>` : '';
-    const thumb = g.img ? `<span class="gitem__media"><img class="gitem__img" src="${g.img}" alt="${g.title}" loading="lazy"></span>` : `<span class="gitem__media"></span>`;
+  const typeLabel = (t) => (t === 'Program' ? '식순지' : t);
+
+  // 원본 인덱스 보존(라이트박스 매핑용) 후 배너/그 외 분리
+  const items = GRAPHICS.map((g, i) => ({ g, i }));
+  const banners = items.filter((x) => x.g.type === 'Banner');
+  const rest = items.filter((x) => x.g.type !== 'Banner');
+
+  // 배너 두 줄 마퀴 — 세트를 2배 복제해 translateX(-50%)로 seamless 루프
+  const bm = document.getElementById('banner-marquee');
+  if (bm && banners.length) {
+    const bannerRow = (list, rev) => {
+      const slides = list.map((x) =>
+        `<span class="bslide"><img class="bslide__img" src="${x.g.img}" alt="${x.g.title}" loading="eager"></span>`).join('');
+      const dur = Math.max(28, list.length * 6);
+      return `<div class="bmarquee__row${rev ? ' bmarquee__row--rev' : ''}">
+        <div class="bmarquee__track" style="animation-duration:${dur}s">${slides}${slides}</div>
+      </div>`;
+    };
+    const mid = Math.ceil(banners.length / 2);
+    bm.innerHTML = bannerRow(banners.slice(0, mid), false) + bannerRow(banners.slice(mid), true);
+  }
+
+  // 나머지(모바일·포스터·식순지) 그리드 — data-index는 원본 인덱스 → 라이트박스 정확
+  grid.innerHTML = rest.map(({ g, i }) => {
+    const cls = 'g--' + g.type.toLowerCase(); // g--mobile / g--poster / g--program
+    const thumbSrc = g.img || (g.slides && g.slides[0] && g.slides[0].img);
+    const twoSide = g.slides && g.slides.length === 2;
+    const count = g.slides ? `<span class="gitem__count">${twoSide ? '앞 · 뒤' : g.slides.length + '장'}</span>` : '';
+    const thumb = thumbSrc
+      ? `<span class="gitem__media"><img class="gitem__img" src="${thumbSrc}" alt="${g.title}" loading="lazy"></span>`
+      : `<span class="gitem__media"></span>`;
     return `<button class="gitem ${cls}" data-type="${g.type}" data-index="${i}" style="--g:${shadeGrad(g.shade)}">
       ${thumb}
-      <span class="gitem__meta"><span class="gitem__label">${g.title}</span><span class="gitem__type">${g.type}</span></span>${count}
+      <span class="gitem__meta"><span class="gitem__label">${g.title}</span><span class="gitem__type">${typeLabel(g.type)}</span></span>${count}
     </button>`;
   }).join('');
 
@@ -373,6 +566,8 @@ function initGraphic() {
       if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
     });
   }
+
+  revealGridItems(grid.querySelectorAll('.gitem'));
   initLightbox(grid);
 }
 
@@ -386,32 +581,66 @@ function initLightbox(grid) {
   const prevBtn = lb.querySelector('.lightbox__nav--prev');
   const nextBtn = lb.querySelector('.lightbox__nav--next');
   const closeBtn = lb.querySelector('.lightbox__close');
-  let cur = null, slide = 0;
+  let cur = null, slide = 0, autoTimer = null;
 
-  function paint() {
+  // 앞뒤(슬라이드) 항목: 보고 있는 동안 몇 초마다 자동 전환
+  function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+  function startAuto() {
+    stopAuto();
+    const item = GRAPHICS[cur];
+    if (item && item.slides && item.slides.length > 1 && !prefersReduced()) {
+      autoTimer = setInterval(() => nav(1), 3000);
+    }
+  }
+
+  function paint(dir) {
     const item = GRAPHICS[cur];
     const hasSlides = !!item.slides;
     const data = hasSlides ? item.slides[slide] : item;
     const src = data.img || (!hasSlides ? item.img : null);
-    if (src) {
-      // 실제 이미지: 원본 비율 그대로
-      imgEl.innerHTML = `<img src="${src}" alt="${item.title}">`;
-      imgEl.className = 'lightbox__img has-img';
-      imgEl.style.background = 'none';
-    } else {
-      // placeholder: 그라데이션 박스
-      imgEl.innerHTML = '';
-      imgEl.style.background = shadeGrad(data.shade != null ? data.shade : item.shade);
-      imgEl.className = 'lightbox__img ' + (item.type === 'Banner' ? 'is-banner' : item.type === 'Poster' ? 'is-poster' : 'is-cardnews');
-    }
+    // 이미지 갱신 로직 (플립 중간에 호출)
+    const setImg = () => {
+      if (src) {
+        imgEl.innerHTML = `<img src="${src}" alt="${item.title}">`;
+        imgEl.className = 'lightbox__img has-img';
+        imgEl.style.background = 'none';
+      } else {
+        imgEl.innerHTML = '';
+        imgEl.style.background = shadeGrad(data.shade != null ? data.shade : item.shade);
+        imgEl.className = 'lightbox__img ' + (item.type === 'Banner' ? 'is-banner' : item.type === 'Poster' ? 'is-poster' : 'is-cardnews');
+      }
+    };
+    // 캡션·카운트·화살표는 즉시
     capEl.textContent = item.title;
     countEl.textContent = hasSlides ? `${slide + 1} / ${item.slides.length}` : '';
     const showNav = hasSlides ? '' : 'none';
     prevBtn.style.display = showNav; nextBtn.style.display = showNav;
+    // 전환: 새 이미지를 기존 위에 겹쳐 슬라이드-인. 기존은 다 덮인 뒤 제거 → 빈 순간(깜빡임) 없음
+    const oldImg = imgEl.querySelector('img');
+    if (dir && src && oldImg && typeof gsap !== 'undefined' && !prefersReduced()) {
+      const d = dir < 0 ? -1 : 1;
+      imgEl.className = 'lightbox__img has-img';
+      imgEl.style.background = 'none';
+      const newImg = document.createElement('img');
+      newImg.alt = item.title;
+      newImg.className = 'is-incoming';
+      newImg.src = src;
+      imgEl.appendChild(newImg);
+      gsap.fromTo(newImg, { xPercent: 10 * d, opacity: 0 },
+        { xPercent: 0, opacity: 1, duration: 0.42, ease: 'power2.out',
+          onComplete: () => { if (oldImg && oldImg.parentNode) oldImg.remove(); newImg.classList.remove('is-incoming'); gsap.set(newImg, { clearProps: 'transform,opacity' }); } });
+    } else {
+      setImg();
+    }
   }
-  function open(i) { cur = i; slide = 0; paint(); lb.classList.add('is-open'); lb.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; }
-  function close() { lb.classList.remove('is-open'); lb.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; cur = null; }
-  function nav(dir) { const item = GRAPHICS[cur]; if (!item || !item.slides) return; slide = (slide + dir + item.slides.length) % item.slides.length; paint(); }
+  function open(i) {
+    cur = i; slide = 0; paint(0); startAuto();
+    const it = GRAPHICS[i];
+    if (it && it.slides) it.slides.forEach((s) => { if (s.img) { const im = new Image(); im.src = s.img; } }); // 앞뒤 미리 로드
+    lb.classList.add('is-open'); lb.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden';
+  }
+  function close() { stopAuto(); lb.classList.remove('is-open'); lb.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; cur = null; }
+  function nav(dir) { const item = GRAPHICS[cur]; if (!item || !item.slides) return; slide = (slide + dir + item.slides.length) % item.slides.length; paint(dir); startAuto(); }
 
   grid.addEventListener('click', (e) => { const t = e.target.closest('.gitem'); if (t) open(+t.dataset.index); });
   closeBtn.addEventListener('click', close);
@@ -427,12 +656,171 @@ function initLightbox(grid) {
 }
 
 /* =========================================================
+   그리드 스크롤 효과: stagger 리빌 · 이미지 패럴랙스 · 속도 스큐
+   ========================================================= */
+// 카드/타일이 뷰포트에 들어올 때 아래에서 stagger로 떠오름
+function revealGridItems(els) {
+  els = [...els];
+  if (!els.length || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  if (prefersReduced()) { gsap.set(els, { opacity: 1 }); return; }
+  gsap.set(els, { opacity: 0, y: 26 });
+  ScrollTrigger.batch(els, {
+    start: 'top 88%',
+    // clearProps로 완료 후 inline transform 제거 → CSS hover(translateY) 보존
+    onEnter: (b) => gsap.to(b, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', stagger: 0.06, clearProps: 'transform', overwrite: true }),
+  });
+}
+
+// 스크롤 속도에 따라 살짝 기울어짐 (고전 GSAP skew-on-scroll, 적당히)
+// hover transform이 없는 안쪽 요소에만 적용 → 카드 hover 뜸 보존
+function initScrollVelocity() {
+  if (prefersReduced() || typeof ScrollTrigger === 'undefined' || typeof gsap === 'undefined') return;
+  const targets = document.querySelectorAll('.card__thumb, .gitem__img');
+  if (!targets.length) return;
+  gsap.set(targets, { transformOrigin: 'center center', force3D: true });
+  const setSkew = gsap.quickSetter(targets, 'skewY', 'deg');
+  const clamp = gsap.utils.clamp(-3, 3);
+  const proxy = { skew: 0 };
+  ScrollTrigger.create({
+    onUpdate: (self) => {
+      const skew = clamp(self.getVelocity() / -600);
+      if (Math.abs(skew) > Math.abs(proxy.skew)) {
+        proxy.skew = skew;
+        gsap.to(proxy, { skew: 0, duration: 0.5, ease: 'power3', overwrite: true, onUpdate: () => setSkew(proxy.skew) });
+      }
+    },
+  });
+}
+
+/* =========================================================
+   히어로 배경: 인터랙티브 도트 그리드 (캔버스)
+   ========================================================= */
+function initHeroDots() {
+  const canvas = document.querySelector('.hero-fx');
+  const hero = document.querySelector('.hero');
+  if (!canvas || !hero || typeof gsap === 'undefined') return;
+  const ctx = canvas.getContext('2d');
+  const reduce = prefersReduced();
+  const fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const interactive = fine && !reduce;
+
+  const GAP = 40, BASE_R = 1.4, INFL = 150, MAX_SCALE = 3.4, PUSH = 10, BASE_A = 0.12;
+  let W = 0, H = 0, dots = [];
+
+  function build() {
+    const rect = hero.getBoundingClientRect();
+    W = rect.width; H = rect.height;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    dots = [];
+    const cols = Math.ceil(W / GAP) + 1, rows = Math.ceil(H / GAP) + 1;
+    const offX = (W - (cols - 1) * GAP) / 2, offY = (H - (rows - 1) * GAP) / 2;
+    for (let j = 0; j < rows; j++) {
+      for (let i = 0; i < cols; i++) {
+        const bx = offX + i * GAP, by = offY + j * GAP;
+        dots.push({ bx, by, x: bx, y: by, tx: bx, ty: by, r: BASE_R, tr: BASE_R, a: BASE_A, ta: BASE_A });
+      }
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    // 공유 포인터(client px) → 캔버스 로컬 좌표 (스크롤 시에도 정확)
+    let mx = -9999, my = -9999;
+    if (interactive) {
+      const rect = canvas.getBoundingClientRect();
+      mx = heroPointer.x - rect.left;
+      my = heroPointer.y - rect.top;
+    }
+    for (const d of dots) {
+      if (interactive) {
+        const dx = d.bx - mx, dy = d.by - my;
+        const dist = Math.hypot(dx, dy);
+        if (dist < INFL) {
+          const t = 1 - dist / INFL;
+          d.tr = BASE_R + t * BASE_R * (MAX_SCALE - 1);
+          d.ta = BASE_A + t * 0.4;
+          const ang = Math.atan2(dy, dx);
+          d.tx = d.bx + Math.cos(ang) * t * PUSH;
+          d.ty = d.by + Math.sin(ang) * t * PUSH;
+        } else { d.tr = BASE_R; d.ta = BASE_A; d.tx = d.bx; d.ty = d.by; }
+        d.r += (d.tr - d.r) * 0.15;
+        d.a += (d.ta - d.a) * 0.15;
+        d.x += (d.tx - d.x) * 0.15;
+        d.y += (d.ty - d.y) * 0.15;
+      }
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(0,0,0,' + d.a.toFixed(3) + ')';
+      ctx.fill();
+    }
+  }
+
+  build();
+  draw();
+  window.addEventListener('resize', () => { build(); draw(); });
+
+  if (interactive) {
+    ensureHeroPointer();
+    gsap.ticker.add(draw);
+  }
+}
+
+/* =========================================================
+   히어로 텍스트: PORTFOLIO 글자 커서 물결 (도트와 동일 감성)
+   ========================================================= */
+function initHeroTextWave(letters) {
+  const svg = document.querySelector('.hero__stage');
+  if (!svg || !letters || !letters.length || typeof gsap === 'undefined') return;
+  const fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if (prefersReduced() || !fine) return; // 터치·모션감소: 정적
+  ensureHeroPointer();
+
+  const INFL = 340, PUSH = 30, LIFT = -10, SCALE = 0.14, EASE = 0.15;
+  // 각 글자 중심을 SVG 유저좌표로 캐시 (getBBox는 element transform 무시 → 안정적 기준)
+  const items = letters.map((el) => {
+    const b = el.getBBox();
+    return { el, cx: b.x + b.width / 2, cy: b.y + b.height / 2, x: 0, y: 0, s: 1, tx: 0, ty: 0, ts: 1 };
+  });
+  const pt = svg.createSVGPoint();
+
+  function frame() {
+    const ctm = svg.getScreenCTM();
+    if (!ctm) return;
+    pt.x = heroPointer.x; pt.y = heroPointer.y;
+    const m = pt.matrixTransform(ctm.inverse()); // 커서 → SVG 유저좌표
+    for (const it of items) {
+      const dx = it.cx - m.x, dy = it.cy - m.y;
+      const dist = Math.hypot(dx, dy);
+      if (dist < INFL) {
+        const t = 1 - dist / INFL;
+        const ang = Math.atan2(dy, dx);
+        it.tx = Math.cos(ang) * t * PUSH;          // 커서에서 밀려남
+        it.ty = Math.sin(ang) * t * PUSH + t * LIFT; // + 살짝 뜸
+        it.ts = 1 + t * SCALE;                     // 살짝 커짐
+      } else { it.tx = 0; it.ty = 0; it.ts = 1; }
+      it.x += (it.tx - it.x) * EASE;
+      it.y += (it.ty - it.y) * EASE;
+      it.s += (it.ts - it.s) * EASE;
+      gsap.set(it.el, { x: it.x, y: it.y, scale: it.s, svgOrigin: it.cx + ' ' + it.cy });
+    }
+  }
+
+  gsap.ticker.add(frame);
+}
+
+/* =========================================================
    부팅
    ========================================================= */
 function initSections() {
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
   initReveal();
+  initAboutIris();
   initHeadingReveal();
   initSkills();
   initWorks();
@@ -440,6 +828,7 @@ function initSections() {
   initProgress();
   initArchive();
   initGraphic();
+  initScrollVelocity(); // 그리드 렌더 후 (quickSetter 노드 확정)
   initActiveNav();
 
   const refresh = () => ScrollTrigger.refresh();
@@ -457,6 +846,7 @@ window.addEventListener('DOMContentLoaded', () => {
   window.scrollTo(0, 0);
 
   initNav();
+  initHeroDots();
 
   // 스크롤 섹션 애니메이션 (히어로 폰트 로드와 무관하게 먼저 준비)
   initSections();
@@ -470,7 +860,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const safety = setTimeout(reveal, 1500);
   const safeStart = () => { clearTimeout(safety); try { start(); } catch (e) { reveal(); } };
   const ready = document.fonts
-    ? document.fonts.load('900 200px A2z').then(() => document.fonts.ready)
+    ? Promise.all([document.fonts.load('900 200px A2z'), document.fonts.load('bold 96px Galmuri11')]).then(() => document.fonts.ready)
     : Promise.resolve();
   ready.then(safeStart).catch(safeStart);
 });

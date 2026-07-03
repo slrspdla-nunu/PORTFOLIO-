@@ -54,8 +54,27 @@ function render() {
   if (dec) dec.innerHTML = d.decisions.map((x) => `
     <li class="cs-dec"><h4>${x.title}</h4><p>${x.desc}</p></li>`).join('');
 
+  // 라이브 사이트 링크 — d.link 있을 때만 버튼 표시
+  const live = document.getElementById('cs-live');
+  if (live) {
+    if (d.link) { live.href = d.link; live.style.display = ''; }
+    else { live.style.display = 'none'; }
+  }
+
   const visual = document.getElementById('cs-visual');
-  if (visual) visual.innerHTML = mockHTML(d.mock, d.theme);
+  if (visual) {
+    const t = (typeof THUMBS !== 'undefined') ? THUMBS[slug] : null;
+    if (Array.isArray(t)) {          // 여러 장 → 나란히(전체 보이게) + 흰 배경
+      visual.className = 'cs-cover is-multi';
+      visual.innerHTML = t.map((src) => `<img class="cs-cover__img" src="${src}" alt="${d.title}">`).join('');
+    } else if (t) {                  // 단일 → 썸네일 그대로(전체 보이게)
+      visual.className = 'cs-cover';
+      visual.innerHTML = `<img class="cs-cover__img" src="${t}" alt="${d.title}">`;
+    } else {                         // 썸네일 없으면 기존 와이어프레임 목업
+      visual.className = 'cs-cover';
+      visual.innerHTML = mockHTML(d.mock, d.theme);
+    }
+  }
 
   // 갤러리 스트립: 실제 이미지(d.gallery) 있으면 img, 없으면 흑백 placeholder 프레임
   const gal = document.getElementById('cs-gallery');

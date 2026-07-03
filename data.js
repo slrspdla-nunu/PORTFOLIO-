@@ -11,11 +11,12 @@
    gallery: ['image/a.png', ...]  (선택) 케이스 페이지 VISUALS 스트립 이미지. 없으면 placeholder. */
 const PROJECTS = {
   'dingo': {
-    no: 'PROJECT 01', title: 'Dingo 리디자인', category: 'Web Redesign', type: 'Web', year: '2024',
+    no: 'PROJECT 01', title: 'Dingo 리디자인', category: 'Web Redesign', type: 'Web', year: '2026',
+    link: 'https://slrspdla-nunu.github.io/Dingo/',
     team: false, featured: false, theme: 'light', mock: 'web',
     summary: '영상 콘텐츠 브랜드 Dingo 홈페이지 리디자인.',
-    role: 'UI 디자인 · 퍼블리싱', contribution: 100,
-    tools: ['Figma', 'Photoshop', 'HTML/CSS'],
+    role: 'UI 디자인 · AI 활용 퍼블리싱', contribution: 100,
+    tools: ['Figma', 'Gemini', 'ChatGPT','Claude'],
     problem: '콘텐츠는 매력적이지만 첫 화면에서 브랜드 무드와 최신 영상이 한눈에 들어오지 않았습니다.',
     goal: '브랜드 톤을 강화하고 핵심 콘텐츠로 빠르게 진입하도록 정보 구조를 정리.',
     process: [
@@ -33,6 +34,7 @@ const PROJECTS = {
   },
   'class101': {
     no: 'PROJECT 02', title: 'Class101 리디자인', category: 'Web Redesign', type: 'Web', year: '2024',
+    link: 'https://slrspdla-nunu.github.io/Class101/',
     team: false, featured: false, theme: 'light', mock: 'web',
     summary: '온라인 클래스 플랫폼 Class101 홈 리디자인.',
     role: 'UX/UI · 퍼블리싱', contribution: 100,
@@ -53,7 +55,8 @@ const PROJECTS = {
     learnings: '선택지가 많을수록 "덜어내고 안내하는" 설계가 중요합니다.',
   },
   'purrcare': {
-    no: 'PROJECT 03', title: 'PurrCare', category: 'Commerce', type: 'Commerce', year: '2025',
+    no: 'PROJECT 03', title: 'PurrCare 쇼핑몰', category: 'Commerce', type: 'Commerce', year: '2025',
+    link: 'https://slrspdla-nunu.github.io/0610_purrcare/',
     team: false, featured: true, theme: 'light', mock: 'shop',
     summary: '고양이 용품 쇼핑몰 PurrCare 홈페이지 디자인.',
     role: '기획 · UI/UX · 퍼블리싱', contribution: 100,
@@ -74,7 +77,7 @@ const PROJECTS = {
     learnings: '커머스에서는 "절제"가 곧 상품을 돋보이게 하는 디자인입니다.',
   },
   'local-community': {
-    no: 'PROJECT 04', title: '지역 커뮤니티 앱', category: 'App · Team', type: 'App', year: '2025',
+    no: 'PROJECT 04', title: 'HOLO', category: 'App · Team', type: 'App', year: '2025',
     team: true, featured: true, theme: 'light', mock: 'app',
     summary: '동네 이웃을 연결하는 지역 커뮤니티 모바일 앱 (팀 프로젝트).',
     role: 'UI 디자인 · 프로토타입 (팀 4인)', contribution: 50,
@@ -96,6 +99,7 @@ const PROJECTS = {
   },
   'imagination-door': {
     no: 'PROJECT 05', title: '상상의 문 리디자인', category: 'Web · Team', type: 'Web', year: '2024',
+    link: 'https://doorlove1234-coder.github.io/sangsangDoor/',
     team: true, featured: false, theme: 'light', mock: 'web',
     summary: '전시/문화 공간 "상상의 문" 홈페이지 리디자인 (팀 프로젝트).',
     role: 'UI 디자인 (팀 3인)', contribution: 40,
@@ -135,11 +139,11 @@ const PROJECTS = {
     learnings: '복잡한 기능일수록 "처음 한 줄"의 설계가 중요합니다.',
   },
   'hogwarts': {
-    no: 'PROJECT 07', title: '호그와트 레거시 리디자인', category: 'Web', type: 'Web', year: '2025',
+    no: 'PROJECT 07', title: '호그와트 레거시 리디자인', category: 'Web', type: 'Web', year: '2026',
     team: false, featured: true, theme: 'dark', mock: 'web',
     summary: '게임 세계관을 담은 인터랙티브 팬 사이트 리디자인.',
     role: 'UI 디자인 · 인터랙션', contribution: 100,
-    tools: ['Figma', 'Photoshop', 'Illustrator', 'HTML/CSS'],
+    tools: ['Figma', 'ChatGPT', 'Claude', 'Codex'],
     problem: '정보 사이트는 많지만 세계관의 분위기를 전달하는 곳은 드물었습니다.',
     goal: '어둡지만 칙칙하지 않은 무드와 스크롤 인터랙션으로 몰입감 연출, 가독성 유지.',
     process: [
@@ -156,7 +160,8 @@ const PROJECTS = {
     learnings: '분위기 연출은 더하기보다 "어디서 멈출지"의 문제였습니다.',
   },
   'dream-diary': {
-    no: 'PROJECT 08', title: '꿈일기 웹앱', category: 'Web App', type: 'App', year: '2025',
+    no: 'PROJECT 08', title: 'DreamDex', category: 'Web App', type: 'App', year: '2025',
+    link: 'https://slrspdla-nunu.github.io/Dreamdex/',
     team: false, featured: true, theme: 'light', mock: 'app',
     summary: '매일의 꿈을 기록하고 돌아보는 꿈일기 웹앱.',
     role: '기획 · UI/UX · 퍼블리싱', contribution: 100,
@@ -176,19 +181,74 @@ const PROJECTS = {
     outcome: '빠른 기록과 회고 흐름이 자연스럽게 이어졌습니다.',
     learnings: '"부담 없음"이 기록형 제품의 핵심 사용성이라는 걸 배웠습니다.',
   },
+  'altitude': {
+    no: 'PROJECT 09', title: 'ALTITUDE', category: 'E-Commerce', type: 'Commerce', year: '2025',
+    team: false, featured: false, theme: 'light', mock: 'web',
+    summary: '고산·익스페디션 무드의 아웃도어 의류/장비 브랜드 커머스 사이트.',
+    role: '기획 · UI/UX · 퍼블리싱', contribution: 100,
+    tools: ['Figma', 'Photoshop', 'HTML/CSS', 'JavaScript'],
+    problem: '아웃도어 제품은 스펙 정보가 많아 자칫 카탈로그처럼 딱딱해지고, 브랜드가 지향하는 "고산 등반"의 무드가 잘 전달되지 않았습니다.',
+    goal: '제품 신뢰도(스펙·기능)를 지키면서도, 스크롤 인터랙션으로 익스페디션의 몰입감을 주는 커머스 경험 설계.',
+    process: [
+      { step: 'Branding', desc: '고도·설산·금속 질감을 키워드로 톤&매너와 타이포 시스템 정의.' },
+      { step: 'IA', desc: '스토어·익스페디션 라인·상세·장바구니·위시리스트·마이페이지까지 쇼핑 플로우 설계.' },
+      { step: 'UI Design', desc: '제품이 주인공이 되는 그리드 + 스펙 위계 정리, 컬렉션 히어로 구성.' },
+      { step: 'Publishing', desc: '스크롤 리빌·호버 등 인터랙션을 반응형으로 구현.' },
+    ],
+    decisions: [
+      { title: '무드와 정보의 균형', desc: '히어로·컬렉션은 감성적으로, 상세는 스펙 중심으로 역할을 분리.' },
+      { title: '일관된 제품 카드', desc: '브랜드·제품명·가격 위계를 통일해 목록 탐색을 정돈.' },
+    ],
+    outcome: '브랜드 무드와 제품 정보가 함께 살아있는 커머스 화면을 완성했습니다.',
+    learnings: '커머스에서 "분위기"는 구매를 방해하지 않는 선에서 얹을 때 가장 효과적이라는 걸 배웠습니다.',
+  },
+  'purrcare-app': {
+    no: 'PROJECT 10', title: 'PurrCare 웹앱', category: 'Web App', type: 'App', year: '2025',
+    team: false, featured: false, theme: 'light', mock: 'app',
+    summary: '반려묘의 건강·기록·일정을 한 곳에서 관리하는 반려묘 케어 웹앱.',
+    role: '기획 · UI/UX · 퍼블리싱', contribution: 100,
+    tools: ['Figma', 'HTML/CSS', 'JavaScript'],
+    problem: '반려묘의 병원 기록·증상·일정이 메모나 기억에 흩어져 있어, 필요할 때 한눈에 돌아보기 어려웠습니다.',
+    goal: '고양이별로 건강 기록과 일정을 쌓고, 대시보드에서 상태를 빠르게 확인할 수 있는 관리 도구.',
+    process: [
+      { step: 'Define', desc: '집사의 기록 시나리오(증상·병원·체중·일정)를 정리해 정보 구조 설계.' },
+      { step: 'Flow', desc: '홈(대시보드)·기록·건강·일정·커뮤니티·마이페이지로 뷰를 구성.' },
+      { step: 'UI Design', desc: '고양이 등록/전환, 필터·검색, 카드형 기록 UI 설계.' },
+      { step: 'Build', desc: '뷰 전환형 SPA로 구현, AI 간단 진료 등 인터랙션 추가.' },
+    ],
+    decisions: [
+      { title: '고양이 중심 구조', desc: '여러 마리를 등록·전환하며 각자 기록을 따로 쌓게 설계.' },
+      { title: '빠른 기록', desc: '증상·건강·행동을 최소 단계로 남기도록 입력 흐름을 단순화.' },
+    ],
+    outcome: '흩어져 있던 반려묘 정보를 한 앱에서 기록·회고할 수 있게 되었습니다.',
+    learnings: '기록형 앱은 "얼마나 빨리·부담 없이 남기느냐"가 핵심 사용성이라는 걸 다시 확인했습니다.',
+  },
 };
 
-const ORDER = ['dingo', 'class101', 'purrcare', 'local-community', 'imagination-door', 'wolfram-alpha', 'hogwarts', 'dream-diary'];
+const ORDER = ['dingo', 'class101', 'purrcare', 'local-community', 'imagination-door', 'wolfram-alpha', 'hogwarts', 'dream-diary', 'altitude', 'purrcare-app'];
+
+/* ARCHIVE 카드 썸네일 (slug → 이미지). object-fit:cover 로 꽉 차게 표시.
+   매핑 없으면 그라디언트 플레이스홀더로 표시됨. */
+const THUMBS = {
+  'dingo': 'image/thumbnail_dingo.png',
+  'class101': 'image/thumbnail_class101.png',
+  'purrcare': 'image/thumbnail_purrcare_web.png',
+  'local-community': ['image/thumbnail_holo1.png', 'image/thumbnail_holo2.png'], // 배열이면 여러 장 나란히(contain)
+  'imagination-door': 'image/thumbnail_sangsnagdoor.png',
+  'wolfram-alpha': 'image/thumbnail_wolfram.png',
+  'hogwarts': 'image/thumbnail_hogwart.png',
+  'dream-diary': 'image/thumbnail_dreamdex.png',
+  'altitude': 'image/thumbnail_ALTITUDE.png',
+  'purrcare-app': 'image/thumbnail_purrcare_webapp.png',
+};
 
 /* 그래픽 작업물 (라이트박스).
-   배너=단일 이미지, 카드뉴스=slides[], 포스터=단일.
-   shade: placeholder 명암(0~1).
-   ★ 실제 이미지 넣는 법 (가로 1200·세로 제각각이어도 OK):
-     - 썸네일은 자동으로 일정 비율로 크롭(cover)되어 그리드가 정렬됨
-     - 라이트박스는 원본 비율 그대로(잘림 없이) 표시
-     - 단일:   { type:'Banner', title:'...', img:'image/graphic/banner01.png' }
-     - 카드뉴스: { type:'Card News', title:'...', slides:[{img:'...1.png'},{img:'...2.png'}] } */
+   type: Banner | Mobile | Poster | Program(식순지)  → GRAPHIC 필터 기준
+   단일:  { type:'Poster', title:'...', img:'image/poster2.png' }
+   앞뒤:  { type:'Poster', title:'...', slides:[{img:'..._front.jpg'},{img:'..._back.jpg'}] }
+          → 한 카드로 묶여 라이트박스에서 자동으로 앞↔뒤 전환 */
 const GRAPHICS = [
+  // 배너 (마퀴) — 기존 15개 유지 + 신규 1개 추가
   { type: 'Banner', title: '배너 01', img: 'image/banner1.png' },
   { type: 'Banner', title: '배너 02', img: 'image/banner2.png' },
   { type: 'Banner', title: '배너 03', img: 'image/banner3.png' },
@@ -204,7 +264,22 @@ const GRAPHICS = [
   { type: 'Banner', title: '배너 13', img: 'image/banner13.png' },
   { type: 'Banner', title: '배너 14', img: 'image/banner14.png' },
   { type: 'Banner', title: '배너 15', img: 'image/banner15.png' },
-  { type: 'Card News', title: '카드뉴스 01', shade: 0.26, slides: [{ shade: 0.20 }, { shade: 0.30 }, { shade: 0.40 }, { shade: 0.16 }] },
-  { type: 'Card News', title: '카드뉴스 02', shade: 0.34, slides: [{ shade: 0.18 }, { shade: 0.28 }, { shade: 0.38 }] },
-  { type: 'Poster', title: '포스터 01', shade: 0.24 },
+  { type: 'Banner', title: '배너 16', img: 'image/banner16.jpg' },
+  // 모바일 배너 (신규)
+  { type: 'Mobile', title: '모바일 배너 01', img: 'image/mo_banner1.png' },
+  { type: 'Mobile', title: '모바일 배너 02', img: 'image/mo_banner2.png' },
+  { type: 'Mobile', title: '모바일 배너 03', img: 'image/mo_banner3.png' },
+  { type: 'Mobile', title: '모바일 배너 04', img: 'image/mo_banner4.png' },
+  // 포스터 (신규) — poster01은 앞/뒤
+  { type: 'Poster', title: '포스터 01', slides: [{ img: 'image/poster1_front.jpg' }, { img: 'image/poster1_back.jpg' }] },
+  { type: 'Poster', title: '포스터 02', img: 'image/poster2.png' },
+  { type: 'Poster', title: '포스터 03', img: 'image/poster3.png' },
+  { type: 'Poster', title: '포스터 04', img: 'image/poster4.jpg' },
+  { type: 'Poster', title: '포스터 05', img: 'image/poster5.jpg' },
+  { type: 'Poster', title: '포스터 06', img: 'image/poster6.jpg' },
+  { type: 'Poster', title: '포스터 07', img: 'image/poster7.jpg' },
+  { type: 'Poster', title: '포스터 08', img: 'image/poster8.jpg' },
+  { type: 'Poster', title: '포스터 09', img: 'image/poster9.jpg' },
+  // 식순지 (신규) — 앞/뒤
+  { type: 'Program', title: '식순지', slides: [{ img: 'image/Program_front.jpg' }, { img: 'image/Program_back.jpg' }] },
 ];
