@@ -41,14 +41,23 @@ function render() {
   set('cs-cat', d.category);
   set('cs-year', d.year);
   set('cs-role', d.role);
-  set('cs-contrib', d.contribution + '%');
+  set('cs-responsive', d.responsive === false ? '데스크톱 전용' : 'PC · 모바일 대응');
   set('cs-problem', d.problem);
   set('cs-goal', d.goal);
   set('cs-outcome', d.outcome);
   set('cs-learnings', d.learnings);
 
+  // CONTRIBUTION: 숫자면 퍼센트+막대, 문자열이면 "무엇을 했는지" 텍스트(막대 숨김)
   const bar = document.getElementById('cs-contrib-bar');
-  if (bar) bar.style.setProperty('--p', d.contribution + '%');
+  const barWrap = bar ? bar.parentElement : null; // .spec__bar
+  if (typeof d.contribution === 'number') {
+    set('cs-contrib', d.contribution + '%');
+    if (bar) bar.style.setProperty('--p', d.contribution + '%');
+    if (barWrap) barWrap.style.display = '';
+  } else {
+    set('cs-contrib', d.contribution || '—');
+    if (barWrap) barWrap.style.display = 'none';
+  }
 
   const tools = document.getElementById('cs-tools');
   if (tools) tools.innerHTML = d.tools.map((t) => `<li>${t}</li>`).join('');
@@ -105,6 +114,29 @@ function render() {
       }).join('');
     }
   }
+
+  // 제작 페이지 목록 — d.pages 있을 때만 섹션 표시
+  const pagesSec = document.getElementById('cs-pages-sec');
+  const pagesUl = document.getElementById('cs-pages');
+  const pagesCount = document.getElementById('cs-pages-count');
+  if (pagesSec) {
+    if (Array.isArray(d.pages) && d.pages.length) {
+      pagesSec.style.display = '';
+      if (pagesUl) pagesUl.innerHTML = d.pages.map((p) => `<li>${p}</li>`).join('');
+      if (pagesCount) pagesCount.textContent = `총 ${d.pages.length}개`;
+    } else {
+      pagesSec.style.display = 'none';
+    }
+  }
+
+  // 본문 섹션 번호를 "보이는 섹션"만 세어 다시 매김(숨겨진 PAGES로 번호가 비지 않도록)
+  let secN = 0;
+  document.querySelectorAll('.cs-body .cs-sec').forEach((sec) => {
+    if (sec.style.display === 'none') return;
+    secN += 1;
+    const idxEl = sec.querySelector('.cs-sec__idx');
+    if (idxEl) idxEl.textContent = String(secN).padStart(2, '0');
+  });
 
   // prev / next (전체 8개 순환)
   const idx = ORDER.indexOf(slug);
