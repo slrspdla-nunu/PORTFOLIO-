@@ -23,6 +23,14 @@ function render() {
   if (!PROJECTS[slug]) slug = ORDER[0];
   const d = PROJECTS[slug];
 
+  // 출처(from): 아카이브에서 들어왔으면 아카이브로, 아니면 WORKS로 돌아가게
+  const from = params.get('from');
+  const back = document.querySelector('.cs-back');
+  if (back) {
+    if (from === 'archive') { back.href = 'index.html#archive'; back.textContent = '← BACK TO ARCHIVE'; }
+    else { back.href = 'index.html#works'; back.textContent = '← BACK TO WORKS'; }
+  }
+
   document.title = `${d.title} — 김주휘 Portfolio`;
   document.body.setAttribute('data-theme', d.theme || 'light');
 
@@ -61,14 +69,21 @@ function render() {
     else { live.style.display = 'none'; }
   }
 
+  // 피그마 프로토타입 링크 — d.figmaProto 있을 때만 버튼 표시(새 탭)
+  const proto = document.getElementById('cs-proto');
+  if (proto) {
+    if (d.figmaProto) { proto.href = d.figmaProto; proto.style.display = ''; }
+    else { proto.style.display = 'none'; }
+  }
+
   const visual = document.getElementById('cs-visual');
   if (visual) {
     const t = (typeof THUMBS !== 'undefined') ? THUMBS[slug] : null;
     if (Array.isArray(t)) {          // 여러 장 → 나란히(전체 보이게) + 흰 배경
       visual.className = 'cs-cover is-multi';
       visual.innerHTML = t.map((src) => `<img class="cs-cover__img" src="${src}" alt="${d.title}">`).join('');
-    } else if (t) {                  // 단일 → 썸네일 그대로(전체 보이게)
-      visual.className = 'cs-cover';
+    } else if (t) {                  // 단일 → 커버를 꽉 채우게
+      visual.className = 'cs-cover is-fill';
       visual.innerHTML = `<img class="cs-cover__img" src="${t}" alt="${d.title}">`;
     } else {                         // 썸네일 없으면 기존 와이어프레임 목업
       visual.className = 'cs-cover';
@@ -97,8 +112,9 @@ function render() {
   const next = ORDER[(idx + 1) % ORDER.length];
   const prevA = document.getElementById('cs-prev');
   const nextA = document.getElementById('cs-next');
-  if (prevA) { prevA.href = `case.html?p=${prev}`; prevA.querySelector('.cs-navlink__title').textContent = PROJECTS[prev].title; }
-  if (nextA) { nextA.href = `case.html?p=${next}`; nextA.querySelector('.cs-navlink__title').textContent = PROJECTS[next].title; }
+  const fromQ = from ? `&from=${from}` : ''; // prev/next로 이동해도 출처 유지
+  if (prevA) { prevA.href = `case.html?p=${prev}${fromQ}`; prevA.querySelector('.cs-navlink__title').textContent = PROJECTS[prev].title; }
+  if (nextA) { nextA.href = `case.html?p=${next}${fromQ}`; nextA.querySelector('.cs-navlink__title').textContent = PROJECTS[next].title; }
 }
 
 function initCaseNav() {

@@ -352,7 +352,7 @@ ul { list-style:none; }
 .purr-device__frame { position:relative; z-index:2; display:block; width:100%; height:auto; pointer-events:none; }
 /* 화면 스크린샷: 기본은 상단을 보여주고, hover 시 하단까지 스크롤(전체 페이지가 흐르는 효과).
    세로로 긴 전체 페이지 스크린샷을 넣을수록 스크롤 폭이 커집니다. */
-.purr-device__shot { position:absolute; z-index:1; display:block; object-fit:cover; object-position:center top; background:#f4f4f4; transition:object-position 6s ease; }
+.purr-device__shot { position:absolute; z-index:1; display:block; object-fit:cover; object-position:center top; background:#111; transition:object-position 6s ease; }
 .purr-device:hover .purr-device__shot { object-position:center bottom; }
 .purr-device--laptop { left:-5%; top:20%; width:91%; }
 .purr-device--laptop .purr-device__shot { left:17.38%; top:15.23%; width:65.43%; height:63.57%; }
@@ -578,8 +578,9 @@ body.cursor-hot .cursor-ring { width:54px; height:54px; }
 /* 히어로 (대형) */
 .cs-herotop { display:flex; justify-content:space-between; align-items:flex-start; gap:clamp(20px,4vw,48px); }
 .cs-hero { max-width:980px; margin-bottom:clamp(28px,4vw,48px); }
-.cs-live { flex:none; margin-top:8px; white-space:nowrap; align-self:center; }
-@media (max-width:720px){ .cs-herotop { flex-direction:column; } .cs-live { align-self:flex-start; margin-top:0; } }
+.cs-actions { flex:none; align-self:center; display:flex; flex-direction:column; gap:10px; }
+.cs-live, .cs-proto { margin:0; white-space:nowrap; text-align:center; }
+@media (max-width:720px){ .cs-herotop { flex-direction:column; } .cs-actions { align-self:flex-start; flex-direction:row; flex-wrap:wrap; } }
 .cs-hero__title { font-family:var(--pixel); font-weight:bold; font-size:var(--fs-h1); line-height:1.02; letter-spacing:-.02em; margin:14px 0 20px; }
 .cs-hero__summary { font-size:var(--fs-md); color:#555; line-height:1.6; max-width:50ch; }
 
@@ -590,6 +591,9 @@ body.cursor-hot .cursor-ring { width:54px; height:54px; }
 .cs-cover__img { max-width:100%; max-height:72vh; width:auto; height:auto; border-radius:14px; box-shadow:var(--shadow-soft); display:block; }
 .cs-cover.is-multi { background:#fff; }
 .cs-cover.is-multi .cs-cover__img { max-height:64vh; max-width:46%; box-shadow:var(--shadow-soft); }
+/* 단일 썸네일 → 커버 전체를 꽉 채움(여백 없이) */
+.cs-cover.is-fill { padding:0; overflow:hidden; }
+.cs-cover.is-fill .cs-cover__img { width:100%; height:100%; max-width:none; max-height:none; object-fit:cover; border-radius:0; box-shadow:none; }
 
 /* 본문: 스티키 사이드바 + 콘텐츠 */
 .cs-layout { display:grid; grid-template-columns:240px 1fr; gap:clamp(36px,6vw,90px); align-items:start; }

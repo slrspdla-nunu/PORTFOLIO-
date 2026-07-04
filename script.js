@@ -493,7 +493,7 @@ function initArchive() {
       thumb = `<img class="card__img" src="${t}" alt="${p.title}" loading="lazy">`;
       thumbCls = ' has-img';
     }
-    return `<a class="card" data-type="${p.type}" href="case.html?p=${slug}" style="--g:linear-gradient(135deg,${shades[i % shades.length]})">
+    return `<a class="card" data-type="${p.type}" href="case.html?p=${slug}&from=archive" style="--g:linear-gradient(135deg,${shades[i % shades.length]})">
       <div class="card__thumb${thumbCls}">${thumb}<span class="card__no">${String(i + 1).padStart(2, '0')}</span>${badge}<span class="card__view">VIEW →</span></div>
       <div class="card__body"><h3>${p.title}</h3><p>${p.category} · ${p.year}</p></div>
     </a>`;
@@ -841,9 +841,61 @@ function reveal() {
   if (svg) svg.style.visibility = 'visible';
 }
 
+/* =========================================================
+   스크롤 위치 유지 — 프로젝트 상세로 나갔다 돌아와도
+   보던 위치(=SELECTED WORKS의 그 프로젝트)로 복원
+   ========================================================= */
+let pfLenis = null;
+const PF_SCROLL_KEY = 'pf_scrollY';
+
+function pfSaveScroll() {
+  try { sessionStorage.setItem(PF_SCROLL_KEY, String(Math.round(window.scrollY || window.pageYOffset || 0))); } catch (e) {}
+}
+function pfReadSavedScroll() {
+  try { const v = sessionStorage.getItem(PF_SCROLL_KEY); return v == null ? null : (parseFloat(v) || 0); } catch (e) { return null; }
+}
+function pfRestoreScroll() {
+  const y = pfReadSavedScroll();
+  if (!y || y <= 0) return;
+  const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  const target = Math.min(y, max);
+  if (pfLenis) pfLenis.scrollTo(target, { immediate: true, force: true });
+  else window.scrollTo(0, target);
+  if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update();
+}
+// 로드 직후엔 폰트 로드·이미지·ScrollTrigger.refresh 등이 잇따라 스크롤을 0으로
+// 되돌릴 수 있어, 몇 차례 간격을 두고 복원을 재적용한다(매 프레임 X — Lenis와 충돌).
+// 사용자가 스크롤하면 즉시 중단.
+function pfRestoreScrollPersistent() {
+  const y = pfReadSavedScroll();
+  if (!y || y <= 0) return;
+  let stop = false;
+  const cancel = () => { stop = true; };
+  const opt = { passive: true, once: true };
+  window.addEventListener('wheel', cancel, opt);
+  window.addEventListener('touchstart', cancel, opt);
+  window.addEventListener('keydown', cancel, opt);
+  [0, 120, 300, 550, 850].forEach((d) => setTimeout(() => { if (!stop) pfRestoreScroll(); }, d));
+}
+// 저장된 위치가 현재 해시(#works·#archive 등)가 가리키는 섹션 안에 있는지.
+// (works 섹션 높이는 핀 스페이서를 포함하므로 그대로 범위로 쓸 수 있음)
+function pfSavedIsInHashSection() {
+  const id = (location.hash || '').slice(1);
+  const el = id && document.getElementById(id);
+  const y = pfReadSavedScroll();
+  if (!el || !y) return false;
+  const top = el.getBoundingClientRect().top + window.scrollY; // 문서 기준 섹션 시작점
+  return y >= top - 150 && y <= top + el.getBoundingClientRect().height + 150;
+}
+// 페이지를 떠날 때 현재 위치 저장 (pagehide는 bfcache 상황에서도 안전)
+window.addEventListener('pagehide', pfSaveScroll);
+window.addEventListener('beforeunload', pfSaveScroll);
+
 window.addEventListener('DOMContentLoaded', () => {
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  window.scrollTo(0, 0);
+  // 해시 앵커(#about 등)로 진입한 경우는 그쪽을 우선, 아니면 항상 top에서 시작
+  const hasHash = !!location.hash && location.hash.length > 1;
+  if (!hasHash) window.scrollTo(0, 0);
 
   initNav();
   initHeroDots();
@@ -852,7 +904,7 @@ window.addEventListener('DOMContentLoaded', () => {
   initSections();
 
   // 부드러운 스크롤 + 데스크톱 전용 인터랙션
-  initSmoothScroll();
+  pfLenis = initSmoothScroll();
   const fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
   if (fine && !prefersReduced()) { initCursor(); initMagnetic(); }
 
@@ -863,4 +915,21 @@ window.addEventListener('DOMContentLoaded', () => {
     ? Promise.all([document.fonts.load('900 200px A2z'), document.fonts.load('bold 96px Galmuri11')]).then(() => document.fonts.ready)
     : Promise.resolve();
   ready.then(safeStart).catch(safeStart);
+
+  // 스크롤 레이아웃(핀 스페이서 높이)이 확정된 뒤 저장된 위치로 복원.
+  //  - 해시 없이 진입(브라우저 뒤로가기 등) → 저장 위치로 복원
+  //  - 섹션 해시로 진입(#works·#archive 등, 케이스 페이지의 BACK 버튼·상단 메뉴) →
+  //    저장 위치가 그 섹션 안이면 그 위치(그 프로젝트/카드)로 복원, 아니면 해시(섹션 상단) 우선
+  if (pfReadSavedScroll() > 0) {
+    const whenLoaded = document.readyState === 'complete'
+      ? Promise.resolve()
+      : new Promise((r) => window.addEventListener('load', r, { once: true }));
+    const whenFonts = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    Promise.all([whenLoaded, whenFonts]).then(() => {
+      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+      // 해시가 있는데 저장 위치가 그 섹션 밖이면 해시(그 섹션 상단)를 우선 → 복원 생략
+      if (hasHash && !pfSavedIsInHashSection()) return;
+      setTimeout(pfRestoreScrollPersistent, 0);
+    });
+  }
 });
