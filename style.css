@@ -102,6 +102,33 @@ ul { list-style:none; }
 .hero { position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; overflow:hidden; background:#fff; }
 .hero-fx { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
 .hero__stage { position:relative; z-index:1; width:100%; height:auto; max-height:100vh; display:block; visibility:hidden; }
+
+/* ===== AI 채팅 (히어로 다음, 화면 하단 — 자동 스크롤로 노출) ===== */
+.ai-chat { position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:4vh 20px; background:linear-gradient(to bottom, #fff 0%, #fff 42%, #f2f2f2 100%); } /* 중앙 고정 + hero흰색→ABOUT회색 브릿지 */
+.tveil { position:fixed; inset:0; z-index:90; background:#eaeaea; opacity:0; pointer-events:none; } /* 화면 고정 베일: 채팅 줌 뒤 화면을 About 색으로 덮고, 원형 홀이 퍼지며 About 리빌 (nav z100 아래) */
+.ai-fx { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; -webkit-mask:linear-gradient(to bottom, #000 55%, transparent 92%); mask:linear-gradient(to bottom, #000 55%, transparent 92%); } /* hero 점 그리드 연장 — 아래로 옅어짐 */
+.ai-chat__zoom { position:relative; z-index:1; will-change:transform; } /* 스크롤 시 채팅 줌인 대상 */
+.ai-chat__wipe { position:absolute; inset:0; z-index:2; background:#eaeaea; opacity:0; pointer-events:none; } /* About 색으로 화면 와이프 */
+.hero-chat { position:relative; width:min(680px, 92vw); display:flex; flex-direction:column; gap:12px; opacity:0; transform:translateY(12px); transition:opacity .5s ease, transform .5s ease; }
+.hero-chat.is-on { opacity:1; transform:none; }
+.hero-chat__thread { display:flex; flex-direction:column; gap:10px; }
+.hchat-b { font-size:var(--fs-sm); line-height:1.55; padding:10px 15px; border-radius:16px; max-width:86%; word-break:keep-all; }
+.hchat-b--q { align-self:flex-end; background:var(--ink); color:#fff; border-bottom-right-radius:5px; }
+.hchat-b--a { align-self:flex-start; background:transparent; color:var(--ink); border-radius:0; padding:4px 2px; max-width:100%; } /* 답변 배경 = 메인 배경(흰색) */
+.hchat-b--a p { margin:0 0 6px; }
+.hchat-b--a p:last-child { margin:0; }
+.hchat-b--a b { font-weight:700; }
+.hero-chat__bar { display:flex; align-items:center; gap:8px; padding:8px 8px 8px 18px; border:1.5px solid var(--line); border-radius:999px; background:#fff; box-shadow:var(--shadow-soft); }
+.hero-chat__input { flex:1; min-height:1.3em; font-size:var(--fs-sm); color:var(--ink); }
+.hero-chat__send { flex:none; width:36px; height:36px; border:0; border-radius:50%; background:var(--ink); color:#fff; font-size:16px; line-height:1; cursor:pointer; display:grid; place-items:center; transition:transform .15s ease; }
+.hero-chat__send.is-press { transform:scale(.85); }
+.hchat-think { display:inline-flex; gap:6px; align-self:flex-start; padding:8px 2px; }
+.hchat-think i { width:7px; height:7px; border-radius:50%; background:var(--muted); animation:hchat-think 1s ease-in-out infinite; }
+.hchat-think i:nth-child(2){ animation-delay:.15s; }
+.hchat-think i:nth-child(3){ animation-delay:.3s; }
+@keyframes hchat-think { 0%,100%{ opacity:.3; transform:translateY(0);} 50%{ opacity:1; transform:translateY(-4px);} }
+.hchat-cur { display:inline-block; animation:hchat-blink 1s step-end infinite; }
+@keyframes hchat-blink { 50% { opacity:0; } }
 /* 코너 도트 데코는 전면 인터랙티브 그리드로 대체 */
 .deco { display:none; }
 
@@ -116,7 +143,8 @@ ul { list-style:none; }
 
 /* ===== S02 ABOUT ===== */
 /* 연한 회색 — 흰 바탕(body) 위로 원이 퍼지는 아이리스 리빌이 또렷이 보이게 */
-.about { background:#e6e6e6; will-change:clip-path; }
+.about { background:#eaeaea; }
+.about__veil { display:none; } /* 미사용(안정화 위해 clip 리빌로 복구) */
 .about__grid { display:grid; grid-template-columns:320px 1fr; gap:clamp(32px, 5vw, 72px); align-items:start; }
 .profile { background:var(--card); border:1px solid var(--line); border-radius:22px; padding:26px; box-shadow:var(--shadow-soft); position:sticky; top:90px; }
 .profile__photo {
@@ -457,15 +485,35 @@ ul { list-style:none; }
 
 /* ===== S05 PROJECT ARCHIVE ===== */
 .archive__grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:clamp(18px, 2.4vw, 30px); }
-.card { display:block; background:var(--card); border:1px solid var(--line); border-radius:18px; overflow:hidden; box-shadow:var(--shadow-soft); transition:transform .28s ease, box-shadow .28s ease; }
+/* overflow:hidden 제거 → 말풍선이 카드 위로 튀어나올 수 있게. 라운딩은 자식으로 이관 */
+.card { position:relative; display:block; background:var(--card); border:1px solid var(--line); border-radius:18px; box-shadow:var(--shadow-soft); transition:transform .28s ease, box-shadow .28s ease; }
 .card:hover { transform:translateY(-8px); box-shadow:var(--shadow); }
-.card__thumb { position:relative; aspect-ratio:4/3; overflow:hidden; background:var(--g, var(--orange-soft)); display:flex; align-items:flex-end; padding:18px; will-change:transform; }
+.card__thumb { position:relative; aspect-ratio:4/3; overflow:hidden; border-radius:18px 18px 0 0; background:var(--g, var(--orange-soft)); display:flex; align-items:flex-end; padding:18px; will-change:transform; }
 .card__thumb::before { content:''; position:absolute; inset:0; background:var(--g, var(--orange-soft)); transition:transform .4s ease; transform:scale(1); }
 .card:hover .card__thumb::before { transform:scale(1.08); }
 .card__no { position:relative; z-index:1; font-family:var(--pixel); font-size:var(--fs-h3); font-weight:bold; color:#fff; mix-blend-mode:soft-light; opacity:.95; }
-.card__body { padding:18px 20px 22px; }
+.card__body { padding:18px 20px 22px; border-radius:0 0 18px 18px; }
 .card__body h3 { font-size:var(--fs-md); font-weight:600; margin-bottom:6px; }
 .card__body p { font-family:var(--pixel); font-size:var(--fs-xs); color:var(--muted); }
+/* 제작 중 배지 (아카이브 카드 제목 옆) */
+.wip-chip { display:inline-block; vertical-align:middle; transform:translateY(-2px); margin-left:7px; font-family:var(--pixel); font-size:var(--fs-2xs); font-weight:400; letter-spacing:.02em; padding:2px 8px; border-radius:999px; background:var(--orange-soft); color:#8a8a8a; border:1px solid var(--line); }
+/* 검정 말풍선(둥근 사각형 + 가운데 아래 꼬리) — 스크롤 중앙 줄 카드 + hover 시 팝업 */
+.card__bubble {
+  position:absolute; left:50%; bottom:calc(100% + 12px); transform:translate(-50%, 8px) scale(.96); z-index:6;
+  max-width:min(320px, 90vw); padding:11px 20px; border-radius:16px; background:var(--ink);
+  opacity:0; pointer-events:none;
+  filter:drop-shadow(0 6px 12px rgba(20,20,20,.28));
+  transition:opacity .3s ease, transform .35s cubic-bezier(.2,.8,.2,1);
+}
+/* 가운데 아래 말꼬리 (검정 삼각형) */
+.card__bubble::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); margin-top:-1px; border:10px solid transparent; border-bottom:0; border-top-color:var(--ink); }
+.card__bubble__txt {
+  display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  font-size:var(--fs-xs); font-weight:600; color:#fff; line-height:1.25;
+}
+.card.is-focus, .card:hover { z-index:5; }
+.card.is-focus .card__bubble, .card:hover .card__bubble { opacity:1; transform:translate(-50%, 0) scale(1); }
+@media (prefers-reduced-motion: reduce){ .card__bubble { transition:none; } }
 /* 썸네일 이미지 — cover로 꽉 차게 */
 .card__thumb.has-img { background:#ececec; }
 .card__thumb.has-img::before { display:none; } /* 이미지 있을 땐 그라디언트 숨김 */
@@ -574,12 +622,30 @@ body.cursor-hot .cursor-ring { width:54px; height:54px; }
 .cs { width:min(1180px, 92vw); margin:0 auto; padding:130px 0 40px; }
 .cs-back { display:inline-block; font-family:var(--pixel); font-size:var(--fs-xs); color:var(--muted); margin-bottom:40px; }
 .cs-back:hover { color:var(--ink); }
+/* 플로팅 뒤로가기 버튼 */
+/* 콘텐츠(.cs)와 동일하게 중앙정렬되는 고정 래퍼 → 버튼이 콘텐츠 열 왼쪽에 딱 맞음 */
+.cs-fabwrap { position:fixed; left:0; right:0; bottom:0; z-index:90; width:min(1180px, 92vw); margin-inline:auto; height:0; pointer-events:none; }
+.cs-fab {
+  position:absolute; left:0; bottom:clamp(16px,3vw,32px); pointer-events:auto;
+  display:inline-flex; align-items:center; gap:9px; padding:13px 22px;
+  border:2px solid var(--ink); border-radius:999px; background:var(--bg); color:var(--ink);
+  font-family:var(--pixel); font-weight:bold; font-size:var(--fs-sm); cursor:pointer;
+  box-shadow:var(--shadow-soft);
+  transition:transform .22s ease, background .25s ease, color .25s ease, box-shadow .25s ease;
+}
+.cs-fab:hover { background:var(--ink); color:#fff; transform:translateY(-3px); box-shadow:var(--shadow); }
+.cs-fab__arrow { font-size:17px; line-height:1; transition:transform .25s ease; }
+.cs-fab:hover .cs-fab__arrow { transform:translateX(-4px); }
+body.has-cursor .cs-fab { cursor:none; }
+@media (max-width:600px){ .cs-fab { padding:12px 18px; } }
 
 /* 히어로 (대형) */
 .cs-herotop { display:flex; justify-content:space-between; align-items:flex-start; gap:clamp(20px,4vw,48px); }
 .cs-hero { max-width:980px; margin-bottom:clamp(28px,4vw,48px); }
 .cs-actions { flex:none; align-self:center; display:flex; flex-direction:column; gap:10px; }
 .cs-live, .cs-proto { margin:0; white-space:nowrap; text-align:center; }
+/* 제작 중 배지 (상세 히어로) — 버튼형이지만 클릭 불가 표시(점선·뮤트) */
+.cs-wip { align-self:center; white-space:nowrap; text-align:center; font-family:var(--pixel); font-weight:400; font-size:var(--fs-sm); padding:12px 24px; border-radius:999px; border:2px dashed var(--muted); color:var(--muted); background:var(--bg-alt); }
 @media (max-width:720px){ .cs-herotop { flex-direction:column; } .cs-actions { align-self:flex-start; flex-direction:row; flex-wrap:wrap; } }
 .cs-hero__title { font-family:var(--pixel); font-weight:bold; font-size:var(--fs-h1); line-height:1.02; letter-spacing:-.02em; margin:14px 0 20px; }
 .cs-hero__summary { font-size:var(--fs-md); color:#555; line-height:1.6; max-width:50ch; }

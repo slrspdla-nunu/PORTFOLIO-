@@ -16,7 +16,7 @@
   <meta property="og:image" content="image/main.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23191919'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='bold' fill='%23fff' text-anchor='middle'%3EPF%3C/text%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="style.css?v=93" />
+  <link rel="stylesheet" href="style.css?v=120" />
 </head>
 <body id="top">
   <!-- 스크롤 진행바 -->
@@ -82,14 +82,26 @@
       <circle class="accent" cx="584" cy="847" r="20" fill="#9e9e9e" />
     </svg>
 
-    <div class="scroll-cue" aria-hidden="true">
-      <span class="scroll-cue__text">SCROLL</span>
-      <span class="scroll-cue__arrow"></span>
-    </div>
   </main>
+
+  <!-- AI 채팅: Hello :) 다음 자동 스크롤로 노출, 질문→답변(기획 의도) 타이핑 -->
+  <section class="ai-chat" aria-label="이 포트폴리오 소개">
+    <canvas class="ai-fx" aria-hidden="true"></canvas>
+    <div class="ai-chat__zoom">
+      <div class="hero-chat" id="hero-chat" aria-hidden="true">
+        <div class="hero-chat__thread" id="hero-chat-thread"></div>
+        <div class="hero-chat__bar">
+          <span class="hero-chat__input" id="hero-chat-input"></span>
+          <button class="hero-chat__send" id="hero-chat-send" type="button" tabindex="-1" aria-label="전송">↑</button>
+        </div>
+      </div>
+    </div>
+    <div class="ai-chat__wipe" aria-hidden="true"></div>
+  </section>
 
   <!-- ===== S02 ABOUT ME ===== -->
   <section id="about" class="section about">
+    <div class="about__veil" aria-hidden="true"></div>
     <div class="container about__grid">
       <!-- 좌측 프로필 카드 -->
       <aside class="profile" data-reveal>
@@ -470,6 +482,9 @@
     <footer class="footer">© 2026 김주휘 — Designed &amp; Built with :)</footer>
   </section>
 
+  <!-- AI채팅→About 전환용 화면 고정 베일 (줌 뒤 화면을 덮고 원형 홀로 About을 엶) -->
+  <div class="tveil" id="tveil" aria-hidden="true"></div>
+
   <!-- 라이트박스 -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <button class="lightbox__close" aria-label="닫기">×</button>
@@ -482,7 +497,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="data.js?v=35"></script>
-  <script src="script.js?v=61"></script>
+  <script src="data.js?v=37"></script>
+  <script src="script.js?v=90"></script>
 </body>
 </html>

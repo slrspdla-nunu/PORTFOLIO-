@@ -185,7 +185,7 @@ const PROJECTS = {
     learnings: '분위기 연출은 더하기보다 "어디서 멈출지"의 문제였습니다.',
   },
   'dream-diary': {
-    no: 'PROJECT 08', title: 'DreamDex', category: 'Web App', type: 'App', year: '2025',
+    no: 'PROJECT 08', title: 'DreamDex', category: 'Web App', type: 'App', year: '2025', wip: true,
     link: 'https://slrspdla-nunu.github.io/Dreamdex/',
     team: false, featured: true, theme: 'light', mock: 'app',
     summary: 'DreamDex — 매일의 꿈을 기록하고 "도감"처럼 수집·분류하는 꿈일기 웹앱 (개인 프로젝트).',
@@ -235,7 +235,7 @@ const PROJECTS = {
     learnings: '브랜드를 처음부터 만들 때는 "이름과 콘셉트"가 모든 화면 결정의 기준이 된다는 걸 체감했고, 커머스에서 분위기는 구매를 방해하지 않는 선에서 얹을 때 가장 효과적이라는 것도 배웠습니다.',
   },
   'purrcare-app': {
-    no: 'PROJECT 10', title: 'PurrCare 웹앱', category: 'Web App', type: 'App', year: '2025',
+    no: 'PROJECT 10', title: 'PurrCare 웹앱', category: 'Web App', type: 'App', year: '2025', wip: true,
     team: false, featured: false, theme: 'light', mock: 'app',
     summary: '반려묘의 건강·기록·일정을 한 곳에서 관리하는 반려묘 케어 웹앱.',
     pages: ['홈(대시보드)', '기록', '건강', '일정', '커뮤니티', '마이페이지'],
@@ -258,7 +258,7 @@ const PROJECTS = {
   },
 };
 
-const ORDER = ['local-community', 'imagination-door', 'wolfram-alpha', 'dingo', 'class101', 'purrcare', 'hogwarts', 'dream-diary', 'altitude', 'purrcare-app'];
+const ORDER = ['local-community', 'imagination-door', 'wolfram-alpha', 'dingo', 'class101', 'purrcare', 'hogwarts', 'dream-diary', 'purrcare-app', 'altitude'];
 
 /* ARCHIVE 카드 썸네일 (slug → 이미지). object-fit:cover 로 꽉 차게 표시.
    매핑 없으면 그라디언트 플레이스홀더로 표시됨. */
@@ -273,6 +273,20 @@ const THUMBS = {
   'dream-diary': 'image/thumbnail_dreamdex.png',
   'altitude': 'image/thumbnail_ALTITUDE.png',
   'purrcare-app': 'image/thumbnail_purrcare_webapp.png',
+};
+
+/* ARCHIVE 카드 말풍선용 한 줄 요약 (slug → 짧은 한 줄). 없으면 summary로 폴백. */
+const TAGLINES = {
+  'dingo': '영상 콘텐츠 브랜드 Dingo 홈 리디자인',
+  'class101': '온라인 클래스 플랫폼 Class101 홈 리디자인',
+  'purrcare': '고양이 용품 브랜드 PurrCare 쇼핑몰',
+  'local-community': '동네 이웃과 연결되는 지역 커뮤니티 앱',
+  'imagination-door': '방탈출 카페 상상의 문 홈 리디자인',
+  'wolfram-alpha': '연산 지식엔진 WolframAlpha 홈 리디자인',
+  'hogwarts': '게임 세계관을 담은 인터랙티브 팬 사이트',
+  'dream-diary': '매일의 꿈을 기록하는 꿈일기 웹앱',
+  'altitude': '고산 무드의 아웃도어 커머스',
+  'purrcare-app': '반려묘 건강·일정을 관리하는 케어 웹앱',
 };
 
 /* 그래픽 작업물 (라이트박스).

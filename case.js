@@ -71,6 +71,17 @@ function render() {
   if (dec) dec.innerHTML = d.decisions.map((x) => `
     <li class="cs-dec"><h4>${x.title}</h4><p>${x.desc}</p></li>`).join('');
 
+  // 플로팅 뒤로가기: 사이트 내에서 왔으면 히스토리 back, 아니면 WORKS로
+  const fab = document.getElementById('cs-fab');
+  if (fab) {
+    fab.addEventListener('click', () => {
+      let sameOrigin = false;
+      try { sameOrigin = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (e) { sameOrigin = false; }
+      if (sameOrigin && history.length > 1) history.back();
+      else location.href = 'index.html#works';
+    });
+  }
+
   // 라이브 사이트 링크 — d.link 있을 때만 버튼 표시
   const live = document.getElementById('cs-live');
   if (live) {
@@ -84,6 +95,10 @@ function render() {
     if (d.figmaProto) { proto.href = d.figmaProto; proto.style.display = ''; }
     else { proto.style.display = 'none'; }
   }
+
+  // 제작 중 배지 — d.wip 일 때만 표시
+  const wip = document.getElementById('cs-wip');
+  if (wip) wip.style.display = d.wip ? '' : 'none';
 
   const visual = document.getElementById('cs-visual');
   if (visual) {

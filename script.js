@@ -51,16 +51,16 @@ function start() {
   // 인트로가 끝난 뒤에만 글자 물결 시작 (등장 애니메이션과 충돌 방지)
   tl.eventCallback('onComplete', () => initHeroTextWave(letters));
 
-  // Hello :) 타이핑 효과
-  typeWeb(web);
+  // Hello :) 타이핑 효과 → 완료되면 AI 채팅 시작
+  typeWeb(web, 1350, undefined, initHeroChat);
 }
 
 // Hello :) 를 한 글자씩 타이핑 — 사람처럼 글자마다 시간이 다르게 (랜덤 + 공백/이모티콘 앞 뜸)
-function typeWeb(web, startDelay = 1350, fullText) {
+function typeWeb(web, startDelay = 1350, fullText, onDone) {
   if (!web) return;
   const full = (fullText || web.textContent || 'Hello :)').trim();
   web.textContent = '|'; // 타이핑 전에도 커서 표시
-  if (prefersReduced()) { web.textContent = full; return; } // 모션 최소화: 즉시 완성
+  if (prefersReduced()) { web.textContent = full; if (onDone) onDone(); return; } // 모션 최소화: 즉시 완성
 
   const rand = () => 60 + Math.random() * 130;              // 기본 타건 간격 60~190ms(불규칙)
   const pauseAfter = (ch) => {
@@ -78,9 +78,99 @@ function typeWeb(web, startDelay = 1350, fullText) {
     } else {
       let on = true; // 완료 → 커서 깜빡임
       setInterval(() => { on = !on; web.textContent = on ? full + '|' : full; }, 500);
+      if (onDone) onDone(); // 타이핑 완료 → 체이닝(히어로 채팅 시작)
     }
   };
   setTimeout(step, startDelay); // 시작 전 대기
+}
+
+// 히어로 다음 AI 채팅: Hello :) 완료 → 살짝 아래로 자동 스크롤 → 질문 입력→전송→생각중→답변 타이핑
+function initHeroChat() {
+  const wrap = document.getElementById('hero-chat');
+  if (!wrap || wrap.dataset.on) return;
+  wrap.dataset.on = '1';
+  const thread = document.getElementById('hero-chat-thread');
+  const input = document.getElementById('hero-chat-input');
+  const sendBtn = document.getElementById('hero-chat-send');
+  if (!thread || !input) return;
+  const sec = wrap.closest('.ai-chat');
+  const Q = '이 포트폴리오, 어떻게 기획했어?';
+  const A = [
+    { t: '목표는 하나였습니다 — 보는 사람이 지루하지 않게.' },
+    { t: "그래서 정보를 '보여주기'보다, 스크롤마다 뭔가 '반응하게' 만들었습니다." },
+    { k: 'About Me', t: '자기소개를 원이 퍼지며 여는 연출로 감쌌습니다. 첫인상부터 궁금해지도록. 흑백 + 픽셀 폰트로 절제된 개성을 먼저 보여주고 싶었습니다.' },
+    { k: 'Skill', t: '역량은 숫자로 읽기보다 게이지가 차오르는 걸로. 스크롤이 닿는 순간 채워지며 눈이 잠깐 머뭅니다.' },
+    { k: 'Selected Works', t: '대표작은 한 화면씩 고정됐다 넘어갑니다. 한 번에 하나에만 집중하도록. 배경 영상·목업·프로젝트별 색으로 각 작업의 무드를 그대로 옮겼고, 호그와트 화면엔 골든 스니치도 숨겨뒀습니다.' },
+    { k: 'Project Archive', t: '나머지 작업은 카드로 훑어봅니다. 스크롤하면 한 줄 소개가 말풍선으로 톡 떠서, 부담 없이 넘겨볼 수 있습니다.' },
+    { k: 'Graphic Design', t: '배너는 좌우로 흐르는 마퀴로. 작업량을 리듬감 있게 보여주고, 클릭하면 크게 볼 수 있습니다.' },
+    { k: 'Contact', t: "마지막엔 마스코트가 'Thank you :D'를 타이핑하며 인사합니다. 웃으며 끝나는 마무리를 주고 싶었습니다." },
+    { t: '결국 — 늘어놓지 않고 반응하게. 그렇게 끝까지 보게 만드는 게 이 포트폴리오입니다 :)' },
+  ];
+  const mkLine = (l, p) => { if (l.k) { const b = document.createElement('b'); b.textContent = l.k; p.appendChild(b); p.appendChild(document.createTextNode(' — ')); } };
+  const addQ = () => { const q = document.createElement('div'); q.className = 'hchat-b hchat-b--q'; q.textContent = Q; thread.appendChild(q); };
+
+  if (prefersReduced()) { // 모션 최소화: 즉시 표시(자동 스크롤 없음)
+    wrap.classList.add('is-on'); input.textContent = ''; addQ();
+    const a = document.createElement('div'); a.className = 'hchat-b hchat-b--a';
+    A.forEach((l) => { const p = document.createElement('p'); mkLine(l, p); p.appendChild(document.createTextNode(l.t)); a.appendChild(p); });
+    thread.appendChild(a);
+    return;
+  }
+
+  function typeInto(el, text, cps, cb) { // el 끝에 커서 두고 한 글자씩 삽입
+    const cur = document.createElement('span'); cur.className = 'hchat-cur'; cur.textContent = '|'; el.appendChild(cur);
+    let i = 0;
+    const tick = () => {
+      cur.insertAdjacentText('beforebegin', text.charAt(i)); i += 1;
+      if (i < text.length) setTimeout(tick, 1000 / cps + Math.random() * 40);
+      else { cur.remove(); if (cb) cb(); }
+    };
+    setTimeout(tick, 40);
+  }
+
+  // 상단 근처일 때만 채팅 섹션(100vh)을 화면에 꽉 맞춰 스크롤 → 채팅이 중앙 고정,
+  // 답변은 그 안에서 자라며 끝(:))까지 항상 보임. (돌아온 사용자는 방해 X)
+  function autoScroll(cb) {
+    if (!sec || window.scrollY > window.innerHeight * 0.5) { cb(); return; }
+    let target = sec.offsetTop;
+    if (typeof ScrollTrigger !== 'undefined') { // 핀 스페이서 때문에 offsetTop이 어긋남 → 핀 트리거 start 사용
+      const st = ScrollTrigger.getAll().find((s) => s.trigger === sec && s.pin);
+      if (st) target = st.start;
+    }
+    if (pfLenis) pfLenis.scrollTo(target, { duration: 1.2 });
+    else window.scrollTo({ top: target, behavior: 'smooth' });
+    setTimeout(cb, 1350);
+  }
+
+  // Hello :) 를 잠깐 더 보여준 뒤 → 채팅으로 스크롤 → 질문 타이핑 (스크롤 시작 살짝 늦춤)
+  setTimeout(() => {
+    wrap.classList.add('is-on');
+    autoScroll(() => { setTimeout(() => typeInto(input, Q, 32, () => setTimeout(send, 440)), 200); });
+  }, 1100);
+
+  function send() { // 전송: 질문 말풍선 + 버튼 눌린 연출 → 생각 중
+    if (sendBtn) sendBtn.classList.add('is-press');
+    addQ(); input.textContent = '';
+    setTimeout(() => { if (sendBtn) sendBtn.classList.remove('is-press'); thinking(); }, 380);
+  }
+
+  function thinking() { // ··· 잠깐 생각하는 척(진짜 AI 느낌)
+    const t = document.createElement('div'); t.className = 'hchat-think'; t.innerHTML = '<i></i><i></i><i></i>';
+    thread.appendChild(t);
+    setTimeout(() => { t.remove(); answer(); }, 850);
+  }
+
+  function answer() { // 답변 말풍선에 한 줄씩 타이핑
+    const a = document.createElement('div'); a.className = 'hchat-b hchat-b--a'; thread.appendChild(a);
+    let li = 0;
+    const nextLine = () => {
+      if (li >= A.length) return;
+      const line = A[li]; li += 1;
+      const p = document.createElement('p'); a.appendChild(p); mkLine(line, p);
+      typeInto(p, line.t, 40, () => setTimeout(nextLine, 220));
+    };
+    nextLine();
+  }
 }
 
 /* =========================================================
@@ -102,18 +192,42 @@ function initReveal() {
    진입 시 원이 스르륵 퍼지며 ABOUT이 드러남(핀 없음 → 스크롤 자연스럽게 유지).
    끝나면 clip 제거 → 하단 콘텐츠 잘림/스티키 카드 충돌 없음.
    ========================================================= */
+// AI 채팅 전환 2단계: About을 화면에 꽉 채워 고정(pin)한 뒤, 그 위에서 원형 홀이 퍼지며 "전체 About"이 그 자리에 등장.
 function initAboutIris() {
   const about = document.getElementById('about');
-  if (!about || typeof ScrollTrigger === 'undefined' || typeof gsap === 'undefined') return;
-  if (prefersReduced()) return; // 정적: clip 없이 표시
-  gsap.fromTo(about,
-    { clipPath: 'circle(0% at 50% 42%)' },
-    {
-      clipPath: 'circle(150% at 50% 42%)', ease: 'power2.out', duration: 1.05,
-      scrollTrigger: { trigger: about, start: 'top 75%', once: true },
-      onComplete: () => { about.style.clipPath = 'none'; about.style.willChange = 'auto'; },
-    }
-  );
+  const veil = document.getElementById('tveil');
+  if (!about || !veil || typeof ScrollTrigger === 'undefined' || typeof gsap === 'undefined') return;
+  const oldVeil = about.querySelector('.about__veil'); if (oldVeil) oldVeil.style.display = 'none';
+  if (prefersReduced()) { veil.style.display = 'none'; return; }
+  const setHole = (v) => {
+    const m = 'radial-gradient(circle at 50% 45%, transparent ' + v + '%, #000 ' + (v + 0.5) + '%)';
+    veil.style.webkitMaskImage = m; veil.style.maskImage = m;
+  };
+  setHole(0);
+  // 핀 없음(→ 스크롤 부드러움). About이 화면 위로 다다르는 마지막 구간에서 스크롤에 물려 원이 열림.
+  // 끝나면 베일 제거 → 이후 위/아래 스크롤이 핀 잼 없이 매끄러움.
+  ScrollTrigger.create({
+    trigger: about, start: 'top 35%', end: 'top top', scrub: 0.6, invalidateOnRefresh: true,
+    onEnter: () => { veil.style.display = ''; },
+    onUpdate: (self) => { gsap.set(veil, { opacity: 1 }); setHole(self.progress * 165); },
+    onLeave: () => { veil.style.display = 'none'; },          // About이 top 도달·원 완전 오픈 → 베일 제거
+    onLeaveBack: () => { setHole(0); veil.style.display = ''; },
+    onEnterBack: () => { veil.style.display = ''; },
+  });
+}
+
+// AI 채팅 전환 1단계: 화면 고정(pin) 채로 채팅 줌인 → 고정 베일이 화면을 About 색으로 덮음.
+// About은 이 핀의 스페이서로 아래에 눌려 안 보임(슬라이드 안 보임). 리빌은 initAboutIris(About 핀)가 이어받음.
+function initChatToAbout() {
+  const sec = document.querySelector('.ai-chat');
+  const zoom = sec && sec.querySelector('.ai-chat__zoom');
+  const veil = document.getElementById('tveil');
+  if (!sec || !zoom || !veil || prefersReduced() || typeof ScrollTrigger === 'undefined' || typeof gsap === 'undefined') return;
+  gsap.timeline({
+    scrollTrigger: { trigger: sec, start: 'top top', end: '+=90%', pin: true, scrub: 0.6, anticipatePin: 1, refreshPriority: 2, invalidateOnRefresh: true },
+  })
+    .to(zoom, { scale: 2.6, opacity: 0, ease: 'power2.in' }, 0)     // ① 채팅 줌인+페이드
+    .to(veil, { opacity: 1, ease: 'power1.inOut' }, 0.4);          // ② 화면을 About 색(#eaeaea)으로 덮음 (이후 스페이서 구간도 회색 유지)
 }
 
 /* =========================================================
@@ -477,6 +591,38 @@ function shadeGrad(shade) {
 }
 
 // PROJECT ARCHIVE — data.js로 카드 렌더 + 필터
+// 아카이브 카드: 스크롤 중 화면 중앙에 가장 가까운 카드 1개에만 한 줄 말풍선 표시
+function initArchiveBubbles(grid) {
+  if (prefersReduced() || typeof ScrollTrigger === 'undefined') return; // 모션 최소화: 미표시
+  const cards = [...grid.querySelectorAll('.card')];
+  if (!cards.length) return;
+  const scan = () => {
+    const cy = window.innerHeight / 2;
+    // 중앙에 가장 가까운 카드 찾기
+    let best = null, bestD = Infinity, bestCenter = 0;
+    for (const c of cards) {
+      if (c.offsetParent === null) continue;                 // 필터로 숨겨진 카드 제외
+      const r = c.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) continue;
+      const center = r.top + r.height / 2;
+      const d = Math.abs(center - cy);
+      if (d < bestD) { bestD = d; best = c; bestCenter = center; }
+    }
+    const on = best && bestD < window.innerHeight * 0.42;     // 중앙 밴드 안일 때만
+    // 그 카드와 같은 줄(center Y 비슷)에 있는 카드 전부 활성 → 한 줄 3개 동시
+    cards.forEach((c) => {
+      let active = false;
+      if (on && c.offsetParent !== null) {
+        const r = c.getBoundingClientRect();
+        active = Math.abs((r.top + r.height / 2) - bestCenter) < c.offsetHeight * 0.55;
+      }
+      c.classList.toggle('is-focus', active);
+    });
+  };
+  ScrollTrigger.create({ onUpdate: scan });
+  scan();
+}
+
 function initArchive() {
   const grid = document.getElementById('archive-grid');
   if (!grid || typeof PROJECTS === 'undefined') return;
@@ -493,13 +639,16 @@ function initArchive() {
       thumb = `<img class="card__img" src="${t}" alt="${p.title}" loading="lazy">`;
       thumbCls = ' has-img';
     }
+    const line = (typeof TAGLINES !== 'undefined' && TAGLINES[slug]) ? TAGLINES[slug] : p.summary;
+    const bubble = line ? `<div class="card__bubble"><span class="card__bubble__txt">${line}</span></div>` : '';
     return `<a class="card" data-type="${p.type}" href="case.html?p=${slug}&from=archive" style="--g:linear-gradient(135deg,${shades[i % shades.length]})">
-      <div class="card__thumb${thumbCls}">${thumb}<span class="card__no">${String(i + 1).padStart(2, '0')}</span>${badge}<span class="card__view">VIEW →</span></div>
-      <div class="card__body"><h3>${p.title}</h3><p>${p.category} · ${p.year}</p></div>
+      ${bubble}<div class="card__thumb${thumbCls}">${thumb}<span class="card__no">${String(i + 1).padStart(2, '0')}</span>${badge}<span class="card__view">VIEW →</span></div>
+      <div class="card__body"><h3>${p.title}${p.wip ? ' <span class="wip-chip">제작 중</span>' : ''}</h3><p>${p.category} · ${p.year}</p></div>
     </a>`;
   }).join('');
 
   revealGridItems(grid.querySelectorAll('.card'));
+  initArchiveBubbles(grid);
 
   const fbar = document.getElementById('archive-filter');
   if (fbar) {
@@ -695,9 +844,7 @@ function initScrollVelocity() {
 /* =========================================================
    히어로 배경: 인터랙티브 도트 그리드 (캔버스)
    ========================================================= */
-function initHeroDots() {
-  const canvas = document.querySelector('.hero-fx');
-  const hero = document.querySelector('.hero');
+function initDotField(canvas, hero) { // hero·AI채팅 공용: 컨테이너 크기에 맞춰 커서 반응 점 그리드
   if (!canvas || !hero || typeof gsap === 'undefined') return;
   const ctx = canvas.getContext('2d');
   const reduce = prefersReduced();
@@ -820,6 +967,7 @@ function initSections() {
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
   initReveal();
+  initChatToAbout();  // 채팅 핀 먼저 생성 → 아래 About 핀의 위치 계산이 스페이서를 반영(겹침 방지)
   initAboutIris();
   initHeadingReveal();
   initSkills();
@@ -898,7 +1046,8 @@ window.addEventListener('DOMContentLoaded', () => {
   if (!hasHash) window.scrollTo(0, 0);
 
   initNav();
-  initHeroDots();
+  initDotField(document.querySelector('.hero-fx'), document.querySelector('.hero'));
+  initDotField(document.querySelector('.ai-fx'), document.querySelector('.ai-chat'));
 
   // 스크롤 섹션 애니메이션 (히어로 폰트 로드와 무관하게 먼저 준비)
   initSections();
