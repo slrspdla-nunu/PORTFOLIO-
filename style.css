@@ -628,12 +628,15 @@ body.cursor-hot .cursor-ring { width:54px; height:54px; }
 .cs-fab {
   position:absolute; left:0; bottom:clamp(16px,3vw,32px); pointer-events:auto;
   display:inline-flex; align-items:center; gap:9px; padding:13px 22px;
-  border:2px solid var(--ink); border-radius:999px; background:var(--bg); color:var(--ink);
+  border:2px solid var(--ink); border-radius:999px; color:var(--ink);
+  background-color:var(--bg);
+  background-image:linear-gradient(var(--orange),var(--orange)); /* 왼쪽→오른쪽 채워지는 와이프 (.btn과 동일) */
+  background-repeat:no-repeat; background-position:left center; background-size:0% 100%;
   font-family:var(--pixel); font-weight:bold; font-size:var(--fs-sm); cursor:pointer;
   box-shadow:var(--shadow-soft);
-  transition:transform .22s ease, background .25s ease, color .25s ease, box-shadow .25s ease;
+  transition:background-size .3s ease, transform .22s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
-.cs-fab:hover { background:var(--ink); color:#fff; transform:translateY(-3px); box-shadow:var(--shadow); }
+.cs-fab:hover { background-size:100% 100%; color:#fff; border-color:var(--orange); transform:translateY(-3px); box-shadow:var(--shadow); }
 .cs-fab__arrow { font-size:17px; line-height:1; transition:transform .25s ease; }
 .cs-fab:hover .cs-fab__arrow { transform:translateX(-4px); }
 body.has-cursor .cs-fab { cursor:none; }
@@ -645,7 +648,7 @@ body.has-cursor .cs-fab { cursor:none; }
 .cs-actions { flex:none; align-self:center; display:flex; flex-direction:column; gap:10px; }
 .cs-live, .cs-proto { margin:0; white-space:nowrap; text-align:center; }
 /* 제작 중 배지 (상세 히어로) — 버튼형이지만 클릭 불가 표시(점선·뮤트) */
-.cs-wip { align-self:center; white-space:nowrap; text-align:center; font-family:var(--pixel); font-weight:400; font-size:var(--fs-sm); padding:12px 24px; border-radius:999px; border:2px dashed var(--muted); color:var(--muted); background:var(--bg-alt); }
+.cs-wip { display:inline-block; margin-top:18px; white-space:nowrap; font-family:var(--pixel); font-weight:400; font-size:var(--fs-xs); padding:6px 12px; border-radius:999px; border:1px solid var(--line); color:var(--muted); } /* TOOLS 칩과 같은 알약 스타일 */
 @media (max-width:720px){ .cs-herotop { flex-direction:column; } .cs-actions { align-self:flex-start; flex-direction:row; flex-wrap:wrap; } }
 .cs-hero__title { font-family:var(--pixel); font-weight:bold; font-size:var(--fs-h1); line-height:1.02; letter-spacing:-.02em; margin:14px 0 20px; }
 .cs-hero__summary { font-size:var(--fs-md); color:#555; line-height:1.6; max-width:50ch; }
