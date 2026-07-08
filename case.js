@@ -118,6 +118,7 @@ function render() {
   // 갤러리 스트립: 실제 이미지(d.gallery) 있으면 img, 없으면 흑백 placeholder 프레임
   const gal = document.getElementById('cs-gallery');
   if (gal) {
+    gal.className = `cs-gallery${d.galleryMode ? ` cs-gallery--${d.galleryMode}` : ''}`;
     if (d.gallery && d.gallery.length) {
       gal.innerHTML = d.gallery.map((src) => `<figure class="cs-shot"><img src="${src}" alt="${d.title}" loading="lazy"></figure>`).join('');
     } else {

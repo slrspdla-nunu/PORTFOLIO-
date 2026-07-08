@@ -16,8 +16,9 @@ const PROJECTS = {
     team: false, featured: false, theme: 'light', mock: 'web',
     summary: '영상 콘텐츠 브랜드 Dingo 홈페이지 리디자인.',
     pages: ['홈', '회사소개', '딩고(콘텐츠)', '광고 솔루션', '팬 페이지'],
+    gallery: ['image/dingo1.png', 'image/dingo2.png', 'image/dingo3.png'],
     role: 'UI 디자인 · AI 활용 퍼블리싱', contribution: 100,
-    tools: ['Figma', 'Gemini', 'ChatGPT','Claude'],
+    tools: ['Figma', 'html/css' , 'Gemini', 'ChatGPT','Claude'],
     problem: '원본(makeus.com)은 기존 템플릿 기반 기업 사이트 구조로, 메뉴·정보는 많지만 첫 화면에서 브랜드 감성과 최신 영상·음악이 잘 드러나지 않았습니다.',
     goal: '대메뉴 구조(Company·Content·Business·Contact)는 그대로 두되, 히어로와 큐레이션으로 콘텐츠 감성과 진입 동선을 끌어올리는 것.',
     process: [
@@ -37,13 +38,14 @@ const PROJECTS = {
     learnings: '메뉴가 많은 브랜드일수록 리디자인은 "새로 그리기"보다 "우선순위 다시 잡기"라는 걸 체감했고, jQuery로 인터랙션을 직접 구현하며 디자인–퍼블리싱 간극을 좁혔습니다.',
   },
   'class101': {
-    no: 'PROJECT 02', title: 'Class101 리디자인', category: 'Web Redesign', type: 'Web', year: '2024',
+    no: 'PROJECT 02', title: 'Class101 리디자인', category: 'Web Redesign', type: 'Web', year: '2026',
     link: 'https://slrspdla-nunu.github.io/Class101/',
     team: false, featured: false, theme: 'light', mock: 'web',
     summary: '온라인 클래스 플랫폼 Class101의 홈 리디자인. 밝은 마켓형 화면을 다크·네온 무드로 바꿔 브랜드 개성과 탐색 흐름을 강화했습니다.',
     pages: ['홈', '클래스 목록', '클래스 상세', '멤버십', '커뮤니티', '커뮤니티 글', '카테고리(일러스트)', '크리에이터 홈', '결제', '로그인', '회원가입', '마이페이지', '내 클래스', '설정'],
+    gallery: ['image/class1011.png', 'image/class1012.png', 'image/class1013.png'],
     role: 'UX/UI · 퍼블리싱', contribution: 100,
-    tools: ['Figma', 'Photoshop', 'HTML/CSS', 'JavaScript'],
+    tools: ['Figma', 'HTML/CSS', 'JavaScript', 'ChatGPT','Claude'],
     problem: '예전 Class101은 "세상의 모든 클래스를 하나의 구독으로"를 내세웠지만, 클래스가 4,000개 이상으로 많아 무엇부터 볼지 막막하고 밝은 마켓형 화면에서 브랜드 개성이 옅었습니다.',
     goal: '방대한 클래스를 관심사 추천과 명확한 카테고리로 정돈하고, 다크·네온 무드로 브랜드 개성과 몰입감을 높이는 것.',
     process: [
@@ -63,13 +65,14 @@ const PROJECTS = {
     learnings: '레퍼런스를 그대로 베끼기보다 브랜드 톤을 재해석하는 게 리디자인의 핵심임을 배웠고, 바닐라 JS로 슬라이더·메뉴 인터랙션을 직접 구현했습니다.',
   },
   'purrcare': {
-    no: 'PROJECT 03', title: 'PurrCare 쇼핑몰', category: 'Commerce', type: 'Commerce', year: '2025',
+    no: 'PROJECT 03', title: 'PurrCare 쇼핑몰', category: 'Commerce', type: 'Commerce', year: '2026',
     link: 'https://slrspdla-nunu.github.io/0610_purrcare/',
     team: false, featured: true, theme: 'light', mock: 'shop',
     summary: 'PurrCare — "일상에 행복을 더하는" 고양이 전용 용품 브랜드를 직접 기획한 쇼핑몰 (개인 프로젝트).',
     pages: ['홈', '상품 목록', '베스트셀러', '상품 상세 (3종)', '장바구니', '위시리스트', '마이페이지', '공지사항', '공지 상세', '공지 작성', '로그인', '회원가입'],
+    gallery: ['image/purrcare_web1.png', 'image/purrcare_web2.png', 'image/purrcare_web3.png'],
     role: '기획 · 브랜딩 · UI/UX · 퍼블리싱', contribution: 100,
-    tools: ['Figma', 'Photoshop', 'Illustrator', '카페24'],
+    tools: ['Figma', 'HTML/CSS', 'JavaScript', 'ChatGPT','Claude'],
     problem: '실제 브랜드가 아니라, 고양이의 건강·행복을 앞세운 반려묘 용품 브랜드 "PurrCare"를 콘셉트부터 직접 만든 프로젝트입니다. 상품이 많은 커머스는 자칫 산만해지고 브랜드 인상이 옅어지기 쉬운데, 따뜻한 브랜드 무드와 상품 가독성을 함께 잡는 것이 스스로 세운 과제였습니다.',
     goal: '상품이 주인공이 되는 정돈된 그리드에 "일상에 행복을 더하는" 따뜻한 브랜드 톤을 얹어, 신뢰감 있고 기분 좋은 쇼핑 경험을 콘셉트부터 화면까지 하나로 잇는 것.',
     process: [
@@ -88,13 +91,15 @@ const PROJECTS = {
     learnings: '브랜드를 처음부터 만들 때는 콘셉트가 모든 화면의 기준이 된다는 걸 체감했고, 커머스에서는 "절제"가 곧 상품을 돋보이게 하는 디자인이라는 것도 배웠습니다.',
   },
   'local-community': {
-    no: 'PROJECT 04', title: 'HOLO', category: 'App · Team', type: 'App', year: '2025',
+    no: 'PROJECT 04', title: 'HOLO', category: 'App · Team', type: 'App', year: '2026',
     link: 'https://3team-holo.vercel.app/',
     team: true, featured: true, theme: 'light', mock: 'app',
     summary: 'HOLO — 2030 1인 가구를 위한 지역 커뮤니티 앱 (팀 프로젝트). 동네 이웃과 가볍게 연결되면서, 마이룸·레벨 등 재미 요소로 계속 머무는 커뮤니티를 목표로 했습니다.',
     pages: ['스플래시', '로그인·인증', '홈', '게시판 (목록·상세·작성·검색)', '지도', '채팅', '모임', '출석 이벤트', '마이페이지', '친구·알림', '마이룸'],
+    gallery: ['image/holo1.png', 'image/holo2.png', 'image/holo3.png'],
+    galleryMode: 'portrait',
     role: 'UI 디자인 · 게시판 개발 (팀)', contribution: '메인 디자인, 게시판 기능 구현',
-    tools: ['Figma', 'Photoshop', 'React Native', 'Expo', 'TypeScript', 'Supabase'],
+    tools: ['Figma', 'React Native', 'Expo', 'TypeScript', 'Supabase'],
     problem: '혼자 사는 2030에게 동네는 가깝지만, 이웃과 자연스럽게 연결될 접점은 많지 않습니다. 부담 없이 동네와 소통하면서도 계속 들여다보고 싶은 재미가 있는 지역 커뮤니티 앱을 팀으로 만들었습니다.',
     goal: '동네 글·모임·채팅을 한 앱에서 가볍게 주고받고, 마이룸·출석·레벨 같은 재미 요소로 자연스럽게 다시 찾게 만드는 것.',
     process: [
@@ -113,13 +118,14 @@ const PROJECTS = {
     learnings: '규모 있는 팀 프로젝트에서 메인 디자이너로 디자인 시스템을 먼저 세워 화면 간 일관성을 지키는 일의 중요성과, 디자인한 화면을 직접 구현하며 디자인–개발 간극을 좁히는 경험을 얻었습니다.',
   },
   'imagination-door': {
-    no: 'PROJECT 05', title: '상상의 문 리디자인', category: 'Web · Team', type: 'Web', year: '2024',
+    no: 'PROJECT 05', title: '상상의 문 리디자인', category: 'Web Redesign · Team', type: 'Web', year: '2026',
     link: 'https://doorlove1234-coder.github.io/sangsangDoor/',
     team: true, featured: false, theme: 'light', mock: 'web',
     summary: '방탈출 카페 "상상의 문" 홈페이지 리디자인 (팀 프로젝트). 기능 나열형 예약 사이트를 문·카드 콘셉트의 몰입형 브랜드 경험으로 바꿨습니다.',
     pages: ['홈', '테마', '예약', '예약 확인', '매장 안내', '스토리', '공지사항', '제휴', '개인정보처리방침', '관리자'],
+    gallery: ['image/sangsnagdoor1.png', 'image/sangsnagdoor2.png', 'image/sangsnagdoor3.png'],
     role: 'UI 디자인 (팀 3인)', contribution: '메인 디자인, 바이브 코딩',
-    tools: ['Figma', 'Photoshop'],
+    tools: ['Figma', 'HTML/CSS', 'JavaScript', 'ChatGPT','Claude'],
     problem: '원본은 여러 지점·테마를 장르·난이도·시간 정보 위주로 나열하는 기능형 예약 사이트라, 방탈출 특유의 몰입감과 브랜드 무드가 첫 화면에서 느껴지지 않았습니다.',
     goal: '테마를 단순 나열하는 대신 "문을 열고 들어간다"는 콘셉트로 기대감을 주면서, 지점·테마 탐색과 예약까지 매끄럽게 잇는 것.',
     process: [
@@ -139,13 +145,14 @@ const PROJECTS = {
     learnings: '팀 협업에서 브랜드 콘셉트(문·카드)와 디자인 시스템을 먼저 합의하니 화면 간 톤이 흔들리지 않았습니다.',
   },
   'wolfram-alpha': {
-    no: 'PROJECT 06', title: '울프람알파 리디자인', category: 'Web · Team', type: 'Web', year: '2024',
+    no: 'PROJECT 06', title: '울프람알파 리디자인', category: 'Web Redesign · Team', type: 'Web', year: '2026',
     figmaProto: 'https://www.figma.com/proto/imFRSwAPpB6DtefqHXhxDH/1%ED%8C%80-%ED%8C%80%ED%94%8C--03-24-TEST_%ED%9D%AC%EC%A7%84?node-id=301-6234&t=mIANDwY7EVm9YTag-0&scaling=min-zoom&content-scaling=fixed&page-id=85%3A1301&starting-point-node-id=301%3A6234',
     team: true, featured: false, theme: 'light', mock: 'web',
     summary: '연산 지식엔진 WolframAlpha 홈 리디자인 (팀 프로젝트). 영문·검색 위주의 딱딱한 도구를 한국어 친화적이고 따뜻한 탐색형 서비스로 바꿨습니다.',
     pages: ['홈', '결과(Q&A)', '수학 예제', '과학기술 예제', '사회문화 예제', '일상생활 예제'],
+    gallery: ['image/wolfram1.png', 'image/wolfram2.png', 'image/wolfram3.png'],
     role: 'UI 디자인 (팀 3인)', contribution: '메인 디자인',
-    tools: ['Figma', 'Photoshop'],
+    tools: ['Figma'],
     problem: '원본 WolframAlpha는 강력한 계산 엔진이지만 영문 중심에 예시가 목록으로 나열돼, 첫 화면이 딱딱하고 "무엇을 물어볼 수 있는지" 감이 잘 오지 않았습니다.',
     goal: '강력한 계산 기능과 4개 주제 구조(수학·과학기술·사회문화·일상생활)는 유지하되, 한국어 자연어 검색과 주제별 탐색·예시로 진입 경험을 끌어올리는 것.',
     process: [
@@ -165,11 +172,12 @@ const PROJECTS = {
     learnings: '강력한 기능일수록 "무엇을 할 수 있는지 보여주는" 온보딩이 중요하다는 걸 배웠고, 원본의 정보 구조는 존중하면서 톤을 재해석하는 리디자인 감각을 익혔습니다.',
   },
   'hogwarts': {
-    no: 'PROJECT 07', title: '호그와트 레거시 리디자인', category: 'Web', type: 'Web', year: '2026',
+    no: 'PROJECT 07', title: '호그와트 레거시 리디자인', category: 'Web Redesign', type: 'Web', year: '2026',
     link: 'https://slrspdla-nunu.github.io/hogwart/',
     team: false, featured: true, theme: 'dark', mock: 'web',
     summary: '게임 「호그와트 레거시」 공식 홈페이지를 세계관 몰입형으로 재해석한 리디자인 (개인 프로젝트).',
     pages: ['메인 (기숙사 배정 퀴즈)', '주문 도감 (갤러리)', '학습 가이드 (마법책 UI)', '예언자일보 (뉴스)', '방명록 (커뮤니티)'],
+    gallery: ['image/hogwart1.png', 'image/hogwart2.png', 'image/hogwart3.png'],
     role: 'UI/UX · 인터랙션 · 퍼블리싱', contribution: 100,
     tools: ['Figma', 'HTML/CSS', 'JavaScript', 'ChatGPT', 'Claude', 'Codex'],
     problem: '「호그와트 레거시」 공식 홈페이지는 트레일러·게임 소개·구매(지금 획득)로 이어지는 마케팅 랜딩 페이지에 가까워, 정보 전달과 구매 유도에는 효율적이지만 마법 세계의 "분위기"를 체험하기엔 아쉬웠습니다. 게임을 "소개받는" 느낌은 있어도 그 세계에 "들어와 있는" 느낌은 약했습니다.',
@@ -190,13 +198,14 @@ const PROJECTS = {
     learnings: '리디자인은 원본을 예쁘게 바꾸는 게 아니라 "무엇을 남기고 무엇을 다르게 말할지" 정하는 일이었습니다. 공식 섹션의 목적은 지키면서 표현만 세계관으로 번역하니, 분위기와 정보가 상충하지 않고 함께 갈 수 있었습니다.',
   },
   'dream-diary': {
-    no: 'PROJECT 08', title: 'DreamDex', category: 'Web App', type: 'App', year: '2025', wip: true,
+    no: 'PROJECT 08', title: 'DreamDex', category: 'Web App', type: 'App', year: '2026', wip: true,
     link: 'https://slrspdla-nunu.github.io/Dreamdex/',
     team: false, featured: true, theme: 'light', mock: 'app',
     summary: 'DreamDex — 매일의 꿈을 기록하고 "도감"처럼 수집·분류하는 꿈일기 웹앱 (개인 프로젝트).',
     pages: ['홈', '아카이브', '꿈 기록', '도감', '통계', '꿈 지도', '설정'],
+    gallery: ['image/dreamdex1.png', 'image/dreamdex2.png', 'image/dreamdex3.png'],
     role: '기획 · UI/UX · 퍼블리싱', contribution: 100,
-    tools: ['Figma', 'Photoshop', 'HTML/CSS', 'JavaScript', 'Firebase'],
+    tools: ['Figma', 'HTML/CSS', 'JavaScript', 'Firebase' , 'Claude'],
     problem: '꿈이라는 흥미로운 소재를 가볍고 재미있게 기록하고, 그 기록이 쌓여 나만의 패턴이 되도록 만들고 싶었습니다. 단순 일기에 그치지 않고, 나중에 다시 꺼내 볼 때 재미를 느낄 수 있는 꿈일기를 목표로 한 개인 프로젝트입니다.',
     goal: '기록은 가볍게, 다시 보는 경험은 재미있게 — 쌓인 꿈을 도감·통계·지도로 패턴화해 볼수록 흥미로운 꿈일기를 만드는 것.',
     process: [
@@ -215,13 +224,14 @@ const PROJECTS = {
     learnings: '기록형 제품은 "얼마나 부담 없이 남기느냐"가 핵심이고, 여기에 "모으는 재미"를 더하니 다시 찾게 되는 동기가 생긴다는 걸 배웠습니다.',
   },
   'altitude': {
-    no: 'PROJECT 09', title: 'ALTITUDE', category: 'E-Commerce', type: 'Commerce', year: '2025',
+    no: 'PROJECT 09', title: 'ALTITUDE', category: 'Commerce', type: 'Commerce', year: '2026',
     link: 'https://slrspdla-nunu.github.io/ALTITUDE/',
     team: false, featured: false, theme: 'light', mock: 'web',
     summary: 'ALTITUDE — 고산·익스페디션 무드로 직접 기획한 가상 아웃도어 브랜드의 커머스 사이트 (개인 프로젝트).',
     role: '기획 · 브랜딩 · UI/UX · 퍼블리싱', contribution: 100,
-    tools: ['Figma', 'Photoshop', 'HTML/CSS', 'JavaScript'],
+    tools: ['Figma', 'HTML/CSS', 'JavaScript', 'ChatGPT', 'Claude', 'Codex'],
     pages: ['홈', '스토어', '컬렉션', '익스페디션 라인', '상품 상세 (2종)', '장바구니', '결제', '주문 완료', '주문 내역', '위시리스트', '마이페이지', '프로필 수정', '로그인', '회원가입', '브랜드 스토리', '테크놀로지', 'FAQ', '사이즈 가이드', '매장 찾기', '문의', '리뷰 작성'],
+    gallery: ['image/ALTITUDE1.png', 'image/ALTITUDE2.png', 'image/ALTITUDE3.png'],
     problem: '실제 클라이언트가 아니라, 고산 등반을 지향하는 아웃도어 브랜드 "ALTITUDE"를 이름과 콘셉트부터 직접 만든 프로젝트입니다. 스펙 정보가 많은 아웃도어 커머스는 자칫 카탈로그처럼 딱딱해지기 쉬운데, 브랜드의 익스페디션 무드를 그 안에 어떻게 함께 담을지가 스스로 세운 과제였습니다.',
     goal: '제품 신뢰도(스펙·기능)를 지키면서도 히어로·컬렉션과 스크롤 인터랙션으로 익스페디션의 몰입감을 주고, 브랜드 콘셉트부터 화면까지 하나로 잇는 것.',
     process: [
@@ -240,12 +250,13 @@ const PROJECTS = {
     learnings: '브랜드를 처음부터 만들 때는 "이름과 콘셉트"가 모든 화면 결정의 기준이 된다는 걸 체감했고, 커머스에서 분위기는 구매를 방해하지 않는 선에서 얹을 때 가장 효과적이라는 것도 배웠습니다.',
   },
   'purrcare-app': {
-    no: 'PROJECT 10', title: 'PurrCare 웹앱', category: 'Web App', type: 'App', year: '2025', wip: true,
+    no: 'PROJECT 10', title: 'PurrCare 웹앱', category: 'Web App', type: 'App', year: '2026', wip: true,
+    link: 'https://slrspdla-nunu.github.io/purrcare-web-app/',
     team: false, featured: false, theme: 'light', mock: 'app',
     summary: '반려묘의 건강·기록·일정을 한 곳에서 관리하는, 직접 기획·개발한 반려묘 케어 웹앱 (개인 프로젝트, 제작 중).',
     pages: ['대시보드', '내 고양이', '기록', '건강 (병원 찾기·AI 상담)', '일정', '커뮤니티', '입양', '마이페이지', '설정', '스토어'],
     role: '기획 · UI/UX · 퍼블리싱', contribution: 100,
-    tools: ['Figma', 'HTML/CSS', 'JavaScript'],
+    tools: ['Figma', 'HTML/CSS', 'JavaScript', 'Claude'],
     problem: '반려묘의 병원 기록·증상·예방접종 일정이 메모장·사진첩·기억에 흩어져 있어, 정작 병원에서 물어보면 한눈에 답하기 어려웠습니다. 여러 마리를 키우면 더 헷갈렸고요. 흩어진 케어 정보를 고양이별로 한 곳에 모으는 앱을 직접 만들어보고 싶었습니다.',
     goal: '고양이별로 건강 기록·일정을 쌓고 대시보드에서 상태를 빠르게 확인하는 관리 도구. 여기에 병원 찾기·커뮤니티·입양·스토어까지 더해, 집사의 하루를 한 앱에서 돌보는 것을 목표로 했습니다.',
     process: [
@@ -263,9 +274,36 @@ const PROJECTS = {
     outcome: '흩어져 있던 반려묘 정보를 고양이별로 기록·회고하고, 병원·커뮤니티·입양까지 한 앱에서 다루는 반려묘 케어 웹앱을 만들었습니다. (일부 기능은 데모 단계로, 계속 다듬는 중입니다.)',
     learnings: '기록형 앱은 "얼마나 빨리·부담 없이 남기느냐"가 핵심 사용성이라는 걸 다시 확인했고, 기능을 넓힐수록 "고양이 중심"이라는 하나의 축을 잃지 않는 게 더 중요하다는 걸 배웠습니다.',
   },
+  'witch-delivery-game': {
+    no: 'PROJECT 11', title: '마녀 배달부의 비상착륙', category: 'Mobile Web Game', type: 'App', year: '2026', wip: true,
+    link: 'https://slrspdla-nunu.github.io/witch-delivery-game/',
+    team: false, featured: false, theme: 'dark', mock: 'app',
+    summary: '달빛 하늘 도시를 배경으로 꼬마 마녀 루나가 빗자루를 타고 의뢰 물품을 배달하는 모바일 웹 게임 프로토타입.',
+    pages: ['스플래시', '메인', '의뢰 선택', '비행 게임', 'HUD'],
+    gallery: ['image/witch_delivery_game1.png', 'image/witch_delivery_game2.png', 'image/witch_delivery_game3.png'],
+    galleryMode: 'portrait',
+    role: '게임 UI · 인터랙션 · 퍼블리싱', contribution: 100,
+    tools: ['HTML/CSS', 'JavaScript', 'PixiJS', 'ChatGPT', 'Claude', 'Codex'],
+    problem: '모바일 세로 화면에서 판타지 게임의 세계관, 조작 방식, 상태 정보를 짧은 흐름 안에 이해시키는 것이 과제였습니다.',
+    goal: '스플래시와 메인 화면에서 세계관을 전달하고, 의뢰 선택 후 빗자루 비행 게임으로 이어지는 모바일 웹 게임 경험을 만드는 것.',
+    process: [
+      { step: 'Concept', desc: '달빛 하늘 도시와 마녀 배달부 루나 콘셉트를 바탕으로 게임의 분위기와 플레이 흐름 정의.' },
+      { step: 'UI Design', desc: '모바일 화면 비율에 맞춰 메인 메뉴, 의뢰 카드, HP·MP·시간·거리 HUD 구성.' },
+      { step: 'Interaction', desc: '위/아래 비행 조작과 별 마법·방어막 버튼으로 직관적인 액션 구조 설계.' },
+      { step: 'Build', desc: 'HTML·CSS·JavaScript와 PixiJS로 캐릭터 애니메이션, BGM, 게임 화면 인터랙션 구현.' },
+    ],
+    decisions: [
+      { title: '모바일 우선 게임 UI', desc: '세로 화면에서도 조작 버튼과 HUD가 한눈에 들어오도록 배치해 플레이 집중도를 높임.' },
+      { title: 'PixiJS 캐릭터 연출', desc: '루나와 네로 캐릭터 애니메이션을 더해 정적인 웹 화면보다 게임에 가까운 움직임을 구현.' },
+      { title: '의뢰 기반 플레이', desc: '배달 의뢰를 선택하고 비행 게임으로 진입하는 흐름으로 플레이 목적을 명확히 함.' },
+      { title: '판타지 에셋 분리', desc: '배경·버튼·아이템·BGM을 에셋 단위로 관리해 화면 확장과 유지보수가 쉽도록 구성.' },
+    ],
+    outcome: '스플래시, 메인, 의뢰 선택, 비행 게임 화면까지 이어지는 판타지 모바일 웹 게임 프로토타입을 완성했습니다.',
+    learnings: '웹에서도 PixiJS와 분리된 게임 에셋을 활용하면 모바일 게임에 가까운 인터랙션과 몰입감을 만들 수 있다는 점을 배웠습니다.',
+  },
 };
 
-const ORDER = ['local-community', 'imagination-door', 'wolfram-alpha', 'dingo', 'class101', 'purrcare', 'hogwarts', 'dream-diary', 'purrcare-app', 'altitude'];
+const ORDER = ['local-community', 'imagination-door', 'wolfram-alpha', 'dingo', 'class101', 'purrcare', 'hogwarts', 'dream-diary', 'purrcare-app', 'altitude', 'witch-delivery-game'];
 
 /* ARCHIVE 카드 썸네일 (slug → 이미지). object-fit:cover 로 꽉 차게 표시.
    매핑 없으면 그라디언트 플레이스홀더로 표시됨. */
@@ -273,13 +311,14 @@ const THUMBS = {
   'dingo': 'image/thumbnail_dingo.png',
   'class101': 'image/thumbnail_class101.png',
   'purrcare': 'image/thumbnail_purrcare_web.png',
-  'local-community': ['image/thumbnail_holo1.png', 'image/thumbnail_holo2.png'], // 배열이면 여러 장 나란히(contain)
+  'local-community': 'image/thumbnail_holo.png', // 배열이면 여러 장 나란히(contain)
   'imagination-door': 'image/thumbnail_sangsnagdoor.png',
   'wolfram-alpha': 'image/thumbnail_wolfram.png',
   'hogwarts': 'image/thumbnail_hogwart.png',
   'dream-diary': 'image/thumbnail_dreamdex.png',
   'altitude': 'image/thumbnail_ALTITUDE.png',
   'purrcare-app': 'image/thumbnail_purrcare_webapp.png',
+  'witch-delivery-game': 'image/thumbnail_witch_delivery_game.png',
 };
 
 /* ARCHIVE 카드 말풍선용 한 줄 요약 (slug → 짧은 한 줄). 없으면 summary로 폴백. */
@@ -294,6 +333,7 @@ const TAGLINES = {
   'dream-diary': '매일의 꿈을 기록하는 꿈일기 웹앱',
   'altitude': '고산 무드의 아웃도어 커머스',
   'purrcare-app': '반려묘 건강·일정을 관리하는 케어 웹앱',
+  'witch-delivery-game': '달빛 하늘 도시를 나는 마녀 배달 게임',
 };
 
 /* 그래픽 작업물 (라이트박스).

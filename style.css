@@ -150,9 +150,10 @@ ul { list-style:none; }
 .profile__photo {
   aspect-ratio:4/5; border-radius:16px;
   background:radial-gradient(120% 80% at 30% 10%, #fff 0, var(--orange-soft) 70%), var(--orange-soft);
-  display:flex; align-items:center; justify-content:center;
+  display:flex; align-items:center; justify-content:center; overflow:hidden;
   font-family:var(--pixel); font-size:var(--fs-sm); letter-spacing:.2em; color:var(--muted); margin-bottom:20px;
 }
+.profile__photo img { width:100%; height:100%; object-fit:cover; object-position:center top; display:block; }
 .profile__name { font-family:var(--pixel); font-size:var(--fs-lg); font-weight:bold; }
 .profile__en { color:var(--muted); font-size:var(--fs-sm); margin-top:2px; margin-bottom:18px; }
 .profile__meta { display:grid; gap:9px; font-size:var(--fs-sm); }
@@ -712,6 +713,9 @@ body.has-cursor .cs-fab { cursor:none; }
 .cs-shot { margin:0; border-radius:14px; overflow:hidden; border:1px solid var(--line); background:var(--bg-alt); }
 .cs-shot--ph { aspect-ratio:16/9; }
 .cs-shot img { display:block; width:100%; height:auto; }
+.cs-gallery--portrait { grid-template-columns:repeat(3, minmax(0, 1fr)); align-items:start; max-width:920px; margin-inline:auto; }
+.cs-gallery--portrait .cs-shot { background:#f7f7f7; }
+.cs-gallery--portrait .cs-shot img { width:100%; height:min(62vh, 560px); object-fit:contain; }
 
 /* 대형 다음 프로젝트 */
 .cs-next2 { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border-block:1px solid var(--line); margin-top:clamp(50px,7vw,90px); }
@@ -786,6 +790,8 @@ body.has-cursor .cs-fab { cursor:none; }
   .archive__grid { grid-template-columns:repeat(2, 1fr); }
   .cs-layout { grid-template-columns:1fr; gap:36px; }
   .cs-aside { position:static; }
+  .cs-gallery--portrait { grid-template-columns:repeat(2, minmax(0, 1fr)); max-width:620px; }
+  .cs-gallery--portrait .cs-shot img { height:min(58vh, 520px); }
   .gallery { grid-template-columns:repeat(2, 1fr); }
 }
 
@@ -803,6 +809,8 @@ body.has-cursor .cs-fab { cursor:none; }
   .tools { grid-template-columns:repeat(2, 1fr); }
   .archive__grid { grid-template-columns:1fr; }
   .cs-two, .cs-decisions, .cs-next2 { grid-template-columns:1fr; }
+  .cs-gallery--portrait { grid-template-columns:1fr; max-width:320px; }
+  .cs-gallery--portrait .cs-shot img { height:auto; max-height:520px; }
   .cs-next2__link--next { text-align:left; align-items:flex-start; }
   .gallery { grid-template-columns:1fr; }
   .g--banner, .g--program { grid-column:span 1; }
