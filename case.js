@@ -89,11 +89,18 @@ function render() {
     else { live.style.display = 'none'; }
   }
 
-  // 피그마 프로토타입 링크 — d.figmaProto 있을 때만 버튼 표시(새 탭)
-  const proto = document.getElementById('cs-proto');
-  if (proto) {
-    if (d.figmaProto) { proto.href = d.figmaProto; proto.style.display = ''; }
-    else { proto.style.display = 'none'; }
+  // 피그마 프로토타입 링크 — PC / 모바일 각각 있을 때만 버튼 표시(새 탭). figmaProto는 하위호환(모바일).
+  const protoPC = document.getElementById('cs-proto-pc');
+  const protoMo = document.getElementById('cs-proto');
+  const pcUrl = d.figmaProtoPC;
+  const moUrl = d.figmaProtoMobile || d.figmaProto;
+  if (protoPC) {
+    if (pcUrl) { protoPC.href = pcUrl; protoPC.style.display = ''; }
+    else { protoPC.style.display = 'none'; }
+  }
+  if (protoMo) {
+    if (moUrl) { protoMo.href = moUrl; protoMo.style.display = ''; }
+    else { protoMo.style.display = 'none'; }
   }
 
   // 제작 중 배지 — d.wip 일 때만 표시
@@ -145,6 +152,29 @@ function render() {
     }
   }
 
+  // OVERVIEW 아래 큰 비주얼 슬롯: 리디자인이면 BEFORE/AFTER 비교, 아니면 MAIN SCREEN 대표 1컷.
+  const cmpSec = document.getElementById('cs-compare-sec');
+  const cmp = document.getElementById('cs-compare');
+  const cmpEye = document.getElementById('cs-compare-eyebrow');
+  if (cmpSec && cmp) {
+    if (d.compare && d.compare.before && d.compare.after) {
+      cmpSec.style.display = '';
+      if (cmpEye) cmpEye.textContent = 'BEFORE / AFTER';
+      cmp.className = 'cs-compare';
+      cmp.innerHTML =
+        `<figure class="cs-cmp cs-cmp--before"><span class="cs-cmp__tag">BEFORE · 원본</span><img src="${d.compare.before}" alt="${d.title} 원본" loading="lazy"></figure>` +
+        `<span class="cs-cmp__arrow" aria-hidden="true">→</span>` +
+        `<figure class="cs-cmp cs-cmp--after"><span class="cs-cmp__tag">AFTER · 리디자인</span><img src="${d.compare.after}" alt="${d.title} 리디자인" loading="lazy"></figure>`;
+    } else if (d.main) {
+      cmpSec.style.display = '';
+      if (cmpEye) cmpEye.textContent = 'MAIN SCREEN';
+      cmp.className = 'cs-compare cs-compare--single';
+      cmp.innerHTML = `<figure class="cs-cmp cs-cmp--main"><img src="${d.main}" alt="${d.title} 메인 화면" loading="lazy"></figure>`;
+    } else {
+      cmpSec.style.display = 'none';
+    }
+  }
+
   // 본문 섹션 번호를 "보이는 섹션"만 세어 다시 매김(숨겨진 PAGES로 번호가 비지 않도록)
   let secN = 0;
   document.querySelectorAll('.cs-body .cs-sec').forEach((sec) => {
@@ -179,4 +209,28 @@ function initCaseNav() {
   );
 }
 
-document.addEventListener('DOMContentLoaded', () => { render(); initCaseNav(); });
+// 이미지 확대 라이트박스 — BEFORE/AFTER 이미지 클릭 시 크게(세로 스크롤) 보기
+function initCsLightbox() {
+  const lb = document.getElementById('cs-lb');
+  const img = document.getElementById('cs-lb-img');
+  const closeBtn = document.getElementById('cs-lb-close');
+  if (!lb || !img) return;
+  const open = (src, alt) => {
+    img.src = src; img.alt = alt || '';
+    lb.classList.add('is-open'); lb.setAttribute('aria-hidden', 'false');
+    lb.scrollTop = 0; document.body.style.overflow = 'hidden';
+  };
+  const close = () => {
+    lb.classList.remove('is-open'); lb.setAttribute('aria-hidden', 'true');
+    img.src = ''; document.body.style.overflow = '';
+  };
+  document.addEventListener('click', (e) => {
+    const hit = e.target.closest('.cs-cmp img');
+    if (hit) open(hit.currentSrc || hit.src, hit.alt);
+  });
+  if (closeBtn) closeBtn.addEventListener('click', close);
+  lb.addEventListener('click', (e) => { if (e.target === lb) close(); }); // 배경 클릭 시 닫기
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lb.classList.contains('is-open')) close(); });
+}
+
+document.addEventListener('DOMContentLoaded', () => { render(); initCaseNav(); initCsLightbox(); });
