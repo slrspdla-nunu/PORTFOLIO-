@@ -1,6 +1,11 @@
 # 개발용 원본 영상 백업 (배포 불필요)
 image/*-orig.mp4
 
+# 이력서 리디자인 도구·산출물 (포트폴리오 사이트 배포 불필요)
+tools/
+resume_redesign_hwp_source.html
+*.docx
+
 # OS / 에디터 잡파일
 .DS_Store
 Thumbs.db

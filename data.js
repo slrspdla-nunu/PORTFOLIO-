@@ -292,7 +292,7 @@ const PROJECTS = {
     gallery: ['image/witch_delivery_game1.png', 'image/witch_delivery_game2.png', 'image/witch_delivery_game3.png'],
     galleryMode: 'portrait',
     role: '게임 UI · 인터랙션 · AI 활용 퍼블리싱', contribution: 100,
-    tools: ['HTML/CSS', 'JavaScript', 'PixiJS', 'ChatGPT', 'Claude', 'Codex'],
+    tools: ['HTML/CSS', 'JavaScript', 'PixiJS', 'ChatGPT', 'Claude', 'Codex', 'Suno'],
     problem: '모바일 세로 화면에서 판타지 게임의 세계관, 조작 방식, 상태 정보를 짧은 흐름 안에 이해시키는 것이 과제였습니다.',
     goal: '스플래시와 메인 화면에서 세계관을 전달하고, 의뢰 선택 후 빗자루 비행 게임으로 이어지는 모바일 웹 게임 경험을 만드는 것.',
     process: [
