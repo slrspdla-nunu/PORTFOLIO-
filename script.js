@@ -593,33 +593,38 @@ function shadeGrad(shade) {
 // PROJECT ARCHIVE — data.js로 카드 렌더 + 필터
 // 아카이브 카드: 스크롤 중 화면 중앙에 가장 가까운 카드 1개에만 한 줄 말풍선 표시
 function initArchiveBubbles(grid) {
-  if (prefersReduced() || typeof ScrollTrigger === 'undefined') return; // 모션 최소화: 미표시
-  const cards = [...grid.querySelectorAll('.card')];
-  if (!cards.length) return;
+  if (prefersReduced()) return; // 모션 최소화: 미표시
   const scan = () => {
-    const cy = window.innerHeight / 2;
+    const cards = [...grid.querySelectorAll('.card')]; // 필터 재렌더에도 안전하게 매번 조회
+    if (!cards.length) return;
+    const vh = window.innerHeight, cy = vh / 2;
     // 중앙에 가장 가까운 카드 찾기
     let best = null, bestD = Infinity, bestCenter = 0;
     for (const c of cards) {
       if (c.offsetParent === null) continue;                 // 필터로 숨겨진 카드 제외
       const r = c.getBoundingClientRect();
-      if (r.bottom < 0 || r.top > window.innerHeight) continue;
+      if (r.bottom < 0 || r.top > vh) continue;
       const center = r.top + r.height / 2;
       const d = Math.abs(center - cy);
       if (d < bestD) { bestD = d; best = c; bestCenter = center; }
     }
-    const on = best && bestD < window.innerHeight * 0.42;     // 중앙 밴드 안일 때만
-    // 그 카드와 같은 줄(center Y 비슷)에 있는 카드 전부 활성 → 한 줄 3개 동시
+    const on = best && bestD < vh * 0.5;                     // 중앙 밴드(넉넉히 → 마지막 줄도 확실히)
+    // 그 카드와 같은 줄(center Y 비슷)에 있는 카드 전부 활성 → 한 줄 동시
     cards.forEach((c) => {
       let active = false;
       if (on && c.offsetParent !== null) {
         const r = c.getBoundingClientRect();
-        active = Math.abs((r.top + r.height / 2) - bestCenter) < c.offsetHeight * 0.55;
+        active = Math.abs((r.top + r.height / 2) - bestCenter) < c.offsetHeight * 0.6;
       }
       c.classList.toggle('is-focus', active);
     });
   };
-  ScrollTrigger.create({ onUpdate: scan });
+  // 네이티브 스크롤 리스너(rAF 스로틀)로 전 구간에서 확실히 발화 — trigger-less ScrollTrigger가 상단에서만 도는 문제 회피
+  let ticking = false;
+  const onScroll = () => { if (ticking) return; ticking = true; requestAnimationFrame(() => { scan(); ticking = false; }); };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.create({ onUpdate: scan }); // 보조(스무스 스크롤 동기화)
   scan();
 }
 
