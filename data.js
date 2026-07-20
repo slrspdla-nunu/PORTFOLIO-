@@ -124,7 +124,7 @@ const PROJECTS = {
     no: 'PROJECT 05', title: '상상의 문 리디자인', category: 'Web Redesign · Team', type: 'Web', year: '2026',
     link: 'https://doorlove1234-coder.github.io/sangsangDoor/',
     team: true, featured: false, theme: 'light', mock: 'web',
-    summary: '방탈출 카페 "상상의 문" 홈페이지 리디자인 (팀 프로젝트). 기능 나열형 예약 사이트를 문·카드 콘셉트의 몰입형 브랜드 경험으로 바꿨습니다.',
+    summary: '방탈출 카페 "상상의 문" 홈페이지 리디자인 (팀 프로젝트). 기능 나열형 예약 사이트를 문·카드 콘셉트의 몰입형 브랜드 경험으로 바꾸었습니다.',
     pages: ['홈', '테마', '예약', '예약 확인', '매장 안내', '스토리', '공지사항', '제휴', '개인정보처리방침', '관리자'],
     gallery: ['image/sangsnagdoor1.png', 'image/sangsnagdoor2.png', 'image/sangsnagdoor3.png'],
     compare: { before: 'image/sangsnagdoor_before.png', after: 'image/sangsnagdoor_after.png' },
