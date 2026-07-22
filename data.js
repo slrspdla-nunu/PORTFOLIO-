@@ -264,6 +264,7 @@ const PROJECTS = {
     team: false, featured: false, theme: 'light', mock: 'app',
     summary: '반려묘의 건강·기록·일정을 한 곳에서 관리하는, 직접 기획·개발한 반려묘 케어 웹앱 (개인 프로젝트, 제작 중).',
     pages: ['대시보드', '내 고양이', '기록', '건강 (병원 찾기·AI 상담)', '일정', '커뮤니티', '입양', '마이페이지', '설정', '스토어'],
+    gallery: ['image/purrcare_webapp1.png', 'image/purrcare_webapp2.png', 'image/purrcare_webapp3.png'],
     role: '기획 · UI/UX · AI 활용 퍼블리싱', contribution: 100,
     tools: ['Figma', 'HTML/CSS', 'JavaScript', 'Claude'],
     problem: '반려묘의 병원 기록·증상·예방접종 일정이 메모장·사진첩·기억에 흩어져 있어, 정작 병원에서 물어보면 한눈에 답하기 어려웠습니다. 여러 마리를 키우면 더 헷갈렸고요. 흩어진 케어 정보를 고양이별로 한 곳에 모으는 앱을 직접 만들어보고 싶었습니다.',
